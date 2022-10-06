@@ -1,0 +1,27 @@
+:root {
+  padding: 0;
+  margin: 0;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* config font-style */
+
+@font-face {
+  font-family: "SFProDisplay";
+  src: local("SFProDisplay"), url(/fonts/SFProDisplay.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "SFProText";
+  src: local("SFProText"), url(/fonts/SFProText.ttf) format("truetype");
+}
+
+/* image banner style */
+.carousel .slide img {
+  max-height: 653px; /* change this to whatever you want */
+  width: "100%";
+  background-position: center;
+}
