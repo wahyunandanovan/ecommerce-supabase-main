@@ -4,7 +4,7 @@ import Banner from "./Banner";
 
 export default function HomeScreen() {
   return (
-    <Box mt={4}>
+    <Box mt={4} maxWidth="xl" marginX="auto">
       <Banner />
     </Box>
   );

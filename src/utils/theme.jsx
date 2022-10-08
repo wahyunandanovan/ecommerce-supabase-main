@@ -15,6 +15,7 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: "SFProText",
+
     h1: {
       fontFamily: "SFProDisplay",
     },
@@ -26,9 +27,14 @@ export const theme = createTheme({
     },
     h4: {
       fontFamily: "SFProDisplay",
+      fontSize: "30px",
+      fontWeight: "700",
     },
     h5: {
       fontFamily: "SFProDisplay",
+      color: "#223263",
+      fontSize: "20px",
+      fontWeight: "700",
     },
     h6: {
       fontFamily: "SFProDisplay",

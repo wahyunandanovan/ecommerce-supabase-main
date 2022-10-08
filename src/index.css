@@ -25,3 +25,7 @@ body {
   width: "100%";
   background-position: center;
 }
+/* zoom sale product css */
+.zoom:hover {
+  transform: scale(1.1);
+}
