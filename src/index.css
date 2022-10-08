@@ -21,7 +21,7 @@ body {
 
 /* image banner style */
 .carousel .slide img {
-  max-height: 653px; /* change this to whatever you want */
+  max-height: 653px;
   width: "100%";
   background-position: center;
 }

@@ -44,13 +44,13 @@ export default function Banner() {
         showThumbs={false}
       >
         <div>
-          <img src="./images/banner2.svg" />
+          <img src="./images/banner1.jpg" />
         </div>
         <div>
-          <img src="./images/banner3.svg" />
+          <img src="./images/banner2.jpg" />
         </div>
         <div>
-          <img src="./images/banner1.svg" />
+          <img src="./images/banner3.jpg" />
         </div>
       </Carousel>
       <Stack
@@ -97,7 +97,7 @@ export default function Banner() {
                 <Typography variant="h5" textAlign="left">
                   {item.name}
                 </Typography>
-                <Typography variant="h4" color="#40BFFF">
+                <Typography variant="h3" color="#40BFFF">
                   {item.price}
                 </Typography>
               </Box>
