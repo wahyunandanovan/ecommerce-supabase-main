@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material/styles";
-import SFProText from "/fonts/SFProText.ttf";
 
 const breakpoints = {
   values: {
