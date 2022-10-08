@@ -44,13 +44,13 @@ export default function Banner() {
         showThumbs={false}
       >
         <div>
-          <img src="./images/banner2.jpg" />
+          <img src="./images/banner2.svg" />
         </div>
         <div>
-          <img src="./images/banner3.jpg" />
+          <img src="./images/banner3.svg" />
         </div>
         <div>
-          <img src="./images/banner1.jpg" />
+          <img src="./images/banner1.svg" />
         </div>
       </Carousel>
       <Stack
