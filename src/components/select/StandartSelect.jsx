@@ -16,6 +16,7 @@ function StandartSelect({ tooltip, data, value, onChange }) {
           <Select
             disableUnderline
             value={value}
+            size="small"
             onChange={onChange}
             sx={{ backgroundColor: "#fff" }}
           >
@@ -23,12 +24,7 @@ function StandartSelect({ tooltip, data, value, onChange }) {
               return (
                 <MenuItem key={index} value={item.value}>
                   <Box display="flex" alignItems="center">
-                    <Typography
-                      color="#262626"
-                      fontSize="20px"
-                      fontWeight="500"
-                      fontStyle="SFProText"
-                    >
+                    <Typography variant="h5" fontWeight="500">
                       {item.code}
                     </Typography>
                   </Box>

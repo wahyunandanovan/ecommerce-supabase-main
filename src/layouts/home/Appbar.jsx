@@ -3,6 +3,7 @@ import * as React from "react";
 import {
   Badge,
   Box,
+  Grid,
   IconButton,
   InputAdornment,
   Stack,
@@ -68,9 +69,20 @@ export default function Appbar() {
   };
 
   return (
-    <Box sx={{ px: { xs: 1, sm: "104px" }, py: { xs: 1, sm: 3 } }}>
-      <Box display="flex" justifyContent="space-between">
-        <Stack direction="row" spacing={1} alignItems="center">
+    <Box
+      sx={{
+        px: { xs: 1, sm: "104px" },
+        py: { xs: 1, sm: 1.5 },
+        borderBottom: "2px solid #FAFAFB",
+      }}
+    >
+      <Box display="flex" justifyContent="space-between" className="opop">
+        <Stack
+          direction="row"
+          spacing={1}
+          alignItems="center"
+          display={{ xs: "none", sm: "none", md: "flex" }}
+        >
           <StandartSelect
             data={language}
             value={lang}
@@ -84,33 +96,50 @@ export default function Appbar() {
             tooltip="Currency"
           />
         </Stack>
-        <Stack direction="row" spacing={3} alignItems="center">
+
+        <Stack
+          direction="row"
+          spacing={{ xs: 1, sm: 1.5, md: 3 }}
+          alignItems="center"
+        >
           <Box display="flex" alignItems="center" gap={1}>
-            <Iconify icon="akar-icons:person" sx={{ width: 20, height: 20 }} />
-            <Typography fontSize={20}>My Account</Typography>
+            <Iconify icon="akar-icons:person" sx={{ width: 16, height: 16 }} />
+            <Typography
+              variant="h5"
+              fontWeight="400"
+              display={{ xs: "none", sm: "none", md: "flex" }}
+            >
+              My Account
+            </Typography>
           </Box>
           <Box display="flex" alignItems="center" gap={1}>
             <IconButton aria-label="cart">
               <StyledBadge badgeContent={4} color="secondary">
                 <Iconify
                   icon="akar-icons:cart"
-                  sx={{ width: 20, height: 20 }}
+                  sx={{ width: 18, height: 18 }}
                 />
               </StyledBadge>
             </IconButton>
-            <Typography fontSize={20}>Items</Typography>
+            <Typography
+              variant="h5"
+              fontWeight="400"
+              display={{ xs: "none", sm: "none", md: "flex" }}
+            >
+              Items
+            </Typography>
           </Box>
           <Box>
             <TextField
               variant="standard"
               placeholder="$0.00"
-              sx={{ width: "80px" }}
+              sx={{ width: { xs: "100%", sm: "100%", md: "80px" } }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     <Iconify
                       icon="mdi:magnify"
-                      sx={{ width: 22, height: 22, color: "#262626" }}
+                      sx={{ width: 18, height: 18, color: "#262626" }}
                     />
                   </InputAdornment>
                 ),

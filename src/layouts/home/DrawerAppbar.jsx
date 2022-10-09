@@ -46,7 +46,7 @@ function DrawerAppBar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", width: "100%" }}>
+    <Box sx={{ display: "flex", width: "100%", py: 3, marginBottom: -3 }}>
       <Box
         sx={{
           width: "100%",
@@ -80,7 +80,7 @@ function DrawerAppBar(props) {
               key={item}
               sx={{
                 color: "#000",
-                fontSize: "24px",
+                fontSize: "20px",
                 fontWeight: "600",
                 fontFamily: "SFProDisplay",
                 cursor: "pointer",

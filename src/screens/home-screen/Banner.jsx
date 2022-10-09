@@ -53,64 +53,68 @@ export default function Banner() {
           <img src="./images/banner3.jpg" />
         </div>
       </Carousel>
-      <Stack
-        display={{ xs: "none", sm: "none", md: "flex" }}
-        spacing={0.5}
-        direction="row"
-        justifyContent="center"
-        sx={{
-          position: "absolute",
-          top: "87%",
-          left: { md: "3%", xl: "9%" },
-          zIndex: 99,
-        }}
-      >
-        {saleProduct.map((item, idx) => {
-          return (
-            <Box
-              key={idx}
-              className="zoom"
-              component={Link}
-              underline="none"
-              p={3.5}
-              width="417px"
-              height="358px"
-              textAlign="center"
-              display="flex"
-              flexDirection="column"
-              justifyContent="space-between"
-              sx={{
-                backgroundImage: `url(${item.image})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                transition: "transform .2s",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-            >
+      <Box display="flex" justifyContent="center">
+        <Stack
+          display={{ xs: "none", sm: "none", md: "flex" }}
+          spacing={0.5}
+          direction="row"
+          justifyContent="center"
+          sx={{
+            position: "absolute",
+            top: "87%",
+            zIndex: 99,
+          }}
+        >
+          {saleProduct.map((item, idx) => {
+            return (
               <Box
+                key={idx}
+                className="zoom"
+                component={Link}
+                underline="none"
+                p={3.5}
+                width="382px"
+                height="332px"
+                textAlign="center"
                 display="flex"
+                flexDirection="column"
                 justifyContent="space-between"
-                alignItems="start"
+                sx={{
+                  backgroundImage: `url(${item.image})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  transition: "transform .2s",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
               >
-                <Typography variant="h5" textAlign="left">
-                  {item.name}
-                </Typography>
-                <Typography variant="h3" color="#40BFFF">
-                  {item.price}
-                </Typography>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="start"
+                >
+                  <Typography variant="h5" textAlign="left">
+                    {item.name}
+                  </Typography>
+                  <Typography variant="h3" color="#40BFFF">
+                    {item.price}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="h5" color="#9098B1" mt={2}>
+                    {item.amountPrice}
+                    <span style={{ color: "#FB7181" }}>
+                      {" "}
+                      {item.discount} Off
+                    </span>
+                  </Typography>
+                </Box>
               </Box>
-              <Box>
-                <Typography variant="h5" color="#9098B1" mt={2}>
-                  {item.amountPrice}
-                  <span style={{ color: "#FB7181" }}> {item.discount} Off</span>
-                </Typography>
-              </Box>
-            </Box>
-          );
-        })}
-      </Stack>
+            );
+          })}
+        </Stack>
+      </Box>
     </Box>
   );
 }
