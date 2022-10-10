@@ -11,7 +11,9 @@ import {
   Drawer,
   Divider,
   Box,
+  IconButton,
 } from "@mui/material";
+import Iconify from "../../components/Iconify";
 
 const drawerWidth = 240;
 const navItems = ["HOME", "ABOUT", "CONTACT", "SETTING", "OTHER"];
@@ -46,7 +48,14 @@ function DrawerAppBar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", width: "100%", py: 3, marginBottom: -3 }}>
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        py: { xs: 1, sm: 2, md: 3 },
+        marginBottom: -3,
+      }}
+    >
       <Box
         sx={{
           width: "100%",
@@ -57,14 +66,19 @@ function DrawerAppBar(props) {
           alignItems: "center",
         }}
       >
-        {/* <IconButton
-          color="inherit"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ display: { sm: "none" } }}
+        <Box
+          sx={{
+            display: { sm: "none" },
+            position: "fixed",
+            zIndex: 99,
+            top: "50%",
+          }}
         >
-          kjkj
-        </IconButton> */}
+          <IconButton color="inherit" edge="start" onClick={handleDrawerToggle}>
+            <Iconify icon="heroicons-solid:menu-alt-2" />
+          </IconButton>
+        </Box>
+
         <Box
           component="div"
           sx={{
@@ -98,7 +112,7 @@ function DrawerAppBar(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

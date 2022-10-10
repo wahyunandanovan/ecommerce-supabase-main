@@ -18,7 +18,7 @@ export const theme = createTheme({
   breakpoints,
   palette: {
     primary: {
-      main: "#FD7113",
+      main: "#40BFFF",
     },
     secondary: {
       main: "#FFD700",
@@ -29,7 +29,9 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: "SFProText",
-
+    body1: {
+      color: "#223263",
+    },
     h1: {
       fontFamily: "SFProDisplay",
     },
@@ -38,6 +40,7 @@ export const theme = createTheme({
     },
     h3: {
       fontFamily: "SFProDisplay",
+      color: "#223263",
       fontSize: "28px",
       fontWeight: "700",
       [`@media screen and (max-width: ${breakpoints.values.sm}px)`]: {
@@ -46,6 +49,7 @@ export const theme = createTheme({
     },
     h4: {
       fontFamily: "SFProDisplay",
+      color: "#223263",
       fontSize: "24px",
       fontWeight: "700",
       [`@media screen and (max-width: ${breakpoints.values.sm}px)`]: {

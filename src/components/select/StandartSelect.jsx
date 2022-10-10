@@ -18,15 +18,13 @@ function StandartSelect({ tooltip, data, value, onChange }) {
             value={value}
             size="small"
             onChange={onChange}
-            sx={{ backgroundColor: "#fff" }}
+            sx={{ backgroundColor: "#fff", mt: 0.8 }}
           >
             {data.map((item, index) => {
               return (
                 <MenuItem key={index} value={item.value}>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="h5" fontWeight="500">
-                      {item.code}
-                    </Typography>
+                    <Typography fontWeight="400">{item.code}</Typography>
                   </Box>
                 </MenuItem>
               );

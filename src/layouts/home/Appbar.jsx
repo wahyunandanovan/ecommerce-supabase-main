@@ -59,17 +59,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export default function Appbar() {
   const [lang, setLang] = React.useState(1);
-  const [curr, setCurr] = React.useState(1);
 
   const _changeLanguage = (event) => {
     setLang(event.target.value);
   };
-  const _changeCurrency = (event) => {
-    setCurr(event.target.value);
-  };
 
   return (
     <Box
+      margin="auto"
       sx={{
         px: { xs: 1, sm: "104px" },
         py: { xs: 1, sm: 1.5 },
@@ -77,77 +74,85 @@ export default function Appbar() {
       }}
     >
       <Box display="flex" justifyContent="space-between" className="opop">
-        <Stack
-          direction="row"
-          spacing={1}
-          alignItems="center"
-          display={{ xs: "none", sm: "none", md: "flex" }}
-        >
-          <StandartSelect
-            data={language}
-            value={lang}
-            onChange={_changeLanguage}
-            tooltip="Language"
-          />
-          <StandartSelect
-            data={currency}
-            value={curr}
-            onChange={_changeCurrency}
-            tooltip="Currency"
-          />
-        </Stack>
-
-        <Stack
-          direction="row"
-          spacing={{ xs: 1, sm: 1.5, md: 3 }}
-          alignItems="center"
-        >
-          <Box display="flex" alignItems="center" gap={1}>
-            <Iconify icon="akar-icons:person" sx={{ width: 16, height: 16 }} />
-            <Typography
-              variant="h5"
-              fontWeight="400"
-              display={{ xs: "none", sm: "none", md: "flex" }}
+        <Grid container direction="row" alignItems="center" spacing={1.5}>
+          <Grid item xs={8} sm={8} md={8}>
+            <Box>
+              <TextField
+                variant="outlined"
+                size="small"
+                placeholder="Search Product"
+                InputProps={{
+                  style: {
+                    borderRadius: 10,
+                  },
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Iconify
+                        icon="mdi:magnify"
+                        sx={{ width: 18, height: 18, color: "#262626" }}
+                      />
+                    </InputAdornment>
+                  ),
+                  disableUnderline: true,
+                }}
+                sx={{
+                  width: { xs: "90%", sm: "90%", md: "65%" },
+                  "& .MuiInputLabel-root": { color: "green" }, //styles the label
+                  "& .MuiOutlinedInput-root": {
+                    "& > fieldset": {
+                      borderColor: "#C1C8CE",
+                      borderWidth: 0.5,
+                    },
+                  },
+                }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4} sm={4} md={4}>
+            <Stack
+              direction="row"
+              spacing={{ xs: 1, sm: 1, md: 1.5 }}
+              justifyContent="end"
             >
-              My Account
-            </Typography>
-          </Box>
-          <Box display="flex" alignItems="center" gap={1}>
-            <IconButton aria-label="cart">
-              <StyledBadge badgeContent={4} color="secondary">
+              <Box display="flex" alignItems="center" gap={1}>
                 <Iconify
-                  icon="akar-icons:cart"
-                  sx={{ width: 18, height: 18 }}
+                  icon="akar-icons:person"
+                  sx={{ width: 16, height: 16 }}
                 />
-              </StyledBadge>
-            </IconButton>
-            <Typography
-              variant="h5"
-              fontWeight="400"
-              display={{ xs: "none", sm: "none", md: "flex" }}
-            >
-              Items
-            </Typography>
-          </Box>
-          <Box>
-            <TextField
-              variant="standard"
-              placeholder="$0.00"
-              sx={{ width: { xs: "100%", sm: "100%", md: "80px" } }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
+                <Typography
+                  variant="h5"
+                  fontWeight="400"
+                  display={{ xs: "none", sm: "none", md: "flex" }}
+                >
+                  My Account
+                </Typography>
+              </Box>
+              <Box display="flex" alignItems="center" gap={1}>
+                <IconButton aria-label="cart">
+                  <StyledBadge badgeContent={4} color="secondary">
                     <Iconify
-                      icon="mdi:magnify"
-                      sx={{ width: 18, height: 18, color: "#262626" }}
+                      icon="akar-icons:cart"
+                      sx={{ width: 18, height: 18 }}
                     />
-                  </InputAdornment>
-                ),
-                disableUnderline: true,
-              }}
-            />
-          </Box>
-        </Stack>
+                  </StyledBadge>
+                </IconButton>
+                <Typography
+                  variant="h5"
+                  fontWeight="400"
+                  display={{ xs: "none", sm: "none", md: "flex" }}
+                >
+                  Items
+                </Typography>
+              </Box>
+              <StandartSelect
+                data={language}
+                value={lang}
+                onChange={_changeLanguage}
+                tooltip="Language"
+              />
+            </Stack>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );
