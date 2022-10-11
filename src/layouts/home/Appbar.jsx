@@ -93,7 +93,6 @@ export default function Appbar() {
                       />
                     </InputAdornment>
                   ),
-                  disableUnderline: true,
                 }}
                 sx={{
                   width: { xs: "90%", sm: "90%", md: "65%" },

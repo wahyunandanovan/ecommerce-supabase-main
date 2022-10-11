@@ -103,7 +103,7 @@ export default function Banner() {
                 </Box>
                 <Box>
                   <Typography variant="h5" color="#9098B1" mt={2}>
-                    {item.amountPrice}
+                    <s>{item.amountPrice}</s>
                     <span style={{ color: "#FB7181" }}>
                       {" "}
                       {item.discount} Off

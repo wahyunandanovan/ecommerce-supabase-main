@@ -24,13 +24,13 @@ export const theme = createTheme({
       main: "#FFD700",
     },
     error: {
-      main: "#F44336",
+      main: "#FB7181",
     },
   },
   typography: {
     fontFamily: "SFProText",
     body1: {
-      color: "#223263",
+      color: "#262626",
     },
     h1: {
       fontFamily: "SFProDisplay",
@@ -40,7 +40,7 @@ export const theme = createTheme({
     },
     h3: {
       fontFamily: "SFProDisplay",
-      color: "#223263",
+      color: "#262626",
       fontSize: "28px",
       fontWeight: "700",
       [`@media screen and (max-width: ${breakpoints.values.sm}px)`]: {
@@ -49,7 +49,7 @@ export const theme = createTheme({
     },
     h4: {
       fontFamily: "SFProDisplay",
-      color: "#223263",
+      color: "#262626",
       fontSize: "24px",
       fontWeight: "700",
       [`@media screen and (max-width: ${breakpoints.values.sm}px)`]: {
@@ -58,7 +58,7 @@ export const theme = createTheme({
     },
     h5: {
       fontFamily: "SFProDisplay",
-      color: "#223263",
+      color: "#262626",
       fontSize: "18px",
       fontWeight: "700",
       [`@media screen and (max-width: ${breakpoints.values.sm}px)`]: {

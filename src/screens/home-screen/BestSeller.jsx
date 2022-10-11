@@ -1,17 +1,23 @@
-import { Box, Link, Stack, Typography } from "@mui/material";
 import React from "react";
+//@MUI
+import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
 
 export default function BestSeller() {
+  //category array
   const category = ["All", "Bags", "Sneakers", "Belt", "Sunglasses "];
+  //state for category
   const [selected, setSelected] = React.useState(category[0]);
+  //state for rating
+  const [rating, setRating] = React.useState(4);
 
+  //function to select category
   const _onSelect = (item) => {
     setSelected(item);
   };
 
   return (
-    <Box maxWidth="xl" margin="auto" p={16} mt={{ xs: -4, sm: 2, md: 26 }}>
-      <Typography variant="h3" textAlign="center">
+    <Box maxWidth="xl" margin="auto" mt={{ xs: 2, sm: 2, md: 40 }}>
+      <Typography variant="h3" textAlign="center" color="#22262A">
         Best Seller
       </Typography>
       <Stack
@@ -43,6 +49,52 @@ export default function BestSeller() {
           );
         })}
       </Stack>
+      <Box mt={{ xs: 1, sm: 3, md: 4 }} px={{ xs: 1, sm: 4, md: 6 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
+          {Array.from(Array(6)).map((_, index) => (
+            <Grid item xs={6} sm={6} md={3} key={index}>
+              <Box
+                sx={{
+                  height: { xs: "296px", sm: "392px" },
+                  width: { xs: "180px", sm: "293px" },
+                  border: "3px solid #F6F7F8",
+                  borderRadius: "8px",
+                  overflow: "hidden",
+                  textAlign: "center",
+                }}
+              >
+                <Box component="img" width="inherit" src="/images/shoes1.svg" />
+                <Box py={1}>
+                  <Typography variant="h5">Nike Air Max 270 React</Typography>
+                  <Rating
+                    value={rating}
+                    onChange={(event, newValue) => {
+                      // setRating(newValue);
+                    }}
+                    sx={{ my: 1 }}
+                  />
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    sx={{ justifyContent: "center", alignItems: "center" }}
+                  >
+                    <Typography variant="h5" color="primary">
+                      $299,43
+                    </Typography>
+                    <Typography
+                      color="#9098B1"
+                      fontSize={{ xs: "12px", sm: "16px" }}
+                    >
+                      <s> $534,33</s>{" "}
+                      <span style={{ color: "#FB7181" }}>24% Off</span>
+                    </Typography>
+                  </Stack>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </Box>
   );
 }
