@@ -15,13 +15,15 @@ export default function BestSeller() {
     setSelected(item);
   };
 
+  const width = screen.width / 2 - 16;
+
   return (
-    <Box maxWidth="xl" margin="auto" mt={{ xs: 2, sm: 2, md: 40 }}>
+    <Box maxWidth="xl" margin="auto" mt={{ xs: 4, sm: 4, md: 40 }}>
       <Typography variant="h3" textAlign="center" color="#22262A">
         Best Seller
       </Typography>
       <Stack
-        mt={4}
+        my={2}
         direction="row"
         spacing={{ xs: 3, sm: 5, md: 7 }}
         justifyContent="center"
@@ -51,12 +53,12 @@ export default function BestSeller() {
       </Stack>
       <Box mt={{ xs: 1, sm: 3, md: 4 }} px={{ xs: 1, sm: 4, md: 6 }}>
         <Grid container spacing={{ xs: 2, md: 3 }}>
-          {Array.from(Array(6)).map((_, index) => (
+          {Array.from(Array(8)).map((_, index) => (
             <Grid item xs={6} sm={6} md={3} key={index}>
               <Box
                 sx={{
                   height: { xs: "296px", sm: "392px" },
-                  width: { xs: "180px", sm: "293px" },
+                  width: { xs: width, sm: "293px" },
                   border: "3px solid #F6F7F8",
                   borderRadius: "8px",
                   overflow: "hidden",
@@ -94,6 +96,17 @@ export default function BestSeller() {
             </Grid>
           ))}
         </Grid>
+      </Box>
+      <Box mt={{ xs: 1, sm: 3 }} textAlign="center">
+        <Link
+          sx={{
+            fontSize: { xs: 16, sm: 18, md: 18 },
+            fontWeight: "500",
+            cursor: "pointer",
+          }}
+        >
+          LOAD MORE
+        </Link>
       </Box>
     </Box>
   );

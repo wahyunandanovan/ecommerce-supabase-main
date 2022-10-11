@@ -72,10 +72,18 @@ function DrawerAppBar(props) {
             position: "fixed",
             zIndex: 99,
             top: "50%",
+            backgroundColor: "#40BFFF",
+            opacity: 0.5,
+            borderRadius: "0px 4px 4px 0px",
           }}
         >
-          <IconButton color="inherit" edge="start" onClick={handleDrawerToggle}>
-            <Iconify icon="heroicons-solid:menu-alt-2" />
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ marginLeft: 0.1, opacity: 1 }}
+          >
+            <Iconify icon="heroicons-solid:menu-alt-2" color="white" />
           </IconButton>
         </Box>
 
