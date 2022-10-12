@@ -71,6 +71,12 @@ export default function Appbar() {
         px: { xs: 1, sm: "104px" },
         py: { xs: 1, sm: 1.5 },
         borderBottom: "2px solid #FAFAFB",
+        backgroundColor: "#fff",
+        position: "fixed",
+        zIndex: 100,
+        top: 0,
+        width: "100%",
+        // boxShadow: "0px 2px 2px 0px rgb(0 0 0 / 12%)",
       }}
     >
       <Box display="flex" justifyContent="space-between" className="opop">
