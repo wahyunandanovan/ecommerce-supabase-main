@@ -35,7 +35,7 @@ export default function Bennefit() {
                 <Typography mt={4} variant="h4" fontWeight="600">
                   {item.name}
                 </Typography>
-                <Typography mt={1.5}>
+                <Typography mt={1.5} color="#22262A">
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry.
                 </Typography>

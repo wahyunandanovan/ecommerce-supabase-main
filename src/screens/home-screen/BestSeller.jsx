@@ -1,6 +1,7 @@
 import React from "react";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
+import SectionContainer from "../../layouts/containers/SectionContainer";
 
 export default function BestSeller() {
   //category array
@@ -18,12 +19,8 @@ export default function BestSeller() {
   const width = screen.width / 2 - 16;
 
   return (
-    <Box maxWidth="xl" margin="auto" mt={{ xs: 4, sm: 4, md: 40 }}>
-      <Typography variant="h3" textAlign="center" color="#22262A">
-        Best Seller
-      </Typography>
+    <SectionContainer title="BEST SELLER" mt={{ xs: 4, sm: 4, md: 40 }} pt={3}>
       <Stack
-        my={2}
         direction="row"
         spacing={{ xs: 3, sm: 5, md: 7 }}
         justifyContent="center"
@@ -70,9 +67,9 @@ export default function BestSeller() {
                   <Typography variant="h5">Nike Air Max 270 React</Typography>
                   <Rating
                     value={rating}
-                    onChange={(event, newValue) => {
-                      // setRating(newValue);
-                    }}
+                    // onChange={(event, newValue) => {
+                    //   setRating(newValue);
+                    // }}
                     sx={{ my: 1 }}
                   />
                   <Stack
@@ -108,6 +105,6 @@ export default function BestSeller() {
           LOAD MORE
         </Link>
       </Box>
-    </Box>
+    </SectionContainer>
   );
 }
