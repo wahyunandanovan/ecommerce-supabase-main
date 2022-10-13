@@ -1,7 +1,7 @@
 import React from "react";
 import { Fade, IconButton, Stack, Box, Tooltip } from "@mui/material";
 import Iconify from "./Iconify";
-const FadeInBox = ({ fadein }) => {
+const FadeInBox = ({ fadein, onDetail }) => {
   return (
     <Fade in={fadein} timeout={900}>
       <Box
@@ -23,7 +23,7 @@ const FadeInBox = ({ fadein }) => {
         >
           <Stack direction="row" spacing={2}>
             <Tooltip title="Detail">
-              <IconButton>
+              <IconButton onClick={onDetail}>
                 <Iconify
                   icon="clarity:details-solid"
                   color="white"

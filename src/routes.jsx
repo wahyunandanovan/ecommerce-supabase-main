@@ -1,5 +1,6 @@
 import { Navigate, useRoutes } from "react-router-dom";
 import HomeLayout from "./layouts/home";
+import ProductDetails from "./pages/ProductDetails";
 import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
 
@@ -12,7 +13,10 @@ export default function Router() {
     {
       path: "/",
       element: <HomeLayout />,
-      children: [{ path: "home", element: <Home /> }],
+      children: [
+        { path: "home", element: <Home /> },
+        { path: "product-details", element: <ProductDetails /> },
+      ],
     },
     {
       path: "/404",

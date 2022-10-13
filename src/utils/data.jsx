@@ -55,30 +55,30 @@ export const topList = [
     description: "Lorem Ipsum is simply dummy text of the printing.",
   },
   {
-    title: "E-Comm",
+    title: "Follow Us",
     description: "Lorem Ipsum is simply dummy text of the printing.",
   },
   {
-    title: "E-Comm",
+    title: "Contact Us",
     description: "Lorem Ipsum is simply dummy text of the printing.",
   },
 ];
 
 export const bottomList = [
   {
-    title: "E-Comm",
+    title: "Infomation",
     description: "Lorem Ipsum is simply dummy text of the printing.",
   },
   {
-    title: "E-Comm",
+    title: "Service",
     description: "Lorem Ipsum is simply dummy text of the printing.",
   },
   {
-    title: "E-Comm",
+    title: "My Account",
     description: "Lorem Ipsum is simply dummy text of the printing.",
   },
   {
-    title: "E-Comm",
+    title: "Our Offers",
     description: "Lorem Ipsum is simply dummy text of the printing.",
   },
 ];

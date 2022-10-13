@@ -1,11 +1,15 @@
 import React from "react";
+//contex
+import { CartContext } from "../../core/cartContext";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
 import SectionContainer from "../../layouts/containers/SectionContainer";
 import { bestSellerProduct } from "../../utils/data";
 import FadeInBox from "../../components/FadeInBox";
+import { useNavigate } from "react-router-dom";
 
 export default function BestSeller() {
+  const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
   //category array
   const category = ["All", "Bags", "Sneakers", "Belt", "Sunglasses "];
 
@@ -26,6 +30,9 @@ export default function BestSeller() {
   const _onHover = (e) => {
     setSelectedCard(e);
   };
+
+  const navigate = useNavigate();
+  const _onDetail = (item) => navigate("/product-details", { state: { item } });
 
   return (
     <SectionContainer title="BEST SELLER" mt={{ xs: 4, sm: 4, md: 40 }} pt={3}>
@@ -74,7 +81,10 @@ export default function BestSeller() {
                   position: "relative",
                 }}
               >
-                <FadeInBox fadein={item === selectedCard ? true : false} />
+                <FadeInBox
+                  fadein={item === selectedCard ? true : false}
+                  onDetail={() => _onDetail(item)}
+                />
                 <Box component="img" width="inherit" src={item.uri} />
 
                 <Box py={1}>
