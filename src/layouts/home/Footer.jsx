@@ -1,5 +1,6 @@
 import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
+import { bottomList, topList, card } from "../../utils/data";
 
 export default function Footer() {
   return (
@@ -85,43 +86,3 @@ export default function Footer() {
     </Box>
   );
 }
-
-const topList = [
-  {
-    title: "E-Comm",
-    description: "Lorem Ipsum is simply dummy text of the printing.",
-  },
-  {
-    title: "E-Comm",
-    description: "Lorem Ipsum is simply dummy text of the printing.",
-  },
-  {
-    title: "E-Comm",
-    description: "Lorem Ipsum is simply dummy text of the printing.",
-  },
-];
-const bottomList = [
-  {
-    title: "E-Comm",
-    description: "Lorem Ipsum is simply dummy text of the printing.",
-  },
-  {
-    title: "E-Comm",
-    description: "Lorem Ipsum is simply dummy text of the printing.",
-  },
-  {
-    title: "E-Comm",
-    description: "Lorem Ipsum is simply dummy text of the printing.",
-  },
-  {
-    title: "E-Comm",
-    description: "Lorem Ipsum is simply dummy text of the printing.",
-  },
-];
-
-const card = [
-  "/logos/visa.svg",
-  "/logos/paypal.svg",
-  "/logos/master-card.svg",
-  "/logos/western-union.svg",
-];

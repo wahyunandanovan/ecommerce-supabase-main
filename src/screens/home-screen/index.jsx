@@ -1,6 +1,6 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
-import Search from "../Search";
+import Search from "./Search";
 import Banner from "./Banner";
 import Bennefit from "./Bennefit";
 import BestSeller from "./BestSeller";

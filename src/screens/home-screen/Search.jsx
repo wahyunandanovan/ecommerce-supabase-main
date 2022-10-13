@@ -8,7 +8,6 @@ export default function Search() {
         <TextField
           size="small"
           variant="outlined"
-          InputProps={{ disableUnderline: true, style: { border: 0 } }}
           sx={{
             width: { xs: 200, sm: 350, md: 600 },
             border: "1px solid #40BFFF",
