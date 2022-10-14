@@ -7,7 +7,7 @@ export const bestSellerProduct = [
   },
   {
     name: "Nike Air Max 270 Reac",
-    uri: "/images/shoes2.svg",
+    uri: "/images/bag3.svg",
     price: "$299,43",
     rating: 4,
   },
@@ -37,7 +37,7 @@ export const bestSellerProduct = [
   },
   {
     name: "Nike Air Max 270 Reac",
-    uri: "/images/shoes1.svg",
+    uri: "/images/bag2.svg",
     price: "$299,43",
     rating: 4,
   },
