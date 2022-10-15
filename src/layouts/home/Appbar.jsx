@@ -16,6 +16,10 @@ import { styled } from "@mui/material/styles";
 import StandartSelect from "../../components/select/StandartSelect";
 import Iconify from "../../components/Iconify";
 
+//utility
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../core/cartContext";
+
 const language = [
   {
     code: "UK",
@@ -27,21 +31,6 @@ const language = [
   },
   {
     code: "AUS",
-    value: 3,
-  },
-];
-
-const currency = [
-  {
-    code: "USD",
-    value: 1,
-  },
-  {
-    code: "EUR",
-    value: 2,
-  },
-  {
-    code: "AUD",
     value: 3,
   },
 ];
@@ -58,11 +47,17 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export default function Appbar() {
-  const [lang, setLang] = React.useState(1);
+  //context cart
+  const { helper, setHelper } = React.useContext(CartContext);
 
+  //select langage
+  const [lang, setLang] = React.useState(1);
   const _changeLanguage = (event) => {
     setLang(event.target.value);
   };
+  //go to cart
+  const navigate = useNavigate();
+  const _gotoCart = () => navigate("Cart");
 
   return (
     <Box
@@ -133,8 +128,8 @@ export default function Appbar() {
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" gap={1}>
-                <IconButton aria-label="cart">
-                  <StyledBadge badgeContent={4} color="secondary">
+                <IconButton aria-label="cart" onClick={_gotoCart}>
+                  <StyledBadge badgeContent={Number(helper)} color="secondary">
                     <Iconify
                       icon="akar-icons:cart"
                       sx={{ width: 18, height: 18 }}

@@ -4,14 +4,12 @@ import { CartContext } from "../../core/cartContext";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
 import SectionContainer from "../../layouts/containers/SectionContainer";
-import { bestSellerProduct } from "../../utils/data";
+import { relateProduct } from "../../utils/data";
 import FadeInBox from "../../components/FadeInBox";
 import { useNavigate } from "react-router-dom";
-import { formatDollar, setStorage } from "../../utils";
 
-export default function BestSeller() {
+export default function RelatedProduct() {
   const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
-  const { helper, setHelper } = React.useContext(CartContext);
   //category array
   const category = ["All", "Bags", "Sneakers", "Belt", "Sunglasses "];
 
@@ -33,73 +31,27 @@ export default function BestSeller() {
     setSelectedCard(e);
   };
 
-  //on detail product
   const navigate = useNavigate();
-  const _onDetail = (item) => navigate("/product-details", { state: { item } });
-
-  //push cart
-
-  const _pushCart = (item) => {
-    let newCart = [...selectedProduct];
-    const body = {
-      ...item,
-      quantity: 1,
-      total: item.price,
-      isOrder: false,
-    };
-    const check = newCart.find((product) => product.id === item.id);
-    if (check) {
-      newCart = newCart.map((v) => {
-        if (v.id === item.id) {
-          let initQty = v.quantity + 1;
-          return {
-            ...v,
-            quantity: v.quantity + 1,
-            total: v.price * initQty,
-          };
-        }
-        return v;
-      });
-    } else {
-      newCart.push(body);
-    }
-    setSelectedProduct(newCart);
-    setHelper(helper + 1);
+  const _onDetail = async (item) => {
+    await navigate("/product-details", { state: { item } });
+    window.scrollTo(0, 0);
   };
 
   return (
-    <SectionContainer title="BEST SELLER" mt={{ xs: 4, sm: 4, md: 40 }} pt={3}>
+    <SectionContainer
+      title="RELATED PRODUCT"
+      pt={3}
+      sx={{ mb: 8 }}
+      mt={{ xs: 2, sm: 8 }}
+    >
       <Stack
         direction="row"
         spacing={{ xs: 3, sm: 5, md: 7 }}
         justifyContent="center"
-      >
-        {category.map((item, idx) => {
-          return (
-            <Box
-              key={idx}
-              component={Link}
-              onClick={() => _onSelect(item)}
-              underline="none"
-              sx={{
-                borderBottom: item === selected ? "2px solid #40BFFF" : "none",
-                cursor: "pointer",
-              }}
-            >
-              <Typography
-                color={item === selected ? "#40BFFF" : ""}
-                fontSize={{ xs: 16, sm: 18, md: 18 }}
-                fontWeight="600"
-              >
-                {item}
-              </Typography>
-            </Box>
-          );
-        })}
-      </Stack>
-      <Box mt={{ xs: 1, sm: 3, md: 4 }} px={{ xs: 1, sm: 4, md: 6 }}>
+      ></Stack>
+      <Box mt={{ xs: 1, sm: 3, md: 4 }}>
         <Grid container spacing={{ xs: 2, md: 3 }}>
-          {bestSellerProduct.map((item, index) => (
+          {relateProduct.map((item, index) => (
             <Grid item xs={6} sm={4} md={3} key={index}>
               <Box
                 onMouseEnter={() => _onHover(item)}
@@ -117,7 +69,6 @@ export default function BestSeller() {
                 <FadeInBox
                   fadein={item === selectedCard ? true : false}
                   onDetail={() => _onDetail(item)}
-                  onCart={() => _pushCart(item)}
                 />
                 <Box component="img" width="inherit" src={item.uri} />
 
@@ -130,7 +81,7 @@ export default function BestSeller() {
                     sx={{ justifyContent: "center", alignItems: "center" }}
                   >
                     <Typography variant="h5" color="primary">
-                      {formatDollar(item.price)}
+                      {item.price}
                     </Typography>
                     <Typography
                       color="#9098B1"
@@ -145,18 +96,6 @@ export default function BestSeller() {
             </Grid>
           ))}
         </Grid>
-      </Box>
-
-      <Box mt={{ xs: 1, sm: 3 }} textAlign="center">
-        <Link
-          sx={{
-            fontSize: { xs: 16, sm: 18, md: 18 },
-            fontWeight: "500",
-            cursor: "pointer",
-          }}
-        >
-          LOAD MORE
-        </Link>
       </Box>
     </SectionContainer>
   );

@@ -36,6 +36,9 @@ body {
     width: 160px;
     margin-top: -30px;
   }
+  .img-share {
+    width: 174px;
+  }
 }
 
 /* laptop screen */
@@ -43,5 +46,8 @@ body {
   .img-promo {
     width: 700px;
     margin-top: -78px;
+  }
+  .img-share {
+    width: 210px;
   }
 }

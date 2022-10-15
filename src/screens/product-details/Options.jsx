@@ -6,9 +6,11 @@ import {
   Link,
   MenuItem,
   Select,
+  Button,
 } from "@mui/material";
 import React from "react";
-
+import CounterButton from "../../components/CounterButton";
+import Iconify from "../../components/Iconify";
 const Container = ({ children }) => {
   return (
     <Stack spacing={2} sx={{ py: 2, borderBottom: "2px solid #F6F7F8" }}>
@@ -18,13 +20,18 @@ const Container = ({ children }) => {
 };
 
 export default function Options({ name, price, rating }) {
+  //select color
   const color = ["#006CFF", "#FC3E39", "#171717", "#FFF600"];
   const [selectedColor, setSelectedColor] = React.useState(color[0]);
-
-  const [age, setAge] = React.useState(10);
-
+  //select size
+  const [size, setSize] = React.useState(10);
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setSize(event.target.value);
+  };
+  //set like
+  const [isLiked, setIsLiked] = React.useState(false);
+  const _onLiked = () => {
+    setIsLiked(!isLiked);
   };
 
   return (
@@ -97,7 +104,7 @@ export default function Options({ name, price, rating }) {
                 );
               })}
             </Stack>
-            <Select size="small" value={age} onChange={handleChange}>
+            <Select size="small" value={size} onChange={handleChange}>
               <MenuItem value={10}>XS</MenuItem>
               <MenuItem value={20}>S</MenuItem>
               <MenuItem value={30}>L</MenuItem>
@@ -107,6 +114,71 @@ export default function Options({ name, price, rating }) {
           </Stack>
         </Box>
       </Container>
+      <Container>
+        <Box display="flex" justifyContent="space-between">
+          <CounterButton onMin={() => {}} onAdd={() => {}} count={0} />
+          <Box display="flex" gap={2} alignItems="center">
+            <Box
+              height="46px"
+              backgroundColor="#F6F7F8"
+              display="flex"
+              borderRadius="4px"
+              alignItems="center"
+              component={Button}
+              gap={1}
+              px={2}
+            >
+              <Iconify icon="akar-icons:cart" sx={{ width: 18, height: 18 }} />
+              <Typography
+                fontSize={14}
+                color="#33A0FF"
+                fontWeight="500"
+                fontFamily="SFProDisplay"
+              >
+                Add To Cart
+              </Typography>
+            </Box>
+            <Box
+              height="46px"
+              backgroundColor="#F6F7F8"
+              borderRadius="4px"
+              alignItems="center"
+              component={Button}
+              onClick={_onLiked}
+              sx={{ p: "-4px !important", m: 0 }}
+            >
+              {isLiked ? (
+                <Iconify
+                  icon="ant-design:heart-outlined"
+                  sx={{ width: 18, height: 18 }}
+                />
+              ) : (
+                <Iconify
+                  icon="ant-design:heart-filled"
+                  color="#FC3E39"
+                  sx={{ width: 18, height: 18 }}
+                />
+              )}
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+      <Box display="flex" py={2} justifyContent="space-between">
+        <Button sx={{ p: 0, m: 0 }}>
+          <img
+            src="/images/share-fb.svg"
+            className="img-share"
+            alt="share-fb"
+          />
+        </Button>
+        <Button sx={{ p: 0, m: 0 }}>
+          <img
+            src="/images/share-twiter.svg"
+            className="img-share"
+            alt="share-tw"
+          />
+        </Button>
+      </Box>
     </Box>
   );
 }

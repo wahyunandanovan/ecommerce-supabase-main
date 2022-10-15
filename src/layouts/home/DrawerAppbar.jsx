@@ -14,14 +14,15 @@ import {
   IconButton,
 } from "@mui/material";
 import Iconify from "../../components/Iconify";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = ["HOME", "ABOUT", "CONTACT", "SETTING", "OTHER"];
 
 function DrawerAppBar(props) {
+  //responsive drawer
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -46,6 +47,10 @@ function DrawerAppBar(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  //navigate to  /
+  const navigate = useNavigate();
+  const _gotoHome = () => navigate("/");
 
   return (
     <Box
@@ -93,7 +98,9 @@ function DrawerAppBar(props) {
             display: { xs: "none", sm: "block" },
           }}
         >
-          <img src="./logo.png" />
+          <Link onClick={_gotoHome} sx={{ cursor: "pointer" }}>
+            <img src="./logo.png" />
+          </Link>
         </Box>
         <Box sx={{ display: { xs: "none", sm: "none", md: "flex", gap: 60 } }}>
           {navItems.map((item) => (

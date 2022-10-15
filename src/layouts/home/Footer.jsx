@@ -12,7 +12,7 @@ import { bottomList, topList, card } from "../../utils/data";
 
 export default function Footer() {
   return (
-    <Box backgroundColor="#BCDDFE" p={{ xs: 2, sm: 4, md: 8 }} width="100%">
+    <Box backgroundColor="#BCDDFE" p={{ xs: 2, sm: 4, md: 10 }} width="100%">
       <Box maxWidth="xl" margin="auto">
         <Grid container spacing={4}>
           {topList.map((item, idx) => {

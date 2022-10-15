@@ -1,7 +1,7 @@
 import React from "react";
 import { Fade, IconButton, Stack, Box, Tooltip } from "@mui/material";
 import Iconify from "./Iconify";
-const FadeInBox = ({ fadein, onDetail }) => {
+const FadeInBox = ({ fadein, onDetail, onCart }) => {
   return (
     <Fade in={fadein} timeout={900}>
       <Box
@@ -32,7 +32,7 @@ const FadeInBox = ({ fadein, onDetail }) => {
               </IconButton>
             </Tooltip>
             <Tooltip title="Add to Cart">
-              <IconButton>
+              <IconButton onClick={onCart}>
                 <Iconify
                   icon="eva:shopping-cart-fill"
                   color="white"

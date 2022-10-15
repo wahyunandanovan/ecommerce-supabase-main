@@ -3,6 +3,7 @@ import HomeLayout from "./layouts/home";
 import ProductDetails from "./pages/ProductDetails";
 import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
+import Cart from "./pages/Cart";
 
 export default function Router() {
   return useRoutes([
@@ -16,6 +17,7 @@ export default function Router() {
       children: [
         { path: "home", element: <Home /> },
         { path: "product-details", element: <ProductDetails /> },
+        { path: "cart", element: <Cart /> },
       ],
     },
     {
