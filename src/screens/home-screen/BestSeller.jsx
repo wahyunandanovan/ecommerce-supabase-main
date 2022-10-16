@@ -8,6 +8,7 @@ import { bestSellerProduct } from "../../utils/data";
 import FadeInBox from "../../components/FadeInBox";
 import { useNavigate } from "react-router-dom";
 import { formatDollar, setStorage } from "../../utils";
+import Loading from "../../components/Loading";
 
 export default function BestSeller() {
   const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
@@ -73,6 +74,7 @@ export default function BestSeller() {
 
   return (
     <SectionContainer title="BEST SELLER" mt={{ xs: 4, sm: 4, md: 40 }} pt={3}>
+      <Loading visible={false} />
       <Stack
         direction="row"
         spacing={{ xs: 3, sm: 5, md: 7 }}

@@ -1,10 +1,18 @@
 import React from "react";
 import { Button as Touchabble, Typography } from "@mui/material";
 
-export default function Button({ fullWidth, title, disabled, size, ...props }) {
+export default function Button({
+  fullWidth,
+  title,
+  disabled,
+  size,
+  onClick,
+  ...props
+}) {
   return (
     <Touchabble
       variant="outlined"
+      onClick={onClick}
       fullWidth={fullWidth}
       size={size}
       disabled={disabled}
