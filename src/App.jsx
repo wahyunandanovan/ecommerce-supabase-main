@@ -1,7 +1,7 @@
 import React from "react";
 import { CartContext } from "./core/cartContext";
 import Router from "./routes";
-import StartScreen from "./screens/additional-screen/startScreen";
+import StartScreen from "./screens/additional-screen/StartScreen";
 
 function App() {
   const [selectedProduct, setSelectedProduct] = React.useState([]);
