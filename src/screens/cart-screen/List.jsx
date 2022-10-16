@@ -21,6 +21,7 @@ export default function List() {
   const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
   const { order, setOrder } = React.useContext(CartContext);
   const { helper, setHelper } = React.useContext(CartContext);
+
   const [open, setOpen] = React.useState(false);
   const [count, setCount] = React.useState(0);
 
@@ -41,10 +42,10 @@ export default function List() {
     selectedProduct[idx] = newItems;
     setCount(count + 1);
   };
+
   //increment
   const _minQty = async (item, idx) => {
     let initQty = item?.quantity - 1;
-
     let newItems = {
       ...item,
       quantity: item?.quantity - 1,
@@ -56,10 +57,10 @@ export default function List() {
     if (checkIdx != -1) {
       order[checkIdx] = newItems;
     }
-
     selectedProduct[idx] = newItems;
     setCount(count - 1);
   };
+
   //checked product
   const _onChecked = (bool, item, idx) => {
     let newItems = {

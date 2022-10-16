@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 //@MUI
 import {
   Link,
-  Typography,
   ListItem,
   List,
   ListItemText,
@@ -14,32 +13,78 @@ import {
   IconButton,
 } from "@mui/material";
 import Iconify from "../../components/Iconify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { palette } from "../../utils/palette";
 
 const drawerWidth = 240;
-const navItems = ["HOME", "ABOUT", "CONTACT", "SETTING", "OTHER"];
 
 function DrawerAppBar(props) {
+  //get pathname
+  const location = useLocation();
+
   //responsive drawer
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  //open drawer
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  //navigate to  /
+  const navigate = useNavigate();
+  const _gotoHome = () => navigate("/");
+
+  //menu list
+  const navItems = [
+    {
+      title: "HOME",
+      pathName: "/home",
+      action: _gotoHome,
+      hover: null,
+    },
+    {
+      title: "PRODUCT",
+      pathName: "/product",
+      action: null,
+      hover: null,
+    },
+    {
+      title: "CONTACT",
+      pathName: "/contact",
+      action: null,
+      hover: null,
+    },
+    {
+      title: "SETTINGS",
+      pathName: "/settings",
+      action: null,
+      hover: null,
+    },
+    {
+      title: "OTHER",
+      pathName: "/other",
+      action: null,
+      hover: null,
+    },
+  ];
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Box my={1}>
-        <Link sx={{ cursor: "pointer" }}>
-          <img src="./logo.png" />
+      <Box mt={2} mb={1}>
+        <Link onClick={_gotoHome} sx={{ cursor: "pointer" }}>
+          <img width={165} src="./petani-code.svg" />
         </Link>
       </Box>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item}>
-            <ListItemButton sx={{ textAlign: "center", color: "blue" }}>
-              <ListItemText primary={item} />
+        {navItems.map((item, idx) => (
+          <ListItem key={idx}>
+            <ListItemButton
+              onClick={item.action}
+              sx={{ textAlign: "center", color: "blue" }}
+            >
+              <ListItemText primary={item.title} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -49,10 +94,6 @@ function DrawerAppBar(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
-  //navigate to  /
-  const navigate = useNavigate();
-  const _gotoHome = () => navigate("/");
 
   return (
     <Box
@@ -101,23 +142,30 @@ function DrawerAppBar(props) {
           }}
         >
           <Link onClick={_gotoHome} sx={{ cursor: "pointer" }}>
-            <img src="./logo.png" />
+            <img width={165} src="./petani-code.svg" />
           </Link>
         </Box>
         <Box sx={{ display: { xs: "none", sm: "none", md: "flex", gap: 60 } }}>
-          {navItems.map((item) => (
+          {navItems.map((item, idx) => (
             <Link
+              onClick={item.action}
               underline="none"
-              key={item}
+              key={idx}
               sx={{
-                color: "#000",
+                color:
+                  item.pathName === location.pathname
+                    ? palette.blue
+                    : palette.black,
                 fontSize: "20px",
                 fontWeight: "600",
                 fontFamily: "SFProDisplay",
                 cursor: "pointer",
+                "&:hover": {
+                  color: "#40BFFF",
+                },
               }}
             >
-              {item}
+              {item.title}
             </Link>
           ))}
         </Box>

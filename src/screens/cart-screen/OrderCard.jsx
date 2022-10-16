@@ -13,6 +13,7 @@ export default function OrderCard() {
     return accumulator + object.total;
   }, 0);
 
+  //set initial order
   React.useEffect(() => {
     setOrder([]);
   }, []);
@@ -48,7 +49,6 @@ export default function OrderCard() {
             />
             <Typography fontSize={18}>Using Promos</Typography>
           </Box>
-
           <Iconify
             icon="fluent:chevron-circle-right-28-regular"
             color="#03ac0e"

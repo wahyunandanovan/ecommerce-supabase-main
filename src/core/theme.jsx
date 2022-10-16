@@ -31,6 +31,7 @@ export const theme = createTheme({
     fontFamily: "SFProText",
     body1: {
       color: "#262626",
+      fontFamily: "SFProText",
     },
     h1: {
       fontFamily: "SFProDisplay",
@@ -43,6 +44,12 @@ export const theme = createTheme({
     },
     h2: {
       fontFamily: "SFProDisplay",
+      color: "#262626",
+      fontSize: "40px",
+      fontWeight: "700",
+      [`@media screen and (max-width: ${breakpoints.values.sm}px)`]: {
+        fontSize: "40px",
+      },
     },
     h3: {
       fontFamily: "SFProDisplay",

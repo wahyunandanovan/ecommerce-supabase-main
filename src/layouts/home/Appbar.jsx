@@ -57,7 +57,7 @@ export default function Appbar() {
   };
   //go to cart
   const navigate = useNavigate();
-  const _gotoCart = () => navigate("Cart");
+  const _gotoCart = () => navigate("cart");
 
   return (
     <Box
@@ -84,7 +84,7 @@ export default function Appbar() {
                 placeholder="Search Product"
                 InputProps={{
                   style: {
-                    borderRadius: 10,
+                    borderRadius: 5,
                   },
                   endAdornment: (
                     <InputAdornment position="end">

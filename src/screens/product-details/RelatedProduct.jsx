@@ -24,7 +24,7 @@ export default function RelatedProduct() {
   const [selectedCard, setSelectedCard] = React.useState(null);
 
   //get width screen
-  const width = screen.width / 2 - 16;
+  const width = screen.width / 2 - 24;
 
   //on hover card
   const _onHover = (e) => {
