@@ -1,6 +1,7 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CartContext } from "../../core/cartContext";
 import BestSeller from "./BestSeller";
 import DetailImages from "./DetailImages";
 import Informations from "./Informations";
@@ -8,12 +9,52 @@ import Options from "./Options";
 import RelatedProduct from "./RelatedProduct";
 
 function ProductDetailsScreens() {
+  const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
+  const { helper, setHelper } = React.useContext(CartContext);
+
+  const [count, setCount] = React.useState(1);
+
+  const navigate = useNavigate();
   const params = useLocation();
   const product = params?.state?.item;
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  //push cart
+  const _pushCart = (item) => {
+    let newCart = [...selectedProduct];
+    const body = {
+      ...item,
+      quantity: count,
+      total: item.price * count,
+      isOrder: false,
+    };
+    const check = newCart.find((product) => product.id === item.id);
+    if (check) {
+      newCart = newCart.map((v) => {
+        if (v.id === item.id) {
+          let initQty = v.quantity + count;
+          return {
+            ...v,
+            quantity: v.quantity + count,
+            total: v.price * initQty,
+          };
+        }
+        return v;
+      });
+    } else {
+      newCart.push(body);
+    }
+
+    setSelectedProduct(newCart);
+    navigate("/cart");
+    setHelper(helper + 1);
+  };
+
+  const _onAdd = () => setCount(count + 1);
+  const _onMin = () => setCount(count - 1);
 
   return (
     <Box>
@@ -41,6 +82,10 @@ function ProductDetailsScreens() {
               name={product.name}
               price={product.price}
               rating={product.rating}
+              addTocart={() => _pushCart(product)}
+              count={count}
+              onAdd={_onAdd}
+              onMin={_onMin}
             />
           </Grid>
           <Grid

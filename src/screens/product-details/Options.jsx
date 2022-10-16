@@ -19,7 +19,15 @@ const Container = ({ children }) => {
   );
 };
 
-export default function Options({ name, price, rating }) {
+export default function Options({
+  name,
+  price,
+  rating,
+  addTocart,
+  onAdd,
+  onMin,
+  count,
+}) {
   //select color
   const color = ["#006CFF", "#FC3E39", "#171717", "#FFF600"];
   const [selectedColor, setSelectedColor] = React.useState(color[0]);
@@ -116,9 +124,10 @@ export default function Options({ name, price, rating }) {
       </Container>
       <Container>
         <Box display="flex" justifyContent="space-between">
-          <CounterButton onMin={() => {}} onAdd={() => {}} count={0} />
+          <CounterButton onMin={onMin} onAdd={onAdd} count={count} />
           <Box display="flex" gap={2} alignItems="center">
             <Box
+              onClick={addTocart}
               height="46px"
               backgroundColor="#F6F7F8"
               display="flex"

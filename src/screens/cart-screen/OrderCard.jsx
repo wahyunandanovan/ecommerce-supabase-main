@@ -6,13 +6,16 @@ import Iconify from "../../components/Iconify";
 import { CartContext } from "../../core/cartContext";
 
 export default function OrderCard() {
-  const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
   const { order, setOrder } = React.useContext(CartContext);
 
   //get total price logic
   const totalPrice = order?.reduce((accumulator, object) => {
     return accumulator + object.total;
   }, 0);
+
+  React.useEffect(() => {
+    setOrder([]);
+  }, []);
 
   return (
     <Box mt={5} mb={8} display="block" justifyContent="center">
@@ -87,7 +90,12 @@ export default function OrderCard() {
           <Typography variant="h5">{formatDollar(totalPrice)}</Typography>
         </Box>
         <Box mt={2}>
-          <Button disabled={order?.length < 1} fullWidth title="Checkout" />
+          <Button
+            size="large"
+            disabled={order?.length < 1}
+            fullWidth
+            title="Checkout"
+          />
         </Box>
       </Card>
     </Box>

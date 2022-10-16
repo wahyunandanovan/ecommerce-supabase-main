@@ -15,6 +15,9 @@ export default function BestSeller() {
   //category array
   const category = ["All", "Bags", "Sneakers", "Belt", "Sunglasses "];
 
+  //state for snackbar
+  const [open, setOpen] = React.useState(false);
+
   //state for category
   const [selected, setSelected] = React.useState(category[0]);
 
@@ -38,7 +41,6 @@ export default function BestSeller() {
   const _onDetail = (item) => navigate("/product-details", { state: { item } });
 
   //push cart
-
   const _pushCart = (item) => {
     let newCart = [...selectedProduct];
     const body = {
@@ -60,11 +62,13 @@ export default function BestSeller() {
         }
         return v;
       });
+      setHelper(helper + 0);
     } else {
       newCart.push(body);
+      setHelper(helper + 1);
     }
     setSelectedProduct(newCart);
-    setHelper(helper + 1);
+    setOpen(true);
   };
 
   return (

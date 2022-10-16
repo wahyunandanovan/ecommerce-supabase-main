@@ -29,9 +29,11 @@ function DrawerAppBar(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
+      <Box my={1}>
+        <Link sx={{ cursor: "pointer" }}>
+          <img src="./logo.png" />
+        </Link>
+      </Box>
       <Divider />
       <List>
         {navItems.map((item) => (
