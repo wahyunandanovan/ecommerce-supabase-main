@@ -1,15 +1,30 @@
 import { Navigate, useRoutes } from "react-router-dom";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import HomeLayout from "./layouts/home";
 import ProductDetails from "./pages/ProductDetails";
 import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
+import AuthLayout from "./layouts/auth";
 
 export default function Router() {
   return useRoutes([
     {
       path: "/",
       element: <Navigate to="/home" replace />,
+    },
+    {
+      path: "/auth",
+      element: <Navigate to="/auth/signin" replace />,
+    },
+    {
+      path: "/auth",
+      element: <AuthLayout />,
+      children: [
+        { path: "signin", element: <SignIn /> },
+        { path: "signup", element: <SignUp /> },
+      ],
     },
     {
       path: "/",

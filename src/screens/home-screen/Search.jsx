@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import InputWithButton from "../../components/InputWithButton";
+import InputWithButton from "../../components/input/InputWithButton";
 
 export default function Search() {
   return (

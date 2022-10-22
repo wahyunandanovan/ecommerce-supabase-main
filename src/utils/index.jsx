@@ -13,6 +13,10 @@ export function formatDollar(num) {
   );
 }
 
+export function percentage(num, per) {
+  return (num / 100) * per;
+}
+
 export const setStorage = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };

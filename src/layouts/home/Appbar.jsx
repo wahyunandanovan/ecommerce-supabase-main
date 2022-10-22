@@ -1,6 +1,15 @@
 import * as React from "react";
 //@MUI
-import { Badge, Box, Grid, IconButton, InputAdornment, Link, Stack, TextField, Typography } from "@mui/material";
+import {
+  Badge,
+  Box,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 //component
@@ -11,6 +20,7 @@ import Iconify from "../../components/Iconify";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../core/cartContext";
 import NavItems from "../../components/NavItems";
+import useFetch from "../../hooks/useFetch";
 
 const language = [
   {
@@ -38,9 +48,17 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-export default function Appbar() {
+function Appbar() {
   //context cart
+  const { cartItems, setCartItems } = React.useContext(CartContext);
   const { helper, setHelper } = React.useContext(CartContext);
+
+  //get data from api
+  const { items, isLoading, isFetching } = useFetch({ module: "cart" });
+
+  React.useEffect(() => {
+    setCartItems(items);
+  }, [isFetching, helper]);
 
   //select langage
   const [lang, setLang] = React.useState(1);
@@ -101,7 +119,10 @@ export default function Appbar() {
                   },
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Iconify icon="mdi:magnify" sx={{ width: 18, height: 18, color: "#262626" }} />
+                      <Iconify
+                        icon="mdi:magnify"
+                        sx={{ width: 18, height: 18, color: "#262626" }}
+                      />
                     </InputAdornment>
                   ),
                 }}
@@ -119,31 +140,59 @@ export default function Appbar() {
             </Box>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
-            <Stack direction="row" spacing={{ xs: 1, sm: 1, md: 1.5 }} justifyContent="end">
+            <Stack
+              direction="row"
+              spacing={{ xs: 1, sm: 1, md: 1.5 }}
+              justifyContent="end"
+            >
               <Box display="flex" alignItems="center" gap={1}>
-                <Iconify icon="akar-icons:person" sx={{ width: 16, height: 16 }} />
-                <Typography variant="h5" fontWeight="400" display={{ xs: "none", sm: "none", md: "flex" }}>
+                <Iconify
+                  icon="akar-icons:person"
+                  sx={{ width: 16, height: 16 }}
+                />
+                <Typography
+                  variant="h5"
+                  fontWeight="400"
+                  display={{ xs: "none", sm: "none", md: "flex" }}
+                >
                   My Account
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" gap={1}>
                 <IconButton aria-label="cart" onClick={_gotoCart}>
-                  <StyledBadge badgeContent={Number(helper)} color="secondary">
-                    <Iconify icon="akar-icons:cart" sx={{ width: 18, height: 18 }} />
+                  <StyledBadge
+                    badgeContent={Number(cartItems?.length | null)}
+                    color="secondary"
+                  >
+                    <Iconify
+                      icon="akar-icons:cart"
+                      sx={{ width: 18, height: 18 }}
+                    />
                   </StyledBadge>
                 </IconButton>
-                <Typography variant="h5" fontWeight="400" display={{ xs: "none", sm: "none", md: "flex" }}>
+                <Typography
+                  variant="h5"
+                  fontWeight="400"
+                  display={{ xs: "none", sm: "none", md: "flex" }}
+                >
                   Items
                 </Typography>
               </Box>
-              <StandartSelect data={language} value={lang} onChange={_changeLanguage} tooltip="Language" />
+              <StandartSelect
+                data={language}
+                value={lang}
+                onChange={_changeLanguage}
+                tooltip="Language"
+              />
             </Stack>
           </Grid>
         </Grid>
       </Box>
+
       <Box width="100%" display={{ xs: "none", sm: "block" }}>
-        {scrollTop >= 100 ? <NavItems height={height} /> : <NavItems height={height} />}
+        {scrollTop >= 100 && <NavItems height={height} />}
       </Box>
     </Box>
   );
 }
+export default React.memo(Appbar);

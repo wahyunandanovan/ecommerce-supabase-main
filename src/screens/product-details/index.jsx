@@ -9,7 +9,7 @@ import Options from "./Options";
 import RelatedProduct from "./RelatedProduct";
 
 function ProductDetailsScreens() {
-  const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
+  const { cartItems, setCartItems } = React.useContext(CartContext);
   const { helper, setHelper } = React.useContext(CartContext);
 
   const [count, setCount] = React.useState(1);
@@ -24,7 +24,7 @@ function ProductDetailsScreens() {
 
   //push cart
   const _pushCart = (item) => {
-    let newCart = [...selectedProduct];
+    let newCart = [...cartItems];
     const body = {
       ...item,
       quantity: count,
@@ -48,7 +48,7 @@ function ProductDetailsScreens() {
       newCart.push(body);
     }
 
-    setSelectedProduct(newCart);
+    setCartItems(newCart);
     navigate("/cart");
     setHelper(helper + 1);
   };
@@ -75,7 +75,7 @@ function ProductDetailsScreens() {
       <Box maxWidth="xl" margin="auto" p={3}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4}>
-            <DetailImages src={product.uri} option={product.uri} />
+            <DetailImages src={product.images} option={product.images} />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Options

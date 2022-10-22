@@ -12,18 +12,23 @@ import React from "react";
 import Alert from "../../components/Alert";
 import CounterButton from "../../components/CounterButton";
 import Iconify from "../../components/Iconify";
+import Loading from "../../components/Loading";
 import NotFound from "../../components/NotFound";
 import { CartContext } from "../../core/cartContext";
+import useDelete from "../../hooks/useDelete";
 import { formatDollar } from "../../utils";
 import OrderCard from "./OrderCard";
 
 export default function List() {
-  const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
+  const { cartItems, setCartItems } = React.useContext(CartContext);
   const { order, setOrder } = React.useContext(CartContext);
-  const { helper, setHelper } = React.useContext(CartContext);
 
   const [open, setOpen] = React.useState(false);
   const [count, setCount] = React.useState(0);
+
+  //mutation
+  const [id, setId] = React.useState(null);
+  const mutation = useDelete({ module: "cart", key: "id", value: id });
 
   //increment
   const _addQty = async (item, idx) => {
@@ -39,7 +44,7 @@ export default function List() {
     if (checkIdx != -1) {
       order[checkIdx] = newItems;
     }
-    selectedProduct[idx] = newItems;
+    cartItems[idx] = newItems;
     setCount(count + 1);
   };
 
@@ -57,7 +62,7 @@ export default function List() {
     if (checkIdx != -1) {
       order[checkIdx] = newItems;
     }
-    selectedProduct[idx] = newItems;
+    cartItems[idx] = newItems;
     setCount(count - 1);
   };
 
@@ -67,31 +72,26 @@ export default function List() {
       ...item,
       isOrder: bool,
     };
-    selectedProduct[idx] = newItems;
-    const filter = selectedProduct.filter((product) => {
+    cartItems[idx] = newItems;
+    const filter = cartItems.filter((product) => {
       return product.isOrder === true;
     });
     setOrder(filter);
   };
 
   //delete cart item
-  const _onDelete = () => {
+  const _onDelete = (item) => {
     setOpen(true);
+    setId(item.id);
   };
-  const _confirmToDelete = (e) => {
-    const selected = [...selectedProduct];
-    var index = selected.findIndex(function (o) {
-      return o.id === e.id;
-    });
-    if (index !== -1) selected.splice(index, 1);
-    setSelectedProduct(selected);
+  const _confirmToDelete = () => {
+    mutation.mutate();
     setOpen(false);
-    setHelper(helper - 1);
   };
 
   return (
     <Box mb={4}>
-      {selectedProduct.length < 1 ? (
+      {cartItems?.length < 1 ? (
         <Box my={6}>
           <NotFound title="Cart is Empty" />
         </Box>
@@ -101,7 +101,7 @@ export default function List() {
             <Box mb={2}>
               <Typography variant="h5">Your Cart :</Typography>
               <Box mt={2} sx={{ borderTop: "2px solid #F6F7F8" }}>
-                {selectedProduct.map((item, idx) => {
+                {cartItems?.map((item, idx) => {
                   return (
                     <Box
                       key={idx}
@@ -117,7 +117,7 @@ export default function List() {
                           <img
                             width={69}
                             height={69}
-                            src={item.uri}
+                            src={item.image}
                             alt="product"
                             style={{ borderRadius: 10 }}
                           />
@@ -184,7 +184,7 @@ export default function List() {
                               open={open}
                               handleClose={() => setOpen(false)}
                               onCancel={() => setOpen(false)}
-                              onConfirm={() => _confirmToDelete(item)}
+                              onConfirm={() => _confirmToDelete()}
                             />
                           </Box>
                           <CounterButton
@@ -206,6 +206,7 @@ export default function List() {
           </Grid>
         </Grid>
       )}
+      <Loading visible={mutation.isLoading} />
     </Box>
   );
 }

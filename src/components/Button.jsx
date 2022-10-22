@@ -20,7 +20,7 @@ export default function Button({
         backgroundColor: disabled ? "#ccc" : "#40BFFF",
         border: "1px solid #40BFFF",
         "&:hover": {
-          background: "#40BFFF",
+          background: "#7bd0fb",
         },
         borderRadius: "5px",
       }}

@@ -4,22 +4,26 @@ import { CartContext } from "../../core/cartContext";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
 import SectionContainer from "../../layouts/containers/SectionContainer";
-import { relateProduct } from "../../utils/data";
 import FadeInBox from "../../components/FadeInBox";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useFetchBy from "../../hooks/useFetchBy";
 
 export default function RelatedProduct() {
-  const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
-  //category array
-  const category = ["All", "Bags", "Sneakers", "Belt", "Sunglasses "];
+  const { cartItems, setCartItems } = React.useContext(CartContext);
+  const { helper, setHelper } = React.useContext(CartContext);
 
-  //state for category
-  const [selected, setSelected] = React.useState(category[0]);
+  //params
+  const params = useLocation();
+  const product = params?.state?.item;
 
-  //function to select category
-  const _onSelect = (item) => {
-    setSelected(item);
-  };
+  //get from api
+  const { items } = useFetchBy({
+    module: "products",
+    filter: "category_id",
+    params: product?.category_id,
+  });
+  const relateProduct = items?.slice(0, 4);
+
   //state for selected card
   const [selectedCard, setSelectedCard] = React.useState(null);
 
@@ -37,6 +41,37 @@ export default function RelatedProduct() {
     window.scrollTo(0, 0);
   };
 
+  //push cart
+  const _pushCart = (item) => {
+    let newCart = [...cartItems];
+    const body = {
+      ...item,
+      quantity: 1,
+      total: item.price,
+      isOrder: false,
+    };
+    const check = newCart.find((product) => product.id === item.id);
+    if (check) {
+      newCart = newCart.map((v) => {
+        if (v.id === item.id) {
+          let initQty = v.quantity + 1;
+          return {
+            ...v,
+            quantity: v.quantity + 1,
+            total: v.price * initQty,
+          };
+        }
+        return v;
+      });
+      setHelper(helper + 0);
+    } else {
+      newCart.push(body);
+      setHelper(helper + 1);
+    }
+    setCartItems(newCart);
+    setOpen(true);
+  };
+
   return (
     <SectionContainer
       title="RELATED PRODUCT"
@@ -51,7 +86,7 @@ export default function RelatedProduct() {
       ></Stack>
       <Box mt={{ xs: 1, sm: 3, md: 4 }}>
         <Grid container spacing={{ xs: 2, md: 3 }}>
-          {relateProduct.map((item, index) => (
+          {relateProduct?.map((item, index) => (
             <Grid item xs={6} sm={4} md={3} key={index}>
               <Box
                 onMouseEnter={() => _onHover(item)}
@@ -69,8 +104,9 @@ export default function RelatedProduct() {
                 <FadeInBox
                   fadein={item === selectedCard ? true : false}
                   onDetail={() => _onDetail(item)}
+                  onCart={() => _pushCart(item)}
                 />
-                <Box component="img" width="inherit" src={item.uri} />
+                <Box component="img" width="inherit" src={item.images} />
 
                 <Box py={1}>
                   <Typography variant="h5">{item.name}</Typography>

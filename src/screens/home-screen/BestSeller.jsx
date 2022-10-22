@@ -4,20 +4,21 @@ import { CartContext } from "../../core/cartContext";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
 import SectionContainer from "../../layouts/containers/SectionContainer";
-import { bestSellerProduct } from "../../utils/data";
 import FadeInBox from "../../components/FadeInBox";
 import { useNavigate } from "react-router-dom";
 import { formatDollar, setStorage } from "../../utils";
 import Loading from "../../components/Loading";
+import useFetch from "../../hooks/useFetch";
+import usePost from "../../hooks/usePost";
+import useUpdate from "../../hooks/useUpdate";
 
 export default function BestSeller() {
-  const { selectedProduct, setSelectedProduct } = React.useContext(CartContext);
-  const { helper, setHelper } = React.useContext(CartContext);
+  const { items } = useFetch({
+    module: "products",
+  });
+
   //category array
   const category = ["All", "Bags", "Sneakers", "Belt", "Sunglasses "];
-
-  //state for snackbar
-  const [open, setOpen] = React.useState(false);
 
   //state for category
   const [selected, setSelected] = React.useState(category[0]);
@@ -42,34 +43,36 @@ export default function BestSeller() {
   const _onDetail = (item) => navigate("/product-details", { state: { item } });
 
   //push cart
-  const _pushCart = (item) => {
-    let newCart = [...selectedProduct];
+  const { cartItems, setCartItems } = React.useContext(CartContext);
+  const [productName, setProductName] = React.useState(null);
+  const mutation = usePost({ module: "cart" });
+  const update = useUpdate({ module: "cart", key: "name", value: productName });
+
+  const _pushCart = async (item) => {
+    await setProductName(item.name);
     const body = {
-      ...item,
+      name: item.name,
+      image: item.images,
+      category_id: item.category_id,
       quantity: 1,
+      price: item.price,
+      amount_price: item.amount_price,
       total: item.price,
-      isOrder: false,
+      color: item.colors[0],
+      size: item.sizes[0],
+      description: item.description,
     };
-    const check = newCart.find((product) => product.id === item.id);
-    if (check) {
-      newCart = newCart.map((v) => {
-        if (v.id === item.id) {
-          let initQty = v.quantity + 1;
-          return {
-            ...v,
-            quantity: v.quantity + 1,
-            total: v.price * initQty,
-          };
-        }
-        return v;
+    const find = await cartItems.find((v) => {
+      return v.name === item.name;
+    });
+    if (find) {
+      update.mutate({
+        ...find,
+        quantity: find.quantity + 1,
       });
-      setHelper(helper + 0);
     } else {
-      newCart.push(body);
-      setHelper(helper + 1);
+      mutation.mutate(body);
     }
-    setSelectedProduct(newCart);
-    setOpen(true);
   };
 
   return (
@@ -105,7 +108,7 @@ export default function BestSeller() {
       </Stack>
       <Box mt={{ xs: 1, sm: 3, md: 4 }} px={{ xs: 1, sm: 4, md: 6 }}>
         <Grid container spacing={{ xs: 2, md: 3 }}>
-          {bestSellerProduct.map((item, index) => (
+          {items?.map((item, index) => (
             <Grid item xs={6} sm={4} md={3} key={index}>
               <Box
                 onMouseEnter={() => _onHover(item)}
@@ -125,7 +128,12 @@ export default function BestSeller() {
                   onDetail={() => _onDetail(item)}
                   onCart={() => _pushCart(item)}
                 />
-                <Box component="img" width="inherit" src={item.uri} />
+                <img
+                  src={item.images}
+                  alt="best-seller"
+                  loading="lazy"
+                  style={{ maxHeight: 265, width: "inherit" }}
+                />
 
                 <Box py={1}>
                   <Typography variant="h5">{item.name}</Typography>
@@ -142,8 +150,10 @@ export default function BestSeller() {
                       color="#9098B1"
                       fontSize={{ xs: "12px", sm: "16px" }}
                     >
-                      <s> $534,33</s>{" "}
-                      <span style={{ color: "#FB7181" }}>24% Off</span>
+                      <s>{formatDollar(item.amount_price)}</s>{" "}
+                      <span style={{ color: "#FB7181" }}>
+                        {item.discount}% Off
+                      </span>
                     </Typography>
                   </Stack>
                 </Box>
@@ -164,6 +174,7 @@ export default function BestSeller() {
           LOAD MORE
         </Link>
       </Box>
+      <Loading visible={mutation.isLoading | update.isLoading} />
     </SectionContainer>
   );
 }

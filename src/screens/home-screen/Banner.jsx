@@ -1,33 +1,17 @@
 import React from "react";
+//component
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { Box, Link, Stack, Typography } from "@mui/material";
-
-const saleProduct = [
-  {
-    name: "Nike Air Max 270 React",
-    image: "./images/shoes1.svg",
-    amountPrice: "$299,43",
-    price: "$299,43",
-    discount: "24%",
-  },
-  {
-    name: "Nike Air Max 270 React",
-    image: "./images/shoes2.svg",
-    amountPrice: "$299,43",
-    price: "$299,43",
-    discount: "24%",
-  },
-  {
-    name: "Nike Air Max 270 React",
-    image: "./images/shoes3.svg",
-    amountPrice: "$299,43",
-    price: "$299,43",
-    discount: "24%",
-  },
-];
+//utility and hook
+import { formatDollar, percentage } from "../../utils";
+import useFetch from "../../hooks/useFetch";
 
 export default function Banner() {
+  const { items: thumbnail } = useFetch({
+    module: "thumbnails",
+  });
+
   return (
     <Box className="banner-wrapper" position="relative">
       <Carousel
@@ -44,13 +28,13 @@ export default function Banner() {
         showThumbs={false}
       >
         <div>
-          <img src="./images/banner1.jpg" />
+          <img src="./images/banner1.jpg" loading="lazy" />
         </div>
         <div>
-          <img src="./images/banner2.jpg" />
+          <img src="./images/banner2.jpg" loading="lazy" />
         </div>
         <div>
-          <img src="./images/banner3.jpg" />
+          <img src="./images/banner3.jpg" loading="lazy" />
         </div>
       </Carousel>
       <Box display="flex" justifyContent="center">
@@ -65,7 +49,7 @@ export default function Banner() {
             zIndex: 99,
           }}
         >
-          {saleProduct.map((item, idx) => {
+          {thumbnail?.map((item, idx) => {
             return (
               <Box
                 key={idx}
@@ -80,7 +64,7 @@ export default function Banner() {
                 flexDirection="column"
                 justifyContent="space-between"
                 sx={{
-                  backgroundImage: `url(${item.image})`,
+                  backgroundImage: `url(${item.images})`,
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
@@ -98,15 +82,15 @@ export default function Banner() {
                     {item.name}
                   </Typography>
                   <Typography variant="h3" color="#40BFFF">
-                    {item.price}
+                    {formatDollar(item.price)}
                   </Typography>
                 </Box>
                 <Box>
                   <Typography variant="h5" color="#9098B1" mt={2}>
-                    <s>{item.amountPrice}</s>
+                    <s>{formatDollar(item.amount_price)}</s>
                     <span style={{ color: "#FB7181" }}>
                       {" "}
-                      {item.discount} Off
+                      {item.discount}% Off
                     </span>
                   </Typography>
                 </Box>
