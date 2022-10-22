@@ -66,9 +66,11 @@ export default function BestSeller() {
       return v.name === item.name;
     });
     if (find) {
+      const initQty = find.quantity + 1;
       update.mutate({
         ...find,
-        quantity: find.quantity + 1,
+        quantity: initQty,
+        total: find.price * initQty,
       });
     } else {
       mutation.mutate(body);
