@@ -20,7 +20,7 @@ import Iconify from "../../components/Iconify";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../core/cartContext";
 import NavItems from "../../components/NavItems";
-import useFetch from "../../hooks/useFetch";
+import useFetchBy from "../../hooks/useFetchBy";
 
 const language = [
   {
@@ -54,7 +54,12 @@ function Appbar() {
   const { helper, setHelper } = React.useContext(CartContext);
 
   //get data from api
-  const { items, isLoading, isFetching } = useFetch({ module: "cart" });
+  const userId = localStorage.getItem("sb-user-id");
+  const { items, isLoading, isFetching } = useFetchBy({
+    module: "cart",
+    filter: "user_id",
+    params: userId,
+  });
 
   React.useEffect(() => {
     setCartItems(items);

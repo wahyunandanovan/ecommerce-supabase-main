@@ -31,6 +31,8 @@ export default function SignInScreen() {
         if (res.error) {
           setOpen(true);
         } else {
+          const userId = res.data.user.id;
+          localStorage.setItem("sb-user-id", userId);
           navigate("/");
         }
       },

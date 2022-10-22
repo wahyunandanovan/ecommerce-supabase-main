@@ -50,6 +50,7 @@ export default function BestSeller() {
 
   const _pushCart = async (item) => {
     await setProductName(item.name);
+    const user_id = localStorage.getItem("sb-user-id");
     const body = {
       name: item.name,
       image: item.images,
@@ -57,10 +58,12 @@ export default function BestSeller() {
       quantity: 1,
       price: item.price,
       amount_price: item.amount_price,
+      discount: item.discount,
       total: item.price,
       color: item.colors[0],
       size: item.sizes[0],
       description: item.description,
+      user_id: user_id,
     };
     const find = await cartItems.find((v) => {
       return v.name === item.name;
