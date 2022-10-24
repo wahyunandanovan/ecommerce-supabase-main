@@ -17,7 +17,7 @@ function ProductDetailsScreens() {
   const navigate = useNavigate();
   const params = useLocation();
   const product = params?.state?.item;
-
+  console.log(product);
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

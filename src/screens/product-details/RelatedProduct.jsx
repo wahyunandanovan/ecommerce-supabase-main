@@ -69,7 +69,6 @@ export default function RelatedProduct() {
       setHelper(helper + 1);
     }
     setCartItems(newCart);
-    setOpen(true);
   };
 
   return (
