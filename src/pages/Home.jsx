@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
 import React from "react";
+//component
 import Page from "../components/Page";
 import HomeScreen from "../screens/home-screen";
 

@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography, Link, Alert, Snackbar } from "@mui/material";
+import { Box, Tooltip, Typography, Link, Snackbar } from "@mui/material";
 import React from "react";
 import BasicInput from "../../components/input/BasicInput";
 import InputPassword from "../../components/input/InputPassword";
@@ -66,9 +66,7 @@ export default function SignInScreen() {
               type="email"
               {...getFieldProps("email")}
             />
-            {errors.email && touched.email ? (
-              <TextError>{errors.email}</TextError>
-            ) : null}
+            {errors.email && touched.email ? <TextError>{errors.email}</TextError> : null}
             <Box mb={3} />
             <InputPassword
               onChange={handleChange("password")}
@@ -76,21 +74,14 @@ export default function SignInScreen() {
               placeholder="Enter Your Password"
               {...getFieldProps("password")}
             />
-            {errors.password && touched.password ? (
-              <TextError>{errors.password}</TextError>
-            ) : null}
+            {errors.password && touched.password ? <TextError>{errors.password}</TextError> : null}
             <Box style={{ textAlign: "end", fontSize: 12 }}>
               <Link underline="none" sx={{ cursor: "pointer" }}>
                 Forgot Password?
               </Link>
             </Box>
             <Box mt={4} mb={2}>
-              <Button
-                onClick={handleSubmit}
-                title="Sign In"
-                size="large"
-                fullWidth
-              />
+              <Button onClick={handleSubmit} title="Sign In" size="large" fullWidth />
             </Box>
           </>
         )}
@@ -112,13 +103,7 @@ export default function SignInScreen() {
           }}
         />
       </Box>
-      <Typography
-        to="/auth/signup"
-        fontSize={12}
-        color={palette.grey}
-        my={3}
-        textAlign="end"
-      >
+      <Typography to="/auth/signup" fontSize={12} color={palette.grey} my={3} textAlign="end">
         Don't have an account yet?{" "}
         <Link
           onClick={_toSignUp}
@@ -132,12 +117,7 @@ export default function SignInScreen() {
           Sign Up
         </Link>
       </Typography>
-      <Box
-        width="100%"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <Box width="100%" display="flex" justifyContent="space-between" alignItems="center">
         <Link style={{ cursor: "pointer" }}>
           <img src="/images/sign-in.svg" alt="sign-in" />
         </Link>

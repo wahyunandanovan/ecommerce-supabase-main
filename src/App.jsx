@@ -1,15 +1,18 @@
 import React from "react";
-import { CartContext } from "./core/cartContext";
+import { UserContext } from "./core/UserContext";
 import Router from "./routes";
 
 function App() {
+  const [user, setUser] = React.useState(null);
   const [cartItems, setCartItems] = React.useState([]);
   const [helper, setHelper] = React.useState(0);
   const [order, setOrder] = React.useState([]);
 
   return (
-    <CartContext.Provider
+    <UserContext.Provider
       value={{
+        user,
+        setUser,
         cartItems,
         setCartItems,
         helper,
@@ -19,7 +22,7 @@ function App() {
       }}
     >
       <Router />
-    </CartContext.Provider>
+    </UserContext.Provider>
   );
 }
 

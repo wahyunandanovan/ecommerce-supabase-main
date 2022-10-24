@@ -1,15 +1,6 @@
 import * as React from "react";
 //@MUI
-import {
-  Badge,
-  Box,
-  Grid,
-  IconButton,
-  InputAdornment,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Badge, Box, Grid, InputAdornment, Stack, TextField, Typography, Button, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 //component
@@ -18,9 +9,10 @@ import Iconify from "../../components/Iconify";
 
 //utility
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../../core/cartContext";
+import { UserContext } from "../../core/UserContext";
 import NavItems from "../../components/NavItems";
 import useFetchBy from "../../hooks/useFetchBy";
+import { palette } from "../../utils/palette";
 
 const language = [
   {
@@ -50,8 +42,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 function Appbar() {
   //context cart
-  const { cartItems, setCartItems } = React.useContext(CartContext);
-  const { helper, setHelper } = React.useContext(CartContext);
+  const { cartItems, setCartItems } = React.useContext(UserContext);
+  const { helper, setHelper } = React.useContext(UserContext);
+  const user = localStorage.getItem("sb-user-id");
 
   //get data from api
   const userId = localStorage.getItem("sb-user-id");
@@ -73,7 +66,9 @@ function Appbar() {
 
   //go to cart
   const navigate = useNavigate();
-  const _gotoCart = () => navigate("cart");
+  const _gotoCart = () => (user ? navigate("/cart") : navigate("/auth/signin"));
+  const _gotoSignIn = () => navigate("/auth/signin");
+  const _gotoSignUp = () => navigate("/auth/signup");
 
   //event when scrolling
   const [scrolling, setScrolling] = React.useState(false);
@@ -124,10 +119,7 @@ function Appbar() {
                   },
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Iconify
-                        icon="mdi:magnify"
-                        sx={{ width: 18, height: 18, color: "#262626" }}
-                      />
+                      <Iconify icon="mdi:magnify" sx={{ width: 18, height: 18, color: "#262626" }} />
                     </InputAdornment>
                   ),
                 }}
@@ -145,50 +137,49 @@ function Appbar() {
             </Box>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
-            <Stack
-              direction="row"
-              spacing={{ xs: 1, sm: 1, md: 1.5 }}
-              justifyContent="end"
-            >
-              <Box display="flex" alignItems="center" gap={1}>
-                <Iconify
-                  icon="akar-icons:person"
-                  sx={{ width: 16, height: 16 }}
-                />
-                <Typography
-                  variant="h5"
-                  fontWeight="400"
-                  display={{ xs: "none", sm: "none", md: "flex" }}
-                >
+            <Stack direction="row" spacing={2} justifyContent="end">
+              <Box
+                component={Link}
+                display="flex"
+                alignItems="center"
+                gap={1.5}
+                sx={{ textDecoration: "none", cursor: "pointer" }}
+              >
+                <Iconify icon="akar-icons:person" sx={{ width: 16, height: 16, color: palette.black }} />
+                <Typography variant="h5" fontWeight="400" display={{ xs: "none", sm: "none", md: "flex" }}>
                   My Account
                 </Typography>
               </Box>
-              <Box display="flex" alignItems="center" gap={1}>
-                <IconButton aria-label="cart" onClick={_gotoCart}>
-                  <StyledBadge
-                    badgeContent={Number(cartItems?.length | null)}
-                    color="secondary"
-                  >
-                    <Iconify
-                      icon="akar-icons:cart"
-                      sx={{ width: 18, height: 18 }}
-                    />
-                  </StyledBadge>
-                </IconButton>
-                <Typography
-                  variant="h5"
-                  fontWeight="400"
-                  display={{ xs: "none", sm: "none", md: "flex" }}
-                >
-                  Items
+              <Box
+                onClick={_gotoCart}
+                component={Link}
+                display="flex"
+                alignItems="center"
+                gap={1.5}
+                sx={{ textDecoration: "none", cursor: "pointer" }}
+              >
+                <StyledBadge badgeContent={Number(cartItems?.length | null)} color="secondary">
+                  <Iconify icon="akar-icons:cart" sx={{ width: 18, height: 18, color: palette.black }} />
+                </StyledBadge>
+                <Typography variant="h5" fontWeight="400" display={{ xs: "none", sm: "none", md: "flex" }}>
+                  Cart
                 </Typography>
               </Box>
-              <StandartSelect
-                data={language}
-                value={lang}
-                onChange={_changeLanguage}
-                tooltip="Language"
-              />
+              {/* <StandartSelect data={language} value={lang} onChange={_changeLanguage} tooltip="Language" /> */}
+              {Boolean(user) ? null : (
+                <Box
+                  display={{ xs: "none", sm: "none", md: "flex" }}
+                  gap={1}
+                  sx={{ borderLeft: "1px solid #9098B1", paddingLeft: 2 }}
+                >
+                  <Button variant="outlined" onClick={_gotoSignIn}>
+                    Sign In
+                  </Button>
+                  <Button variant="contained" onClick={_gotoSignUp} sx={{ color: "white" }}>
+                    Sign Up
+                  </Button>
+                </Box>
+              )}
             </Stack>
           </Grid>
         </Grid>

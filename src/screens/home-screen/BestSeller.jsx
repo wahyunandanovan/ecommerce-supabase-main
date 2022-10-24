@@ -1,6 +1,6 @@
 import React from "react";
 //contex
-import { CartContext } from "../../core/cartContext";
+import { UserContext } from "../../core/UserContext";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
 import SectionContainer from "../../layouts/containers/SectionContainer";
@@ -43,7 +43,7 @@ export default function BestSeller() {
   const _onDetail = (item) => navigate("/product-details", { state: { item } });
 
   //push cart
-  const { cartItems, setCartItems } = React.useContext(CartContext);
+  const { cartItems, setCartItems } = React.useContext(UserContext);
   const [productName, setProductName] = React.useState(null);
   const mutation = usePost({ module: "cart" });
   const update = useUpdate({ module: "cart", key: "name", value: productName });
@@ -83,11 +83,7 @@ export default function BestSeller() {
   return (
     <SectionContainer title="BEST SELLER" mt={{ xs: 4, sm: 4, md: 40 }} pt={3}>
       <Loading visible={false} />
-      <Stack
-        direction="row"
-        spacing={{ xs: 3, sm: 5, md: 7 }}
-        justifyContent="center"
-      >
+      <Stack direction="row" spacing={{ xs: 3, sm: 5, md: 7 }} justifyContent="center">
         {category.map((item, idx) => {
           return (
             <Box
@@ -133,32 +129,18 @@ export default function BestSeller() {
                   onDetail={() => _onDetail(item)}
                   onCart={() => _pushCart(item)}
                 />
-                <img
-                  src={item.images}
-                  alt="best-seller"
-                  loading="lazy"
-                  style={{ maxHeight: 265, width: "inherit" }}
-                />
+                <img src={item.images} alt="best-seller" loading="lazy" style={{ maxHeight: 265, width: "inherit" }} />
 
                 <Box py={1}>
                   <Typography variant="h5">{item.name}</Typography>
                   <Rating value={item.rating} sx={{ my: 1 }} />
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{ justifyContent: "center", alignItems: "center" }}
-                  >
+                  <Stack direction="row" spacing={1} sx={{ justifyContent: "center", alignItems: "center" }}>
                     <Typography variant="h5" color="primary">
                       {formatDollar(item.price)}
                     </Typography>
-                    <Typography
-                      color="#9098B1"
-                      fontSize={{ xs: "12px", sm: "16px" }}
-                    >
+                    <Typography color="#9098B1" fontSize={{ xs: "12px", sm: "16px" }}>
                       <s>{formatDollar(item.amount_price)}</s>{" "}
-                      <span style={{ color: "#FB7181" }}>
-                        {item.discount}% Off
-                      </span>
+                      <span style={{ color: "#FB7181" }}>{item.discount}% Off</span>
                     </Typography>
                   </Stack>
                 </Box>

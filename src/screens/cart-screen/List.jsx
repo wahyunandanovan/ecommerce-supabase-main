@@ -1,27 +1,18 @@
-import {
-  Box,
-  Checkbox,
-  Grid,
-  IconButton,
-  Link,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Box, Checkbox, Grid, IconButton, Link, Stack, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import Alert from "../../components/Alert";
 import CounterButton from "../../components/CounterButton";
 import Iconify from "../../components/Iconify";
 import Loading from "../../components/Loading";
 import NotFound from "../../components/NotFound";
-import { CartContext } from "../../core/cartContext";
+import { UserContext } from "../../core/UserContext";
 import useDelete from "../../hooks/useDelete";
 import { formatDollar } from "../../utils";
 import OrderCard from "./OrderCard";
 
 export default function List() {
-  const { cartItems, setCartItems } = React.useContext(CartContext);
-  const { order, setOrder } = React.useContext(CartContext);
+  const { cartItems, setCartItems } = React.useContext(UserContext);
+  const { order, setOrder } = React.useContext(UserContext);
 
   const [open, setOpen] = React.useState(false);
   const [count, setCount] = React.useState(0);
@@ -103,24 +94,11 @@ export default function List() {
               <Box mt={2} sx={{ borderTop: "2px solid #F6F7F8" }}>
                 {cartItems?.map((item, idx) => {
                   return (
-                    <Box
-                      key={idx}
-                      sx={{ py: 2, borderBottom: "2px solid #F6F7F8" }}
-                    >
+                    <Box key={idx} sx={{ py: 2, borderBottom: "2px solid #F6F7F8" }}>
                       <Stack direction="row" spacing={2}>
                         <Box display="flex" alignItems="center">
-                          <Checkbox
-                            onChange={(e, i) => _onChecked(i, item, idx)}
-                            color="success"
-                            sx={{ mr: 1 }}
-                          />
-                          <img
-                            width={69}
-                            height={69}
-                            src={item.image}
-                            alt="product"
-                            style={{ borderRadius: 10 }}
-                          />
+                          <Checkbox onChange={(e, i) => _onChecked(i, item, idx)} color="success" sx={{ mr: 1 }} />
+                          <img width={69} height={69} src={item.image} alt="product" style={{ borderRadius: 10 }} />
                         </Box>
                         <Box>
                           <Typography mb={1}>{item.name}</Typography>
@@ -129,18 +107,8 @@ export default function List() {
                           </Typography>
                         </Box>
                       </Stack>
-                      <Box
-                        mt={1}
-                        display="flex"
-                        justifyContent="space-between"
-                        alignItems="center"
-                      >
-                        <Link
-                          ml={6}
-                          underline="none"
-                          color="green"
-                          sx={{ cursor: "pointer", fontSize: 14 }}
-                        >
+                      <Box mt={1} display="flex" justifyContent="space-between" alignItems="center">
+                        <Link ml={6} underline="none" color="green" sx={{ cursor: "pointer", fontSize: 14 }}>
                           Note
                         </Link>
                         <Stack direction="row" spacing={2}>
@@ -165,17 +133,12 @@ export default function List() {
                                 display: { xs: "none", sm: "flex" },
                               }}
                             >
-                              Move to wishlist{" "}
-                              <span style={{ marginLeft: 10 }}>|</span>
+                              Move to wishlist <span style={{ marginLeft: 10 }}>|</span>
                             </Link>
 
                             <Tooltip title="Delete">
                               <IconButton onClick={() => _onDelete(item, idx)}>
-                                <Iconify
-                                  icon="fluent:delete-12-regular"
-                                  color="#FC3E39"
-                                  sx={{ width: 18 }}
-                                />
+                                <Iconify icon="fluent:delete-12-regular" color="#FC3E39" sx={{ width: 18 }} />
                               </IconButton>
                             </Tooltip>
                             <Alert

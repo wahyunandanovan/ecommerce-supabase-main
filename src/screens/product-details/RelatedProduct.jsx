@@ -1,6 +1,6 @@
 import React from "react";
 //contex
-import { CartContext } from "../../core/cartContext";
+import { UserContext } from "../../core/UserContext";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
 import SectionContainer from "../../layouts/containers/SectionContainer";
@@ -9,8 +9,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useFetchBy from "../../hooks/useFetchBy";
 
 export default function RelatedProduct() {
-  const { cartItems, setCartItems } = React.useContext(CartContext);
-  const { helper, setHelper } = React.useContext(CartContext);
+  const { cartItems, setCartItems } = React.useContext(UserContext);
+  const { helper, setHelper } = React.useContext(UserContext);
 
   //params
   const params = useLocation();
@@ -73,17 +73,8 @@ export default function RelatedProduct() {
   };
 
   return (
-    <SectionContainer
-      title="RELATED PRODUCT"
-      pt={3}
-      sx={{ mb: 8 }}
-      mt={{ xs: 2, sm: 8 }}
-    >
-      <Stack
-        direction="row"
-        spacing={{ xs: 3, sm: 5, md: 7 }}
-        justifyContent="center"
-      ></Stack>
+    <SectionContainer title="RELATED PRODUCT" pt={3} sx={{ mb: 8 }} mt={{ xs: 2, sm: 8 }}>
+      <Stack direction="row" spacing={{ xs: 3, sm: 5, md: 7 }} justifyContent="center"></Stack>
       <Box mt={{ xs: 1, sm: 3, md: 4 }}>
         <Grid container spacing={{ xs: 2, md: 3 }}>
           {relateProduct?.map((item, index) => (
@@ -111,20 +102,12 @@ export default function RelatedProduct() {
                 <Box py={1}>
                   <Typography variant="h5">{item.name}</Typography>
                   <Rating value={item.rating} sx={{ my: 1 }} />
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{ justifyContent: "center", alignItems: "center" }}
-                  >
+                  <Stack direction="row" spacing={1} sx={{ justifyContent: "center", alignItems: "center" }}>
                     <Typography variant="h5" color="primary">
                       {item.price}
                     </Typography>
-                    <Typography
-                      color="#9098B1"
-                      fontSize={{ xs: "12px", sm: "16px" }}
-                    >
-                      <s> $534,33</s>{" "}
-                      <span style={{ color: "#FB7181" }}>24% Off</span>
+                    <Typography color="#9098B1" fontSize={{ xs: "12px", sm: "16px" }}>
+                      <s> $534,33</s> <span style={{ color: "#FB7181" }}>24% Off</span>
                     </Typography>
                   </Stack>
                 </Box>

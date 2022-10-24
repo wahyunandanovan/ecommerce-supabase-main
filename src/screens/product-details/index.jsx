@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CartContext } from "../../core/cartContext";
+import { UserContext } from "../../core/UserContext";
 import BestSeller from "./BestSeller";
 import DetailImages from "./DetailImages";
 import Informations from "./Informations";
@@ -9,8 +9,8 @@ import Options from "./Options";
 import RelatedProduct from "./RelatedProduct";
 
 function ProductDetailsScreens() {
-  const { cartItems, setCartItems } = React.useContext(CartContext);
-  const { helper, setHelper } = React.useContext(CartContext);
+  const { cartItems, setCartItems } = React.useContext(UserContext);
+  const { helper, setHelper } = React.useContext(UserContext);
 
   const [count, setCount] = React.useState(1);
 
@@ -88,19 +88,8 @@ function ProductDetailsScreens() {
               onMin={_onMin}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            sx={{ display: { xs: "none", sm: "none", md: "block" } }}
-          >
-            <BestSeller
-              name={product.name}
-              rating={product.rating}
-              price={product.price}
-              src={product.uri}
-            />
+          <Grid item xs={12} sm={6} md={4} sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+            <BestSeller name={product.name} rating={product.rating} price={product.price} src={product.uri} />
           </Grid>
           <Grid item xs={12} sm={8} md={8}>
             <Informations />
