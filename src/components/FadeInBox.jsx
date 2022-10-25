@@ -1,7 +1,8 @@
 import React from "react";
 import { Fade, IconButton, Stack, Box, Tooltip } from "@mui/material";
 import Iconify from "./Iconify";
-const FadeInBox = ({ fadein, onDetail, onCart }) => {
+import { Link } from "react-router-dom";
+const FadeInBox = ({ fadein, onCart, to }) => {
   return (
     <Fade in={fadein} timeout={900}>
       <Box
@@ -21,15 +22,19 @@ const FadeInBox = ({ fadein, onDetail, onCart }) => {
           alignItems="center"
           display="inline-flex"
         >
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2} alignItems="center">
             <Tooltip title="Detail">
-              <IconButton onClick={onDetail}>
+              <Link to={to}>
                 <Iconify
                   icon="clarity:details-solid"
                   color="white"
-                  sx={{ width: { xs: 32, sm: 40 }, height: { xs: 32, sm: 40 } }}
+                  sx={{
+                    width: { xs: 32, sm: 40 },
+                    height: { xs: 32, sm: 40 },
+                    marginTop: "4px",
+                  }}
                 />
-              </IconButton>
+              </Link>
             </Tooltip>
             <Tooltip title="Add to Cart">
               <IconButton onClick={onCart}>

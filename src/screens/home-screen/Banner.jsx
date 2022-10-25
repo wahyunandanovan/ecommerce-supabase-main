@@ -82,12 +82,12 @@ export default function Banner() {
                     {item.name}
                   </Typography>
                   <Typography variant="h3" color="#40BFFF">
-                    {formatDollar(item.price)}
+                    {formatDollar(item?.price)}
                   </Typography>
                 </Box>
                 <Box>
                   <Typography variant="h5" color="#9098B1" mt={2}>
-                    <s>{formatDollar(item.amount_price)}</s>
+                    {/* <s>{formatDollar(item?.starting_price)}</s> */}
                     <span style={{ color: "#FB7181" }}>
                       {" "}
                       {item.discount}% Off

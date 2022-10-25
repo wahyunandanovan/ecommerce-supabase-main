@@ -3,19 +3,29 @@ import React from "react";
 import { UserContext } from "../../core/UserContext";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
+//component
 import SectionContainer from "../../layouts/containers/SectionContainer";
 import FadeInBox from "../../components/FadeInBox";
-import { useNavigate } from "react-router-dom";
-import { formatDollar, setStorage } from "../../utils";
 import Loading from "../../components/Loading";
+import BestSellerSkeleton from "../../components/skeleton/BestSellerSkeleton";
+//utility
+import { formatDollar } from "../../utils";
 import useFetch from "../../hooks/useFetch";
 import usePost from "../../hooks/usePost";
 import useUpdate from "../../hooks/useUpdate";
+import { useNavigate } from "react-router-dom";
 
 export default function BestSeller() {
-  const { items } = useFetch({
+  //get data from api
+  const { items, isLoading } = useFetch({
     module: "products",
   });
+
+  //navigation
+  const navigate = useNavigate();
+
+  //get storage
+  const user = localStorage.getItem("sb-user-id");
 
   //category array
   const category = ["All", "Bags", "Sneakers", "Belt", "Sunglasses "];
@@ -38,52 +48,59 @@ export default function BestSeller() {
     setSelectedCard(e);
   };
 
-  //on detail product
-  const navigate = useNavigate();
-  const _onDetail = (item) => navigate("/product-details", { state: { item } });
-
   //push cart
   const { cartItems, setCartItems } = React.useContext(UserContext);
+
   const [productName, setProductName] = React.useState(null);
+
   const mutation = usePost({ module: "cart" });
+
   const update = useUpdate({ module: "cart", key: "name", value: productName });
 
   const _pushCart = async (item) => {
-    await setProductName(item.name);
-    const user_id = localStorage.getItem("sb-user-id");
-    const body = {
-      name: item.name,
-      image: item.images,
-      category_id: item.category_id,
-      quantity: 1,
-      price: item.price,
-      amount_price: item.amount_price,
-      discount: item.discount,
-      total: item.price,
-      color: item.colors[0],
-      size: item.sizes[0],
-      description: item.description,
-      user_id: user_id,
-    };
-    const find = await cartItems.find((v) => {
-      return v.name === item.name;
-    });
-    if (find) {
-      const initQty = find.quantity + 1;
-      update.mutate({
-        ...find,
-        quantity: initQty,
-        total: find.price * initQty,
+    if (user) {
+      await setProductName(item.name);
+      const user_id = localStorage.getItem("sb-user-id");
+      const body = {
+        name: item.name,
+        image: item.images,
+        category_id: item.category_id,
+        quantity: 1,
+        price: item.price,
+        starting_price: item.starting_price,
+        discount: item.discount,
+        total: item.price,
+        color: item.colors[0],
+        size: item.sizes[0],
+        description: item.description,
+        user_id: user_id,
+      };
+      const find = await cartItems.find((v) => {
+        return v.name === item.name;
       });
+      if (find) {
+        const initQty = find.quantity + 1;
+        update.mutate({
+          ...find,
+          quantity: initQty,
+          total: find.price * initQty,
+        });
+      } else {
+        mutation.mutate(body);
+      }
     } else {
-      mutation.mutate(body);
+      navigate("/auth/signin");
     }
   };
 
   return (
     <SectionContainer title="BEST SELLER" mt={{ xs: 4, sm: 4, md: 40 }} pt={3}>
       <Loading visible={false} />
-      <Stack direction="row" spacing={{ xs: 3, sm: 5, md: 7 }} justifyContent="center">
+      <Stack
+        direction="row"
+        spacing={{ xs: 3, sm: 5, md: 7 }}
+        justifyContent="center"
+      >
         {category.map((item, idx) => {
           return (
             <Box
@@ -108,6 +125,7 @@ export default function BestSeller() {
         })}
       </Stack>
       <Box mt={{ xs: 1, sm: 3, md: 4 }} px={{ xs: 1, sm: 4, md: 6 }}>
+        {isLoading && <BestSellerSkeleton />}
         <Grid container spacing={{ xs: 2, md: 3 }}>
           {items?.map((item, index) => (
             <Grid item xs={6} sm={4} md={3} key={index}>
@@ -126,21 +144,35 @@ export default function BestSeller() {
               >
                 <FadeInBox
                   fadein={item === selectedCard ? true : false}
-                  onDetail={() => _onDetail(item)}
                   onCart={() => _pushCart(item)}
+                  to={`/product-details?product_id=${item.id}`}
                 />
-                <img src={item.images} alt="best-seller" loading="lazy" style={{ maxHeight: 265, width: "inherit" }} />
+                <img
+                  src={item.images}
+                  alt="best-seller"
+                  loading="lazy"
+                  style={{ maxHeight: 265, width: "inherit" }}
+                />
 
                 <Box py={1}>
                   <Typography variant="h5">{item.name}</Typography>
                   <Rating value={item.rating} sx={{ my: 1 }} />
-                  <Stack direction="row" spacing={1} sx={{ justifyContent: "center", alignItems: "center" }}>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    sx={{ justifyContent: "center", alignItems: "center" }}
+                  >
                     <Typography variant="h5" color="primary">
                       {formatDollar(item.price)}
                     </Typography>
-                    <Typography color="#9098B1" fontSize={{ xs: "12px", sm: "16px" }}>
-                      <s>{formatDollar(item.amount_price)}</s>{" "}
-                      <span style={{ color: "#FB7181" }}>{item.discount}% Off</span>
+                    <Typography
+                      color="#9098B1"
+                      fontSize={{ xs: "12px", sm: "16px" }}
+                    >
+                      <s>{formatDollar(item.starting_price)}</s>{" "}
+                      <span style={{ color: "#FB7181" }}>
+                        {item.discount}% Off
+                      </span>
                     </Typography>
                   </Stack>
                 </Box>

@@ -1,3 +1,5 @@
+import React from "react";
+//@MUI
 import {
   Box,
   Rating,
@@ -8,9 +10,12 @@ import {
   Select,
   Button,
 } from "@mui/material";
-import React from "react";
+//component
 import CounterButton from "../../components/CounterButton";
 import Iconify from "../../components/Iconify";
+//utility
+import { formatDollar } from "../../utils";
+
 const Container = ({ children }) => {
   return (
     <Stack spacing={2} sx={{ py: 2, borderBottom: "2px solid #F6F7F8" }}>
@@ -22,20 +27,25 @@ const Container = ({ children }) => {
 export default function Options({
   name,
   price,
+  startingPrice,
+  discount,
   rating,
   addTocart,
   onAdd,
   onMin,
+  color,
   count,
+  sizes,
 }) {
   //select color
-  const color = ["#006CFF", "#FC3E39", "#171717", "#FFF600"];
-  const [selectedColor, setSelectedColor] = React.useState(color[0]);
+  const [selectedColor, setSelectedColor] = React.useState(color[0].name);
+
   //select size
-  const [size, setSize] = React.useState(10);
+  const [size, setSize] = React.useState(0);
   const handleChange = (event) => {
     setSize(event.target.value);
   };
+
   //set like
   const [isLiked, setIsLiked] = React.useState(false);
   const _onLiked = () => {
@@ -59,11 +69,13 @@ export default function Options({
       <Container>
         <Stack direction="row" spacing={2}>
           <Typography variant="h5" color="primary">
-            {price}
+            {formatDollar(price)}
           </Typography>
           <Typography color="#9098B1" fontSize={{ xs: "12px", sm: "16px" }}>
-            <s> $534,33</s>{" "}
-            <span style={{ color: "#FB7181", fontWeight: "700" }}>24% Off</span>
+            <s>{formatDollar(startingPrice)}</s>{" "}
+            <span style={{ color: "#FB7181", fontWeight: "700" }}>
+              {discount}% Off
+            </span>
           </Typography>
         </Stack>
         <Box display="flex" justifyContent="space-between" maxWidth={260}>
@@ -74,7 +86,7 @@ export default function Options({
           </Stack>
           <Stack spacing={1}>
             <Typography fontWeight="400">In stock</Typography>
-            <Typography fontWeight="400">Accessories</Typography>
+            <Typography fontWeight="400">Casual</Typography>
             <Typography fontWeight="400"></Typography>
           </Stack>
         </Box>
@@ -91,21 +103,23 @@ export default function Options({
                 return (
                   <Link
                     key={idx}
-                    onClick={() => setSelectedColor(item)}
+                    onClick={() => setSelectedColor(item.name)}
                     sx={{
                       borderRadius: "50%",
                       border:
-                        item === selectedColor ? `2px solid ${item}` : "none",
+                        item.name === selectedColor
+                          ? `2px solid #385c8e`
+                          : "1px solid #ccc",
                       padding: "1px",
                       cursor: "pointer",
                     }}
                   >
                     <Box
                       sx={{
-                        height: item === selectedColor ? 15 : 16,
-                        width: item === selectedColor ? 15 : 16,
+                        height: item.name === selectedColor ? 15 : 16,
+                        width: item.name === selectedColor ? 15 : 16,
                         borderRadius: "50%",
-                        backgroundColor: item,
+                        backgroundColor: item.name,
                       }}
                     />
                   </Link>
@@ -113,11 +127,13 @@ export default function Options({
               })}
             </Stack>
             <Select size="small" value={size} onChange={handleChange}>
-              <MenuItem value={10}>XS</MenuItem>
-              <MenuItem value={20}>S</MenuItem>
-              <MenuItem value={30}>L</MenuItem>
-              <MenuItem value={40}>XL</MenuItem>
-              <MenuItem value={50}>XXL</MenuItem>
+              {sizes?.map((item, idx) => {
+                return (
+                  <MenuItem key={idx} value={idx}>
+                    {item}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </Stack>
         </Box>
