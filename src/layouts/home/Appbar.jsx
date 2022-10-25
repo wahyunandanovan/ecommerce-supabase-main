@@ -1,6 +1,16 @@
 import * as React from "react";
 //@MUI
-import { Badge, Box, Grid, InputAdornment, Stack, TextField, Typography, Button, Link } from "@mui/material";
+import {
+  Badge,
+  Box,
+  Grid,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+  Button,
+  Link,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 //component
@@ -9,7 +19,7 @@ import Iconify from "../../components/Iconify";
 
 //utility
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../core/UserContext";
+import { UserContext } from "../../core/userContext";
 import NavItems from "../../components/NavItems";
 import useFetchBy from "../../hooks/useFetchBy";
 import { palette } from "../../utils/palette";
@@ -119,7 +129,10 @@ function Appbar() {
                   },
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Iconify icon="mdi:magnify" sx={{ width: 18, height: 18, color: "#262626" }} />
+                      <Iconify
+                        icon="mdi:magnify"
+                        sx={{ width: 18, height: 18, color: "#262626" }}
+                      />
                     </InputAdornment>
                   ),
                 }}
@@ -145,8 +158,15 @@ function Appbar() {
                 gap={1.5}
                 sx={{ textDecoration: "none", cursor: "pointer" }}
               >
-                <Iconify icon="akar-icons:person" sx={{ width: 16, height: 16, color: palette.black }} />
-                <Typography variant="h5" fontWeight="400" display={{ xs: "none", sm: "none", md: "flex" }}>
+                <Iconify
+                  icon="akar-icons:person"
+                  sx={{ width: 16, height: 16, color: palette.black }}
+                />
+                <Typography
+                  variant="h5"
+                  fontWeight="400"
+                  display={{ xs: "none", sm: "none", md: "flex" }}
+                >
                   My Account
                 </Typography>
               </Box>
@@ -158,10 +178,20 @@ function Appbar() {
                 gap={1.5}
                 sx={{ textDecoration: "none", cursor: "pointer" }}
               >
-                <StyledBadge badgeContent={Number(cartItems?.length | null)} color="secondary">
-                  <Iconify icon="akar-icons:cart" sx={{ width: 18, height: 18, color: palette.black }} />
+                <StyledBadge
+                  badgeContent={Number(cartItems?.length | null)}
+                  color="secondary"
+                >
+                  <Iconify
+                    icon="akar-icons:cart"
+                    sx={{ width: 18, height: 18, color: palette.black }}
+                  />
                 </StyledBadge>
-                <Typography variant="h5" fontWeight="400" display={{ xs: "none", sm: "none", md: "flex" }}>
+                <Typography
+                  variant="h5"
+                  fontWeight="400"
+                  display={{ xs: "none", sm: "none", md: "flex" }}
+                >
                   Cart
                 </Typography>
               </Box>
@@ -175,7 +205,11 @@ function Appbar() {
                   <Button variant="outlined" onClick={_gotoSignIn}>
                     Sign In
                   </Button>
-                  <Button variant="contained" onClick={_gotoSignUp} sx={{ color: "white" }}>
+                  <Button
+                    variant="contained"
+                    onClick={_gotoSignUp}
+                    sx={{ color: "white" }}
+                  >
                     Sign Up
                   </Button>
                 </Box>

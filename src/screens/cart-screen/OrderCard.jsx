@@ -3,7 +3,7 @@ import Button from "../../components/Button";
 import { formatDollar } from "../../utils";
 import React from "react";
 import Iconify from "../../components/Iconify";
-import { UserContext } from "../../core/UserContext";
+import { UserContext } from "../../core/userContext";
 
 export default function OrderCard() {
   const { order, setOrder } = React.useContext(UserContext);
@@ -42,16 +42,31 @@ export default function OrderCard() {
           }}
         >
           <Box display="flex" gap={1} alignItems="center">
-            <Iconify icon="ps:promo" color="#03ac0e" sx={{ width: 30, height: 30 }} />
+            <Iconify
+              icon="ps:promo"
+              color="#03ac0e"
+              sx={{ width: 30, height: 30 }}
+            />
             <Typography fontSize={18}>Using Promos</Typography>
           </Box>
-          <Iconify icon="fluent:chevron-circle-right-28-regular" color="#03ac0e" sx={{ width: 30, height: 30 }} />
+          <Iconify
+            icon="fluent:chevron-circle-right-28-regular"
+            color="#03ac0e"
+            sx={{ width: 30, height: 30 }}
+          />
         </Box>
         <Typography variant="h5">Detail Order :</Typography>
-        <Stack spacing={0.5} sx={{ my: 2, pb: 2, borderBottom: "2px solid #F6F7F8" }}>
+        <Stack
+          spacing={0.5}
+          sx={{ my: 2, pb: 2, borderBottom: "2px solid #F6F7F8" }}
+        >
           {order?.length < 1 && (
             <Box textAlign="center" py={2}>
-              <Iconify color="#ccc" icon="carbon:document-blank" sx={{ width: 32, height: 32 }} />
+              <Iconify
+                color="#ccc"
+                icon="carbon:document-blank"
+                sx={{ width: 32, height: 32 }}
+              />
               <Typography variant="h5" color="#ccc">
                 No Product Selected
               </Typography>

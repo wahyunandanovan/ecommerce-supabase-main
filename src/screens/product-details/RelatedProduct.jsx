@@ -1,6 +1,6 @@
 import React from "react";
 //contex
-import { UserContext } from "../../core/UserContext";
+import { UserContext } from "../../core/userContext";
 //@MUI
 import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
 //component

@@ -1,5 +1,5 @@
 import React from "react";
-import { UserContext } from "./core/UserContext";
+import { UserContext } from "./core/userContext";
 import Router from "./routes";
 
 function App() {

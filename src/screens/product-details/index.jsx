@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { UserContext } from "../../core/UserContext";
+import { UserContext } from "../../core/userContext";
 import useFetchBy from "../../hooks/useFetchBy";
 import BestSeller from "./BestSeller";
 import DetailImages from "./DetailImages";
