@@ -150,7 +150,12 @@ function Appbar() {
             </Box>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
-            <Stack direction="row" spacing={2} justifyContent="end">
+            <Stack
+              direction="row"
+              spacing={2}
+              justifyContent="end"
+              mr={{ sm: 0, xs: 1 }}
+            >
               <Box
                 component={Link}
                 display="flex"

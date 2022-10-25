@@ -1,9 +1,13 @@
-import { Card, Typography, Box, Stack, Link } from "@mui/material";
-import Button from "../../components/Button";
-import { formatDollar } from "../../utils";
 import React from "react";
+//@MUI
+import { Card, Typography, Box, Stack } from "@mui/material";
+//components
+import Button from "../../components/Button";
 import Iconify from "../../components/Iconify";
+//utility
+import { formatDollar } from "../../utils";
 import { UserContext } from "../../core/userContext";
+import { useNavigate } from "react-router-dom";
 
 export default function OrderCard() {
   const { order, setOrder } = React.useContext(UserContext);
@@ -17,6 +21,13 @@ export default function OrderCard() {
   React.useEffect(() => {
     setOrder([]);
   }, []);
+
+  //go to payment
+  const navigate = useNavigate();
+
+  const _hadleCheckout = () => {
+    navigate("/payment", order);
+  };
 
   return (
     <Box mt={5} mb={8} display="block" justifyContent="center">
@@ -91,7 +102,7 @@ export default function OrderCard() {
         </Box>
         <Box mt={2}>
           <Button
-            // onClick={_hadleCheckout}
+            onClick={_hadleCheckout}
             size="large"
             disabled={order?.length < 1}
             fullWidth

@@ -16,15 +16,31 @@ export default function DetailsProductSkeleton() {
             md={4}
             sx={{ display: "flex", justifyContent: "center" }}
           >
-            <Skeleton variant="rectangular" height={400} width={300} />
+            <Skeleton
+              variant="rectangular"
+              height={460}
+              width={300}
+              sx={{ borderRadius: 1 }}
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ display: "block", justifyContent: "space-between" }}>
-              <Skeleton variant="rectangular" height={30} />
               <Skeleton
                 variant="rectangular"
-                height={360}
-                sx={{ mt: "10px" }}
+                height={30}
+                width={"50%"}
+                sx={{ borderRadius: 1 }}
+              />
+              <Skeleton
+                variant="rectangular"
+                height={20}
+                width={"70%"}
+                sx={{ mt: "10px", borderRadius: 1 }}
+              />
+              <Skeleton
+                variant="rectangular"
+                height={390}
+                sx={{ mt: "10px", borderRadius: 1 }}
               />
             </Box>
           </Grid>
@@ -49,14 +65,27 @@ export default function DetailsProductSkeleton() {
                 justifyContent: "center",
               }}
             >
-              <Skeleton variant="rectangular" height={400} width={300} />
+              <Skeleton
+                variant="rectangular"
+                height={460}
+                width={300}
+                sx={{ borderRadius: 1 }}
+              />
             </Box>
           </Grid>
           <Grid item xs={12} sm={8} md={8}>
-            <Skeleton variant="rectangular" height={400} />
+            <Skeleton
+              variant="rectangular"
+              height={400}
+              sx={{ borderRadius: 1 }}
+            />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            <Skeleton variant="rectangular" height={400} />
+            <Skeleton
+              variant="rectangular"
+              height={400}
+              sx={{ borderRadius: 1 }}
+            />
           </Grid>
         </Grid>
       </Box>

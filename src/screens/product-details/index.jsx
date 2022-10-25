@@ -79,7 +79,13 @@ function ProductDetailsScreens() {
         <Typography color="#33A0FF" fontWeight="400">
           Home/Detail/
         </Typography>
-        {/* <Typography fontWeight="400">{items[0]?.name}</Typography> */}
+        {items?.map((item, idx) => {
+          return (
+            <Typography key={idx} fontWeight="400">
+              {item.name}
+            </Typography>
+          );
+        })}
       </Box>
       {isLoading && <DetailsProductSkeleton />}
       {items?.map((item, idx) => {

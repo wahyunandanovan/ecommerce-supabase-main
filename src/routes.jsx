@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
 import AuthLayout from "./layouts/auth";
+import Payment from "./pages/Payment";
 
 export default function Router() {
   return useRoutes([
@@ -33,6 +34,7 @@ export default function Router() {
         { path: "home", element: <Home /> },
         { path: "product-details", element: <ProductDetails /> },
         { path: "cart", element: <Cart /> },
+        { path: "payment", element: <Payment /> },
       ],
     },
     {

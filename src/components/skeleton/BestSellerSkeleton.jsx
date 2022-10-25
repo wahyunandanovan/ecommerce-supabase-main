@@ -7,7 +7,11 @@ export default function BestSellerSkeleton() {
       <Grid container spacing={{ xs: 2, md: 3 }}>
         {[1, 2, 3, 4, 5, 6, 7, 8]?.map((item, index) => (
           <Grid item xs={6} sm={4} md={3} key={index}>
-            <Skeleton variant="rectangular" height={380} />
+            <Skeleton
+              variant="rectangular"
+              height={380}
+              sx={{ borderRadius: 1 }}
+            />
           </Grid>
         ))}
       </Grid>

@@ -1,3 +1,5 @@
+import React from "react";
+//@MUI
 import {
   Box,
   Checkbox,
@@ -8,16 +10,17 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React from "react";
+//components
 import Alert from "../../components/Alert";
 import CounterButton from "../../components/CounterButton";
 import Iconify from "../../components/Iconify";
 import Loading from "../../components/Loading";
 import NotFound from "../../components/NotFound";
+import OrderCard from "./OrderCard";
+//utility
 import { UserContext } from "../../core/userContext";
 import useDelete from "../../hooks/useDelete";
 import { formatDollar } from "../../utils";
-import OrderCard from "./OrderCard";
 
 export default function List() {
   const { cartItems, setCartItems } = React.useContext(UserContext);
