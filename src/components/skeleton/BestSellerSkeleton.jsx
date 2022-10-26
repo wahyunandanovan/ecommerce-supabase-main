@@ -9,8 +9,7 @@ export default function BestSellerSkeleton() {
           <Grid item xs={6} sm={4} md={3} key={index}>
             <Skeleton
               variant="rectangular"
-              height={380}
-              sx={{ borderRadius: 1 }}
+              sx={{ borderRadius: 2, height: { xs: 296, sm: 392 } }}
             />
           </Grid>
         ))}
