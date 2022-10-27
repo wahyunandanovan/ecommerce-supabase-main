@@ -8,25 +8,25 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 
-const steps = [
-  {
-    code: 0,
-    title: "Make Payment",
-    component: <Step1 />,
-  },
-  {
-    code: 1,
-    title: "Payment",
-    component: <Step2 />,
-  },
-  {
-    code: 2,
-    title: "Payment Success",
-    component: <Step3 />,
-  },
-];
-
 export default function Payment() {
+  const steps = [
+    {
+      code: 0,
+      title: "Make Payment",
+      component: <Step1 />,
+    },
+    {
+      code: 1,
+      title: "Payment",
+      component: <Step2 />,
+    },
+    {
+      code: 2,
+      title: "Payment Success",
+      component: <Step3 />,
+    },
+  ];
+
   const [progress, setProgress] = React.useState(steps[0]);
 
   return (
@@ -38,9 +38,9 @@ export default function Payment() {
       </Box>
       <Box sx={{ width: 300, margin: "auto" }}>
         <Stepper activeStep={progress.code} alternativeLabel>
-          {steps.map((label) => (
+          {steps.map((label, idx) => (
             <Step
-              key={label}
+              key={idx}
               sx={{
                 "& .MuiStepLabel-root .Mui-active": {
                   color: "primary", // circle color (ACTIVE)
