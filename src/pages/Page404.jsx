@@ -23,18 +23,7 @@ export default function Page404() {
     <Page title="404 Page Not Found">
       <Container>
         <ContentStyle sx={{ textAlign: "center", alignItems: "center" }}>
-          {/* <Typography variant="h3" paragraph>
-            Sorry, page not found!
-          </Typography>
-
-          <Typography sx={{ color: "text.secondary" }}>
-            Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve
-            mistyped the URL? Be sure to check your spelling.
-          </Typography> */}
-          <Typography variant="h3" paragraph>
-            Oopss.. this page is not available.
-          </Typography>
-          <Box component="img" src="/illustrations/404.svg" sx={{ height: 260, mx: "auto", my: { xs: 5, sm: 10 } }} />
+          <img src="/illustrations/404.svg" alt="404" />
         </ContentStyle>
       </Container>
     </Page>
