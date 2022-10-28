@@ -39,16 +39,29 @@ export default function Step2({ handleNext }) {
                 <BasicInput
                   title="Card Number"
                   placeholder="Enter Your Card Number"
+                  defaultValue="123 456 789 1011"
                 />
               </Grid>
               <Grid item xs={6}>
-                <BasicInput title="Expiry" placeholder="Enter Expiry" />
+                <BasicInput
+                  title="Expiry"
+                  placeholder="Enter Expiry"
+                  defaultValue="12/22"
+                />
               </Grid>
               <Grid item xs={6}>
-                <BasicInput title="CVV" placeholder="Enter CVV" />
+                <BasicInput
+                  title="CVV"
+                  placeholder="Enter CVV"
+                  defaultValue="192"
+                />
               </Grid>
               <Grid item xs={12}>
-                <BasicInput title="Holder Number" placeholder="Holder Number" />
+                <BasicInput
+                  title="Holder Number"
+                  placeholder="Holder Number"
+                  defaultValue="123"
+                />
               </Grid>
               <Grid item xs={12}>
                 <Box display="flex" alignItems="center">

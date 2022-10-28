@@ -1,10 +1,12 @@
-import { Box, Tooltip, Typography, Link, Snackbar } from "@mui/material";
 import React from "react";
+//component
+import { Box, Typography, Link, Snackbar } from "@mui/material";
 import BasicInput from "../../components/input/BasicInput";
 import InputPassword from "../../components/input/InputPassword";
 import Button from "../../components/Button";
-import Iconify from "../../components/Iconify";
 import Loading from "../../components/Loading";
+import TextError from "../../components/TextError";
+import GoogleButton from "../../components/GoogleButton";
 //hooks and utility
 import { palette } from "../../utils/palette";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +14,6 @@ import { Formik } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import supabase from "../../core/supabase";
 import { signInSchema } from "../../utils/validation";
-import TextError from "../../components/TextError";
 
 export default function SignInScreen() {
   const [open, setOpen] = React.useState(false);
@@ -66,7 +67,9 @@ export default function SignInScreen() {
               type="email"
               {...getFieldProps("email")}
             />
-            {errors.email && touched.email ? <TextError>{errors.email}</TextError> : null}
+            {errors.email && touched.email ? (
+              <TextError>{errors.email}</TextError>
+            ) : null}
             <Box mb={3} />
             <InputPassword
               onChange={handleChange("password")}
@@ -74,14 +77,21 @@ export default function SignInScreen() {
               placeholder="Enter Your Password"
               {...getFieldProps("password")}
             />
-            {errors.password && touched.password ? <TextError>{errors.password}</TextError> : null}
+            {errors.password && touched.password ? (
+              <TextError>{errors.password}</TextError>
+            ) : null}
             <Box style={{ textAlign: "end", fontSize: 12 }}>
               <Link underline="none" sx={{ cursor: "pointer" }}>
                 Forgot Password?
               </Link>
             </Box>
             <Box mt={4} mb={2}>
-              <Button onClick={handleSubmit} title="Sign In" size="large" fullWidth />
+              <Button
+                onClick={handleSubmit}
+                title="Sign In"
+                size="large"
+                fullWidth
+              />
             </Box>
           </>
         )}
@@ -103,8 +113,14 @@ export default function SignInScreen() {
           }}
         />
       </Box>
-      <Typography to="/auth/signup" fontSize={12} color={palette.grey} my={3} textAlign="end">
-        Don't have an account yet?{" "}
+      <Typography
+        to="/auth/signup"
+        fontSize={12}
+        color={palette.grey}
+        my={3}
+        textAlign="end"
+      >
+        Don't have an account yet?
         <Link
           onClick={_toSignUp}
           style={{
@@ -117,27 +133,7 @@ export default function SignInScreen() {
           Sign Up
         </Link>
       </Typography>
-      <Box width="100%" display="flex" justifyContent="space-between" alignItems="center">
-        <Link style={{ cursor: "pointer" }}>
-          <img src="/images/sign-in.svg" alt="sign-in" />
-        </Link>
-        <Tooltip title="privacy and policy">
-          <Link style={{ cursor: "pointer" }}>
-            <Iconify
-              icon="ic:baseline-policy"
-              sx={{
-                display: { xs: "none", sm: "flex" },
-                color: palette.grey,
-                width: 32,
-                height: 32,
-                "&:hover": {
-                  color: palette.yellow,
-                },
-              }}
-            />
-          </Link>
-        </Tooltip>
-      </Box>
+      <GoogleButton title="Sign in with Google" />
       <Loading visible={mutation.isLoading} />
       <Snackbar
         open={open}

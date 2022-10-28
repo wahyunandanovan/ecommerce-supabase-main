@@ -1,9 +1,11 @@
-import { Box, Tooltip, Typography, Link, Alert, Snackbar } from "@mui/material";
 import React from "react";
+//component
+import { Box, Typography, Link, Snackbar } from "@mui/material";
 import BasicInput from "../../components/input/BasicInput";
 import InputPassword from "../../components/input/InputPassword";
 import Button from "../../components/Button";
-import Iconify from "../../components/Iconify";
+import TextError from "../../components/TextError";
+import GoogleButton from "../../components/GoogleButton";
 import Loading from "../../components/Loading";
 //hooks and utility
 import { palette } from "../../utils/palette";
@@ -12,7 +14,6 @@ import { Formik } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import supabase from "../../core/supabase";
 import { signUpSchema } from "../../utils/validation";
-import TextError from "../../components/TextError";
 
 export default function SignUpScreen() {
   const [open, setOpen] = React.useState(false);
@@ -129,32 +130,7 @@ export default function SignUpScreen() {
           Sign In
         </Link>
       </Typography>
-      <Box
-        width="100%"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Link style={{ cursor: "pointer" }}>
-          <img src="/images/sign-up.svg" alt="sign-in" />
-        </Link>
-        <Tooltip title="privacy and policy">
-          <Link style={{ cursor: "pointer" }}>
-            <Iconify
-              icon="ic:baseline-policy"
-              sx={{
-                display: { xs: "none", sm: "flex" },
-                color: palette.grey,
-                width: 32,
-                height: 32,
-                "&:hover": {
-                  color: palette.yellow,
-                },
-              }}
-            />
-          </Link>
-        </Tooltip>
-      </Box>
+      <GoogleButton title="Sign up with Google" />
       <Loading visible={mutation.isLoading} />
       <Snackbar
         open={open}

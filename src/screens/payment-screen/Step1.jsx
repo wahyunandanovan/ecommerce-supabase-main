@@ -42,28 +42,37 @@ export default function Step1({ handleNext }) {
             <BasicInput
               title="First Name"
               placeholder="Enter Your First Name"
+              defaultValue="wahyu nanda"
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <BasicInput title="Last Name" placeholder="Enter Your Last Name" />
+            <BasicInput
+              title="Last Name"
+              placeholder="Enter Your Last Name"
+              defaultValue="novan"
+            />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <BasicInput
               title="Email"
               type="email"
               placeholder="Enter Your Email"
+              defaultValue="wahyunandanovan@gmail.com"
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <BasicInput
               title="Phone Number"
               placeholder="Enter Your Phone Number"
+              type="number"
+              defaultValue="087756775084"
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <BasicInput
               title="Address for Delivery"
               placeholder="Enter Your Address"
+              defaultValue="dsn meikarta,kec antartika,tokyo,japan"
               multiline
               rows={4}
             />
