@@ -11,6 +11,7 @@ function useDelete({ module, key, value }) {
     {
       onSuccess: (res) => {
         if (res.error !== null) {
+          console.log(res.error);
         }
         if (res.error === null) {
           client.invalidateQueries(module);

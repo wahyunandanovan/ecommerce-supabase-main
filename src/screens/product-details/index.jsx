@@ -1,19 +1,21 @@
-import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { UserContext } from "../../core/userContext";
-import useFetchBy from "../../hooks/useFetchBy";
+//components
+import { Box, Grid, Typography } from "@mui/material";
 import BestSeller from "./BestSeller";
 import DetailImages from "./DetailImages";
 import Informations from "./Informations";
 import Options from "./Options";
 import RelatedProduct from "./RelatedProduct";
 import DetailsProductSkeleton from "../../components/skeleton/DetailsProductSkeleton";
+//utility and hooks
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { UserContext } from "../../core/userContext";
+import useFetchBy from "../../hooks/useFetchBy";
+import useUpdate from "../../hooks/useUpdate";
+import usePost from "../../hooks/usePost";
+import Loading from "../../components/Loading";
 
 function ProductDetailsScreens() {
-  const { cartItems, setCartItems } = React.useContext(UserContext);
-  const { helper, setHelper } = React.useContext(UserContext);
-
   const [count, setCount] = React.useState(1);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,34 +34,52 @@ function ProductDetailsScreens() {
   }, []);
 
   //push cart
-  const _pushCart = (item) => {
-    let newCart = [...cartItems];
-    const body = {
-      ...item,
-      quantity: count,
-      total: item.price * count,
-      isOrder: false,
-    };
-    const check = newCart.find((product) => product.id === item.id);
-    if (check) {
-      newCart = newCart.map((v) => {
-        if (v.id === item.id) {
-          let initQty = v.quantity + count;
-          return {
-            ...v,
-            quantity: v.quantity + count,
-            total: v.price * initQty,
-          };
-        }
-        return v;
-      });
-    } else {
-      newCart.push(body);
-    }
+  const user = localStorage.getItem("sb-user-id");
 
-    setCartItems(newCart);
-    navigate("/cart");
-    setHelper(helper + 1);
+  const { cartItems, setCartItems } = React.useContext(UserContext);
+
+  const [productName, setProductName] = React.useState(null);
+
+  const mutation = usePost({ module: "cart" });
+
+  const update = useUpdate({ module: "cart", key: "name", value: productName });
+
+  const _pushCart = async (item) => {
+    if (user) {
+      await setProductName(item.name);
+      const user_id = localStorage.getItem("sb-user-id");
+      const body = {
+        name: item.name,
+        image: item.images,
+        category_id: item.category_id,
+        quantity: 1,
+        price: item.price,
+        starting_price: item.starting_price,
+        discount: item.discount,
+        total: item.price,
+        color: item.colors[0],
+        size: item.sizes[0],
+        description: item.description,
+        user_id: user_id,
+      };
+      const find = await cartItems.find((v) => {
+        return v.name === item.name;
+      });
+      if (find) {
+        const initQty = find.quantity + 1;
+        await update.mutateAsync({
+          ...find,
+          quantity: initQty,
+          total: find.price * initQty,
+        });
+        navigate("/cart");
+      } else {
+        await mutation.mutateAsync(body);
+        navigate("/cart");
+      }
+    } else {
+      navigate("/auth/signin");
+    }
   };
 
   const _onAdd = () => setCount(count + 1);
@@ -110,19 +130,8 @@ function ProductDetailsScreens() {
                   onMin={_onMin}
                 />
               </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                sx={{ display: { xs: "none", sm: "none", md: "block" } }}
-              >
-                <BestSeller
-                  name={item?.name}
-                  rating={item?.rating}
-                  price={item?.price}
-                  src={item?.images}
-                />
+              <Grid item xs={12} sm={6} md={4} sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                <BestSeller name={item?.name} rating={item?.rating} price={item?.price} src={item?.images} />
               </Grid>
               <Grid item xs={12} sm={8} md={8}>
                 <Informations />
@@ -134,6 +143,7 @@ function ProductDetailsScreens() {
           </Box>
         );
       })}
+      <Loading visible={mutation.isLoading | update.isLoading} />
     </Box>
   );
 }
