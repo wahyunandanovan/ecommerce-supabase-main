@@ -25,19 +25,15 @@ export default function Payment() {
 
   const _onSuccess = () => navigate("/");
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [_handleBack, _handleNext]);
+
   return (
     <Box sx={{ width: "100%", margin: "auto", maxWidth: "xl", py: 8 }}>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        px={{ xs: 2, sm: 12 }}
-        mb={6}
-      >
+      <Box display="flex" justifyContent="space-between" px={{ xs: 2, sm: 12 }} mb={6}>
         <IconButton onClick={_handleBack} disabled={Boolean(progress === 0)}>
-          <Iconify
-            icon="akar-icons:arrow-left"
-            sx={{ color: progress === 0 ? "#ccc" : palette.blue }}
-          />
+          <Iconify icon="akar-icons:arrow-left" sx={{ color: progress === 0 ? "#ccc" : palette.blue }} />
         </IconButton>
         <Typography variant="h3" color="primary">
           Make Payment
