@@ -23,8 +23,17 @@ export const theme = createTheme({
     secondary: {
       main: "#FFD700",
     },
+    warning: {
+      main: "#ff9800",
+    },
     error: {
       main: "#FB7181",
+    },
+    info: {
+      main: "#03a9f4",
+    },
+    success: {
+      main: "#2e7d32",
     },
   },
   typography: {
