@@ -56,7 +56,7 @@ export default function Informations() {
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs value={value} onChange={handleChange} variant="scrollable">
           <Tab
             label="Product Infomation"
             {...a11yProps(0)}

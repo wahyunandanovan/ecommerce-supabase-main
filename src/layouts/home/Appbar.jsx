@@ -7,14 +7,13 @@ import {
   InputAdornment,
   Stack,
   TextField,
-  Typography,
   Button,
   Link,
+  Tooltip,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 //component
-import StandartSelect from "../../components/select/StandartSelect";
 import Iconify from "../../components/Iconify";
 
 //utility
@@ -24,18 +23,18 @@ import NavItems from "../../components/NavItems";
 import useFetchBy from "../../hooks/useFetchBy";
 import { palette } from "../../utils/palette";
 
-const language = [
+const menus = [
   {
-    code: "UK",
-    value: 1,
+    title: "Cart",
+    icon: "akar-icons:cart",
   },
   {
-    code: "DEU",
-    value: 2,
+    title: "Order",
+    icon: "fluent-mdl2:activate-orders",
   },
   {
-    code: "AUS",
-    value: 3,
+    title: "Account",
+    icon: "akar-icons:person",
   },
 ];
 
@@ -58,8 +57,14 @@ function Appbar() {
 
   //get data from api
   const userId = localStorage.getItem("sb-user-id");
-  const { items, isLoading, isFetching } = useFetchBy({
+  const { items, isFetching } = useFetchBy({
     module: "cart",
+    filter: "user_id",
+    params: userId,
+  });
+
+  const { items: orderItems } = useFetchBy({
+    module: "order",
     filter: "user_id",
     params: userId,
   });
@@ -77,6 +82,8 @@ function Appbar() {
   //go to cart
   const navigate = useNavigate();
   const _gotoCart = () => (user ? navigate("/cart") : navigate("/auth/signin"));
+  const _gotoOrder = () =>
+    user ? navigate("/order") : navigate("/auth/signin");
   const _gotoSignIn = () => navigate("/auth/signin");
   const _gotoSignUp = () => navigate("/auth/signup");
 
@@ -152,55 +159,45 @@ function Appbar() {
           <Grid item xs={4} sm={4} md={4}>
             <Stack
               direction="row"
-              spacing={2}
+              spacing={{ xs: 2, sm: 6 }}
               justifyContent="end"
               mr={{ sm: 0, xs: 1 }}
             >
-              <Box
-                component={Link}
-                display="flex"
-                alignItems="center"
-                gap={1.5}
-                sx={{ textDecoration: "none", cursor: "pointer" }}
-              >
-                <Iconify
-                  icon="akar-icons:person"
-                  sx={{ width: 16, height: 16, color: palette.black }}
-                />
-                <Typography
-                  variant="h5"
-                  fontWeight="400"
-                  display={{ xs: "none", sm: "none", md: "flex" }}
-                >
-                  My Account
-                </Typography>
-              </Box>
-              <Box
-                onClick={_gotoCart}
-                component={Link}
-                display="flex"
-                alignItems="center"
-                gap={1.5}
-                sx={{ textDecoration: "none", cursor: "pointer" }}
-              >
-                <StyledBadge
-                  badgeContent={Number(cartItems?.length | null)}
-                  color="secondary"
-                >
-                  <Iconify
-                    icon="akar-icons:cart"
-                    sx={{ width: 18, height: 18, color: palette.black }}
-                  />
-                </StyledBadge>
-                <Typography
-                  variant="h5"
-                  fontWeight="400"
-                  display={{ xs: "none", sm: "none", md: "flex" }}
-                >
-                  Cart
-                </Typography>
-              </Box>
-              {/* <StandartSelect data={language} value={lang} onChange={_changeLanguage} tooltip="Language" /> */}
+              {menus.map((item, idx) => {
+                return (
+                  <Tooltip key={idx} title={item.title}>
+                    <Box
+                      onClick={
+                        item.title === "Cart"
+                          ? _gotoCart
+                          : item.title === "Order"
+                          ? _gotoOrder
+                          : null
+                      }
+                      component={Link}
+                      className="uhui"
+                      sx={{ textDecoration: "none", cursor: "pointer" }}
+                    >
+                      <StyledBadge
+                        badgeContent={
+                          idx === 0
+                            ? Number(cartItems?.length | null)
+                            : idx === 1
+                            ? Number(orderItems?.length | null)
+                            : null
+                        }
+                        color="secondary"
+                      >
+                        <Iconify
+                          icon={item.icon}
+                          sx={{ width: 18, height: 18, color: palette.black }}
+                        />
+                      </StyledBadge>
+                    </Box>
+                  </Tooltip>
+                );
+              })}
+
               {Boolean(user) ? null : (
                 <Box
                   display={{ xs: "none", sm: "none", md: "flex" }}

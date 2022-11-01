@@ -8,6 +8,7 @@ import Page404 from "./pages/Page404";
 import Cart from "./pages/Cart";
 import AuthLayout from "./layouts/auth";
 import Payment from "./pages/Payment";
+import Order from "./pages/Order";
 
 export default function Router() {
   return useRoutes([
@@ -35,6 +36,7 @@ export default function Router() {
         { path: "product-details", element: <ProductDetails /> },
         { path: "cart", element: <Cart /> },
         { path: "payment", element: <Payment /> },
+        { path: "order", element: <Order /> },
       ],
     },
     {
