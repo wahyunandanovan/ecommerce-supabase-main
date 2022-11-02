@@ -75,7 +75,7 @@ function DrawerAppBar(props) {
         {navItems.map((item, idx) => (
           <ListItem key={idx}>
             <ListItemButton
-              onClick={item.action}
+              onClick={() => navigate(item.pathName)}
               sx={{ textAlign: "center", color: "blue" }}
             >
               <ListItemText primary={item.title} />
@@ -142,7 +142,7 @@ function DrawerAppBar(props) {
         <Box sx={{ display: { xs: "none", sm: "none", md: "flex", gap: 60 } }}>
           {navItems.map((item, idx) => (
             <Link
-              onClick={item.action}
+              onClick={() => navigate(item.pathName)}
               underline="none"
               key={idx}
               sx={{

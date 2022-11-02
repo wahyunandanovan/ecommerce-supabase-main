@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import List from "./List";
 import { palette } from "../../utils/palette";
 import { UserContext } from "../../core/userContext";
+import ScreenContainer from "../../layouts/containers/ScreenContainer";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,20 +72,7 @@ export default function OrderScreen() {
   }, []);
 
   return (
-    <Box>
-      <Box
-        width="100%"
-        backgroundColor="#F6F7F8"
-        display="flex"
-        justifyContent="center"
-        p={1}
-        mt={{ xs: 2.5, sm: 5 }}
-        mb={{ xs: 2, sm: 4 }}
-      >
-        <Typography color="#33A0FF" fontWeight="400">
-          Home/Order
-        </Typography>
-      </Box>
+    <ScreenContainer title="Home/Order">
       <Box
         maxWidth="xl"
         margin="auto"
@@ -143,6 +131,6 @@ export default function OrderScreen() {
           })}
         </Box>
       </Box>
-    </Box>
+    </ScreenContainer>
   );
 }
