@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { Grow } from "@mui/material";
 import List from "./List";
 import { palette } from "../../utils/palette";
+import { UserContext } from "../../core/userContext";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -19,11 +20,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: { xs: 1, sm: 3 } }}>{children}</Box>}
     </div>
   );
 }
@@ -43,10 +40,30 @@ function a11yProps(index) {
 
 export default function OrderScreen() {
   const [value, setValue] = React.useState(0);
+  const { orderItems, setOrderItems } = React.useContext(UserContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const newOrderItems = orderItems?.map((item, idx) => {
+    const stat = item.status;
+    return {
+      ...item,
+      index:
+        stat === "pending"
+          ? 0
+          : stat === "waiting_for_confirmation"
+          ? 1
+          : stat === "packed"
+          ? 2
+          : stat === "sent"
+          ? 3
+          : stat === "done"
+          ? 4
+          : 5,
+    };
+  });
 
   return (
     <Box>
@@ -63,7 +80,12 @@ export default function OrderScreen() {
           Home/Order
         </Typography>
       </Box>
-      <Box maxWidth="xl" margin="auto" px={{ xs: 1, sm: 14 }} py={{ xs: 3, sm: 8 }}>
+      <Box
+        maxWidth="xl"
+        margin="auto"
+        px={{ xs: 1, sm: 14 }}
+        py={{ xs: 3, sm: 8 }}
+      >
         <Box
           sx={{
             width: "100%",
@@ -74,27 +96,45 @@ export default function OrderScreen() {
         >
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs value={value} onChange={handleChange} variant="scrollable">
-              <Tab label="Waiting for payment" {...a11yProps(0)} sx={{ fontWeight: "500", color: palette.black }} />
+              <Tab
+                label="Waiting for payment"
+                {...a11yProps(0)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
               <Tab
                 label="Waiting for confirmation"
                 {...a11yProps(1)}
                 sx={{ fontWeight: "500", color: palette.black }}
               />
-              <Tab label="Packed" {...a11yProps(2)} sx={{ fontWeight: "500", color: palette.black }} />
-              <Tab label="Sent" {...a11yProps(3)} sx={{ fontWeight: "500", color: palette.black }} />
-              <Tab label="Done" {...a11yProps(4)} sx={{ fontWeight: "500", color: palette.black }} />
-              <Tab label="Rejected" {...a11yProps(5)} sx={{ fontWeight: "500", color: palette.black }} />
+              <Tab
+                label="Packed"
+                {...a11yProps(2)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
+              <Tab
+                label="Sent"
+                {...a11yProps(3)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
+              <Tab
+                label="Done"
+                {...a11yProps(4)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
+              <Tab
+                label="Rejected"
+                {...a11yProps(5)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
             </Tabs>
           </Box>
-          <TabPanel value={value} index={0}>
-            <List />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {caption2}
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            {caption1}
-          </TabPanel>
+          {newOrderItems?.map((item, idx) => {
+            return (
+              <TabPanel key={idx} value={value} index={item.index}>
+                <List value={item} />
+              </TabPanel>
+            );
+          })}
         </Box>
       </Box>
     </Box>

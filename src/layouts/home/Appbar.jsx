@@ -52,7 +52,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 function Appbar() {
   //context cart
   const { cartItems, setCartItems } = React.useContext(UserContext);
-  const { helper, setHelper } = React.useContext(UserContext);
+  const { orderItems, setOrderItems } = React.useContext(UserContext);
   const user = localStorage.getItem("sb-user-id");
 
   //get data from api
@@ -63,7 +63,7 @@ function Appbar() {
     params: userId,
   });
 
-  const { items: orderItems } = useFetchBy({
+  const { items: orderApi } = useFetchBy({
     module: "order",
     filter: "user_id",
     params: userId,
@@ -71,13 +71,8 @@ function Appbar() {
 
   React.useEffect(() => {
     setCartItems(items);
-  }, [isFetching, helper]);
-
-  //select langage
-  const [lang, setLang] = React.useState(1);
-  const _changeLanguage = (event) => {
-    setLang(event.target.value);
-  };
+    setOrderItems(orderApi);
+  }, [isFetching]);
 
   //go to cart
   const navigate = useNavigate();
@@ -183,7 +178,7 @@ function Appbar() {
                           idx === 0
                             ? Number(cartItems?.length | null)
                             : idx === 1
-                            ? Number(orderItems?.length | null)
+                            ? Number(orderApi?.length | null)
                             : null
                         }
                         color="secondary"

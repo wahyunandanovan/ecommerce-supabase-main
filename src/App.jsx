@@ -5,7 +5,7 @@ import Router from "./routes";
 function App() {
   const [user, setUser] = React.useState(null);
   const [cartItems, setCartItems] = React.useState([]);
-  const [helper, setHelper] = React.useState(0);
+  const [orderItems, setOrderItems] = React.useState([]);
   const [order, setOrder] = React.useState([]);
 
   return (
@@ -15,8 +15,8 @@ function App() {
         setUser,
         cartItems,
         setCartItems,
-        helper,
-        setHelper,
+        orderItems,
+        setOrderItems,
         order,
         setOrder,
       }}
