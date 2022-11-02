@@ -4,7 +4,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Grow } from "@mui/material";
 import List from "./List";
 import { palette } from "../../utils/palette";
 import { UserContext } from "../../core/userContext";
@@ -13,13 +12,7 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+    <div role="tabpanel" id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
       {value === index && <Box sx={{ p: { xs: 1, sm: 3 } }}>{children}</Box>}
     </div>
   );
@@ -65,6 +58,11 @@ export default function OrderScreen() {
     };
   });
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+    setValue(0);
+  }, []);
+
   return (
     <Box>
       <Box
@@ -80,12 +78,7 @@ export default function OrderScreen() {
           Home/Order
         </Typography>
       </Box>
-      <Box
-        maxWidth="xl"
-        margin="auto"
-        px={{ xs: 1, sm: 14 }}
-        py={{ xs: 3, sm: 8 }}
-      >
+      <Box maxWidth="xl" margin="auto" px={{ xs: 1, sm: 14 }} py={{ xs: 3, sm: 8 }}>
         <Box
           sx={{
             width: "100%",
@@ -96,38 +89,19 @@ export default function OrderScreen() {
         >
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs value={value} onChange={handleChange} variant="scrollable">
-              <Tab
-                label="Waiting for payment"
-                {...a11yProps(0)}
-                sx={{ fontWeight: "500", color: palette.black }}
-              />
+              <Tab label="Waiting for payment" {...a11yProps(0)} sx={{ fontWeight: "500", color: palette.black }} />
               <Tab
                 label="Waiting for confirmation"
                 {...a11yProps(1)}
                 sx={{ fontWeight: "500", color: palette.black }}
               />
-              <Tab
-                label="Packed"
-                {...a11yProps(2)}
-                sx={{ fontWeight: "500", color: palette.black }}
-              />
-              <Tab
-                label="Sent"
-                {...a11yProps(3)}
-                sx={{ fontWeight: "500", color: palette.black }}
-              />
-              <Tab
-                label="Done"
-                {...a11yProps(4)}
-                sx={{ fontWeight: "500", color: palette.black }}
-              />
-              <Tab
-                label="Rejected"
-                {...a11yProps(5)}
-                sx={{ fontWeight: "500", color: palette.black }}
-              />
+              <Tab label="Packed" {...a11yProps(2)} sx={{ fontWeight: "500", color: palette.black }} />
+              <Tab label="Sent" {...a11yProps(3)} sx={{ fontWeight: "500", color: palette.black }} />
+              <Tab label="Done" {...a11yProps(4)} sx={{ fontWeight: "500", color: palette.black }} />
+              <Tab label="Rejected" {...a11yProps(5)} sx={{ fontWeight: "500", color: palette.black }} />
             </Tabs>
           </Box>
+
           {newOrderItems?.map((item, idx) => {
             return (
               <TabPanel key={idx} value={value} index={item.index}>
@@ -140,8 +114,3 @@ export default function OrderScreen() {
     </Box>
   );
 }
-
-let caption1 =
-  "air max are always very comfortable fit, clean and just perfect in every way. just the box was too small and scrunched the sneakers up a little bit, not sure if the box was always this small but the 90s are and will always be one of my favorites.air max are always very comfortable fit, clean and just perfect in every way. just the box was too small and scrunched the sneakers up a little bit, not sure if the box was always this small but the 90s are and will always be one of my favorites.";
-let caption2 =
-  "air max are always very comfortable fit, clean and just perfect in every way. just the box was too small and scrunched the sneakers up a little bit, not sure if the box was always this small but the 90s are and will always be one of my favorites.";
