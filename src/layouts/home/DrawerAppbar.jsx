@@ -61,12 +61,6 @@ function DrawerAppBar(props) {
       action: null,
       hover: null,
     },
-    {
-      title: "OTHER",
-      pathName: "/other",
-      action: null,
-      hover: null,
-    },
   ];
 
   const drawer = (

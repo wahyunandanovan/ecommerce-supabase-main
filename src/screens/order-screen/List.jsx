@@ -16,7 +16,13 @@ export default function List({ value }) {
           display: "flex",
           justifyContent: "end",
         }}
-        backgroundColor={stat === "rejected" ? "#fb7181" : stat === "done" ? "#6fc16f" : "rgb(94 208 243)"}
+        backgroundColor={
+          stat === "rejected"
+            ? "#fb7181"
+            : stat === "done"
+            ? "#6fc16f"
+            : "rgb(94 208 243)"
+        }
       >
         <Box gap={1} display="flex" alignItems="center">
           <Iconify
@@ -44,19 +50,26 @@ export default function List({ value }) {
       </Box>
       <Box sx={{ p: 2, borderBottom: "2px solid #F6F7F8" }}>
         {value?.items.map((item, idx) => {
-          const color = JSON.parse(item.color);
-
+          console.log(item);
           return (
             <Box key={idx} display="flex" justifyContent="space-between" mb={1}>
               <Stack key={idx} direction="row" spacing={2}>
                 <Box display="flex" alignItems="center">
-                  <img width={69} height={69} src={item.image} alt="product" style={{ borderRadius: 10 }} />
+                  <img
+                    width={69}
+                    height={69}
+                    src={item.image}
+                    alt="product"
+                    style={{ borderRadius: 10 }}
+                  />
                 </Box>
                 <Box>
                   <Typography mb={1} color={palette.black} fontWeight="600">
                     {item.name}
                   </Typography>
-                  <Typography color={palette.grey}>{`${item.quantity}X / ${color.name} / ${item.size}`}</Typography>
+                  <Typography
+                    color={palette.grey}
+                  >{`${item.quantity}X / ${item.color} / ${item.size}`}</Typography>
                 </Box>
               </Stack>
 
@@ -78,7 +91,12 @@ export default function List({ value }) {
           justifyContent: "space-between",
         }}
       >
-        <Box display="flex" gap={1} alignItems="center" sx={{ cursor: "pointer" }}>
+        <Box
+          display="flex"
+          gap={1}
+          alignItems="center"
+          sx={{ cursor: "pointer" }}
+        >
           <Iconify
             icon="fluent-emoji-flat:information"
             style={{
@@ -91,7 +109,10 @@ export default function List({ value }) {
           </Typography>
         </Box>
         <Box display="flex" alignItems="center">
-          <Iconify icon="cib:cashapp" style={{ color: palette.blue, width: 18, height: 18 }} />
+          <Iconify
+            icon="cib:cashapp"
+            style={{ color: palette.blue, width: 18, height: 18 }}
+          />
           <Typography mx={1} color={palette.black}>
             Total Order :
           </Typography>

@@ -12,8 +12,15 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div role="tabpanel" id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
-      {value === index && <Box sx={{ p: { xs: 1, sm: 3 } }}>{children}</Box>}
+    <div
+      role="tabpanel"
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ px: { xs: 1, sm: 3 }, py: 3 }}>{children}</Box>
+      )}
     </div>
   );
 }
@@ -78,7 +85,12 @@ export default function OrderScreen() {
           Home/Order
         </Typography>
       </Box>
-      <Box maxWidth="xl" margin="auto" px={{ xs: 1, sm: 14 }} py={{ xs: 3, sm: 8 }}>
+      <Box
+        maxWidth="xl"
+        margin="auto"
+        px={{ xs: 1, sm: 14 }}
+        py={{ xs: 3, sm: 8 }}
+      >
         <Box
           sx={{
             width: "100%",
@@ -89,16 +101,36 @@ export default function OrderScreen() {
         >
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs value={value} onChange={handleChange} variant="scrollable">
-              <Tab label="Waiting for payment" {...a11yProps(0)} sx={{ fontWeight: "500", color: palette.black }} />
+              <Tab
+                label="Waiting for payment"
+                {...a11yProps(0)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
               <Tab
                 label="Waiting for confirmation"
                 {...a11yProps(1)}
                 sx={{ fontWeight: "500", color: palette.black }}
               />
-              <Tab label="Packed" {...a11yProps(2)} sx={{ fontWeight: "500", color: palette.black }} />
-              <Tab label="Sent" {...a11yProps(3)} sx={{ fontWeight: "500", color: palette.black }} />
-              <Tab label="Done" {...a11yProps(4)} sx={{ fontWeight: "500", color: palette.black }} />
-              <Tab label="Rejected" {...a11yProps(5)} sx={{ fontWeight: "500", color: palette.black }} />
+              <Tab
+                label="Packed"
+                {...a11yProps(2)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
+              <Tab
+                label="Sent"
+                {...a11yProps(3)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
+              <Tab
+                label="Done"
+                {...a11yProps(4)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
+              <Tab
+                label="Rejected"
+                {...a11yProps(5)}
+                sx={{ fontWeight: "500", color: palette.black }}
+              />
             </Tabs>
           </Box>
 

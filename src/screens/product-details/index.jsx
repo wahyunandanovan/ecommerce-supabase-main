@@ -40,6 +40,10 @@ function ProductDetailsScreens() {
 
   const [productName, setProductName] = React.useState(null);
 
+  const { selectedColor, setSelectedColor } = React.useContext(UserContext);
+
+  const { selectedSize, setSelectedSize } = React.useContext(UserContext);
+
   const mutation = usePost({ module: "cart" });
 
   const update = useUpdate({ module: "cart", key: "name", value: productName });
@@ -52,31 +56,33 @@ function ProductDetailsScreens() {
         name: item.name,
         image: item.images,
         category_id: item.category_id,
-        quantity: 1,
+        quantity: count,
         price: item.price,
         starting_price: item.starting_price,
         discount: item.discount,
         total: item.price,
-        color: item.colors[0],
-        size: item.sizes[0],
+        color: selectedColor,
+        size: selectedSize,
         description: item.description,
         user_id: user_id,
       };
-      const find = await cartItems.find((v) => {
-        return v.name === item.name;
-      });
-      if (find) {
-        const initQty = find.quantity + 1;
-        await update.mutateAsync({
-          ...find,
-          quantity: initQty,
-          total: find.price * initQty,
-        });
-        navigate("/cart");
-      } else {
-        await mutation.mutateAsync(body);
-        navigate("/cart");
-      }
+      await mutation.mutateAsync(body);
+      navigate("/cart");
+      // const find = await cartItems.find((v) => {
+      //   return v.name === item.name;
+      // });
+      // if (find) {
+      //   const initQty = find.quantity + 1;
+      //   await update.mutateAsync({
+      //     ...find,
+      //     quantity: initQty,
+      //     total: find.price * initQty,
+      //   });
+      //   navigate("/cart");
+      // } else {
+      //   await mutation.mutateAsync(body);
+      //   navigate("/cart");
+      // }
     } else {
       navigate("/auth/signin");
     }
@@ -130,8 +136,19 @@ function ProductDetailsScreens() {
                   onMin={_onMin}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                <BestSeller name={item?.name} rating={item?.rating} price={item?.price} src={item?.images} />
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                sx={{ display: { xs: "none", sm: "none", md: "block" } }}
+              >
+                <BestSeller
+                  name={item?.name}
+                  rating={item?.rating}
+                  price={item?.price}
+                  src={item?.images}
+                />
               </Grid>
               <Grid item xs={12} sm={8} md={8}>
                 <Informations />
@@ -143,7 +160,7 @@ function ProductDetailsScreens() {
           </Box>
         );
       })}
-      <Loading visible={mutation.isLoading | update.isLoading} />
+      <Loading visible={mutation.isLoading} />
     </Box>
   );
 }

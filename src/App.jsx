@@ -7,6 +7,8 @@ function App() {
   const [cartItems, setCartItems] = React.useState([]);
   const [orderItems, setOrderItems] = React.useState([]);
   const [order, setOrder] = React.useState([]);
+  const [selectedColor, setSelectedColor] = React.useState(null);
+  const [selectedSize, setSelectedSize] = React.useState(null);
 
   return (
     <UserContext.Provider
@@ -19,6 +21,10 @@ function App() {
         setOrderItems,
         order,
         setOrder,
+        selectedColor,
+        setSelectedColor,
+        selectedSize,
+        setSelectedSize,
       }}
     >
       <Router />

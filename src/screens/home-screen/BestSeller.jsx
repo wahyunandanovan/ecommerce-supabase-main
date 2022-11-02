@@ -70,24 +70,26 @@ export default function BestSeller() {
         starting_price: item.starting_price,
         discount: item.discount,
         total: item.price,
-        color: item.colors[0],
+        color: item.colors[0].name,
         size: item.sizes[0],
         description: item.description,
         user_id: user_id,
       };
-      const find = await cartItems.find((v) => {
-        return v.name === item.name;
-      });
-      if (find) {
-        const initQty = find.quantity + 1;
-        update.mutate({
-          ...find,
-          quantity: initQty,
-          total: find.price * initQty,
-        });
-      } else {
-        mutation.mutate(body);
-      }
+      mutation.mutate(body);
+
+      // const find = await cartItems.find((v) => {
+      //   return v.name === item.name;
+      // });
+      // if (find) {
+      //   const initQty = find.quantity + 1;
+      //   update.mutate({
+      //     ...find,
+      //     quantity: initQty,
+      //     total: find.price * initQty,
+      //   });
+      // } else {
+      //   mutation.mutate(body);
+      // }
     } else {
       navigate("/auth/signin");
     }

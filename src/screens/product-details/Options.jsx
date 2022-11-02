@@ -15,6 +15,7 @@ import CounterButton from "../../components/CounterButton";
 import Iconify from "../../components/Iconify";
 //utility
 import { formatDollar } from "../../utils";
+import { UserContext } from "../../core/userContext";
 
 const Container = ({ children }) => {
   return (
@@ -38,12 +39,14 @@ export default function Options({
   sizes,
 }) {
   //select color
-  const [selectedColor, setSelectedColor] = React.useState(color[0].name);
+  const { selectedColor, setSelectedColor } = React.useContext(UserContext);
 
   //select size
+  const { selectedSize, setSelectedSize } = React.useContext(UserContext);
   const [size, setSize] = React.useState(0);
-  const handleChange = (event) => {
+  const handleChange = (event, value) => {
     setSize(event.target.value);
+    setSelectedSize(value.props.children);
   };
 
   //set like
@@ -51,6 +54,11 @@ export default function Options({
   const _onLiked = () => {
     setIsLiked(!isLiked);
   };
+
+  React.useEffect(() => {
+    setSelectedColor(color[0].name);
+    setSelectedSize(sizes[0]);
+  }, []);
 
   return (
     <Box>
@@ -172,7 +180,7 @@ export default function Options({
               onClick={_onLiked}
               sx={{ p: "-4px !important", m: 0 }}
             >
-              {isLiked ? (
+              {!isLiked ? (
                 <Iconify
                   icon="ant-design:heart-outlined"
                   sx={{ width: 18, height: 18 }}

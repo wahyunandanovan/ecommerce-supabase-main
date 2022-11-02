@@ -20,6 +20,7 @@ import OrderCard from "./OrderCard";
 //utility
 import { UserContext } from "../../core/userContext";
 import useDelete from "../../hooks/useDelete";
+import { palette } from "../../utils/palette";
 import { formatDollar } from "../../utils";
 
 export default function List() {
@@ -110,28 +111,34 @@ export default function List() {
                       key={idx}
                       sx={{ py: 2, borderBottom: "2px solid #F6F7F8" }}
                     >
-                      <Stack direction="row" spacing={2}>
-                        <Box display="flex" alignItems="center">
-                          <Checkbox
-                            onChange={(e, i) => _onChecked(i, item, idx)}
-                            color="success"
-                            sx={{ mr: 1 }}
-                          />
-                          <img
-                            width={69}
-                            height={69}
-                            src={item.image}
-                            alt="product"
-                            style={{ borderRadius: 10 }}
-                          />
-                        </Box>
-                        <Box>
-                          <Typography mb={1}>{item.name}</Typography>
-                          <Typography variant="h5" color="primary">
-                            {formatDollar(item.price)}
-                          </Typography>
-                        </Box>
-                      </Stack>
+                      <Box display="flex" justifyContent="space-between">
+                        <Stack direction="row" spacing={2}>
+                          <Box display="flex" alignItems="center">
+                            <Checkbox
+                              onChange={(e, i) => _onChecked(i, item, idx)}
+                              color="success"
+                              sx={{ mr: 1 }}
+                            />
+                            <img
+                              width={69}
+                              height={69}
+                              src={item.image}
+                              alt="product"
+                              style={{ borderRadius: 10 }}
+                            />
+                          </Box>
+                          <Box>
+                            <Typography mb={1}>{item.name}</Typography>
+                            <Typography variant="h5" color="primary">
+                              {formatDollar(item.price)}
+                            </Typography>
+                          </Box>
+                        </Stack>
+                        <Typography
+                          fontSize={12}
+                          color={palette.grey}
+                        >{`${item.quantity}X / ${item.color} / ${item.size}`}</Typography>
+                      </Box>
                       <Box
                         mt={1}
                         display="flex"

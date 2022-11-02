@@ -1,11 +1,12 @@
 import { Box, Link, Typography } from "@mui/material";
 import React, { memo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { palette } from "../utils/palette";
 import Iconify from "./Iconify";
 
 function NavItems({ height }) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   //menu list
   const navItems = [
@@ -37,13 +38,6 @@ function NavItems({ height }) {
       hover: null,
       icon: "ant-design:setting-outlined",
     },
-    {
-      title: "OTHER",
-      pathName: "/other",
-      action: null,
-      hover: null,
-      icon: "fluent:options-16-regular",
-    },
   ];
 
   return (
@@ -62,7 +56,16 @@ function NavItems({ height }) {
         return (
           <Box
             key={idx}
-            sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+            onClick={() => {
+              navigate(item.pathName);
+              window.scrollTo(0, 0);
+            }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+              cursor: "pointer",
+            }}
           >
             <Iconify
               icon={item.icon}

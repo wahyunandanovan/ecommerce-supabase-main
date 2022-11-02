@@ -4,6 +4,7 @@ import { Card, Typography, Box, Stack } from "@mui/material";
 //components
 import Button from "../../components/Button";
 import Iconify from "../../components/Iconify";
+import Loading from "../../components/Loading";
 //utility
 import { formatDollar } from "../../utils";
 import { UserContext } from "../../core/userContext";
@@ -12,6 +13,8 @@ import usePost from "../../hooks/usePost";
 import supabase from "../../core/supabase";
 
 export default function OrderCard() {
+  const [loading, setLoading] = React.useState(false);
+
   const userId = localStorage.getItem("sb-user-id");
 
   const { order, setOrder } = React.useContext(UserContext);
@@ -34,6 +37,7 @@ export default function OrderCard() {
   const mutation = usePost({ module: "order" });
 
   const _hadleCheckout = async () => {
+    setLoading(true);
     const body = {
       total: totalPrice,
       items: order,
@@ -70,16 +74,31 @@ export default function OrderCard() {
           }}
         >
           <Box display="flex" gap={1} alignItems="center">
-            <Iconify icon="ps:promo" color="#03ac0e" sx={{ width: 30, height: 30 }} />
+            <Iconify
+              icon="ps:promo"
+              color="#03ac0e"
+              sx={{ width: 30, height: 30 }}
+            />
             <Typography fontSize={18}>Using Promos</Typography>
           </Box>
-          <Iconify icon="fluent:chevron-circle-right-28-regular" color="#03ac0e" sx={{ width: 30, height: 30 }} />
+          <Iconify
+            icon="fluent:chevron-circle-right-28-regular"
+            color="#03ac0e"
+            sx={{ width: 30, height: 30 }}
+          />
         </Box>
         <Typography variant="h5">Detail Order :</Typography>
-        <Stack spacing={0.5} sx={{ my: 2, pb: 2, borderBottom: "2px solid #F6F7F8" }}>
+        <Stack
+          spacing={0.5}
+          sx={{ my: 2, pb: 2, borderBottom: "2px solid #F6F7F8" }}
+        >
           {order?.length < 1 && (
             <Box textAlign="center" py={2}>
-              <Iconify color="#ccc" icon="carbon:document-blank" sx={{ width: 32, height: 32 }} />
+              <Iconify
+                color="#ccc"
+                icon="carbon:document-blank"
+                sx={{ width: 32, height: 32 }}
+              />
               <Typography variant="h5" color="#ccc">
                 No Product Selected
               </Typography>
@@ -103,9 +122,16 @@ export default function OrderCard() {
           <Typography variant="h5">{formatDollar(totalPrice)}</Typography>
         </Box>
         <Box mt={2}>
-          <Button onClick={_hadleCheckout} size="large" disabled={order?.length < 1} fullWidth title="Checkout" />
+          <Button
+            onClick={_hadleCheckout}
+            size="large"
+            disabled={order?.length < 1}
+            fullWidth
+            title="Checkout"
+          />
         </Box>
       </Card>
+      <Loading visible={loading} />
     </Box>
   );
 }
