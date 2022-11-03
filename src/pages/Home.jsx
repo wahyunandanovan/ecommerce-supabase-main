@@ -1,5 +1,5 @@
 import React from "react";
-//component
+//COMPONENT
 import Page from "../components/Page";
 import HomeScreen from "../screens/home-screen";
 

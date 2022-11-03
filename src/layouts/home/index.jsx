@@ -6,8 +6,22 @@ import DrawerAppBar from "./DrawerAppbar";
 //@MUI
 import { Box } from "@mui/material";
 import Footer from "./Footer";
+//utility
+import supabase from "../../core/supabase";
+import { UserContext } from "../../core/userContext";
 
 export default function HomeLayout() {
+  const { user, setUser } = React.useContext(UserContext);
+
+  //GET USER
+  const getUser = async () => {
+    const user = await supabase.auth.getUser();
+    return setUser(user.data.user);
+  };
+  React.useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <Box>
       <Appbar />

@@ -11,6 +11,7 @@ import Payment from "./pages/Payment";
 import Order from "./pages/Order";
 import Contact from "./pages/Contact";
 import Product from "./pages/Product";
+import Account from "./pages/account";
 
 export default function Router() {
   return useRoutes([
@@ -41,6 +42,7 @@ export default function Router() {
         { path: "order", element: <Order /> },
         { path: "contact", element: <Contact /> },
         { path: "product", element: <Product /> },
+        { path: "account", element: <Account /> },
       ],
     },
     {

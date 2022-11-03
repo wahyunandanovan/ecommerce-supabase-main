@@ -11,7 +11,7 @@ export default function ScreenContainer({ title, children }) {
         justifyContent="center"
         p={1}
         mt={{ xs: 2.5, sm: 5 }}
-        mb={8}
+        mb={4}
       >
         <Typography color="#33A0FF" fontWeight="400">
           {title}

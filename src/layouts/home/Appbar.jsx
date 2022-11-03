@@ -1,6 +1,16 @@
 import * as React from "react";
 //@MUI
-import { Badge, Box, Grid, InputAdornment, Stack, TextField, Button, Link, Tooltip } from "@mui/material";
+import {
+  Badge,
+  Box,
+  Grid,
+  InputAdornment,
+  Stack,
+  TextField,
+  Button,
+  Link,
+  Tooltip,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 //component
@@ -67,6 +77,8 @@ function Appbar() {
   //go to cart
   const navigate = useNavigate();
   const _gotoCart = () => (user ? navigate("/cart") : navigate("/auth/signin"));
+  const _gotoAccount = () =>
+    user ? navigate("/account") : navigate("/auth/signin");
   const _gotoSignIn = () => navigate("/auth/signin");
   const _gotoSignUp = () => navigate("/auth/signup");
   const _gotoOrder = () => {
@@ -127,7 +139,10 @@ function Appbar() {
                   },
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Iconify icon="mdi:magnify" sx={{ width: 18, height: 18, color: "#262626" }} />
+                      <Iconify
+                        icon="mdi:magnify"
+                        sx={{ width: 18, height: 18, color: "#262626" }}
+                      />
                     </InputAdornment>
                   ),
                 }}
@@ -145,12 +160,23 @@ function Appbar() {
             </Box>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
-            <Stack direction="row" spacing={{ xs: 2, sm: 6 }} justifyContent="end" mr={{ sm: 0, xs: 1 }}>
+            <Stack
+              direction="row"
+              spacing={{ xs: 2, sm: 6 }}
+              justifyContent="end"
+              mr={{ sm: 0, xs: 1 }}
+            >
               {menus.map((item, idx) => {
                 return (
                   <Tooltip key={idx} title={item.title}>
                     <Box
-                      onClick={item.title === "Cart" ? _gotoCart : item.title === "Order" ? _gotoOrder : null}
+                      onClick={
+                        item.title === "Cart"
+                          ? _gotoCart
+                          : item.title === "Order"
+                          ? _gotoOrder
+                          : _gotoAccount
+                      }
                       component={Link}
                       className="uhui"
                       sx={{ textDecoration: "none", cursor: "pointer" }}
@@ -165,7 +191,10 @@ function Appbar() {
                         }
                         color="secondary"
                       >
-                        <Iconify icon={item.icon} sx={{ width: 18, height: 18, color: palette.black }} />
+                        <Iconify
+                          icon={item.icon}
+                          sx={{ width: 18, height: 18, color: palette.black }}
+                        />
                       </StyledBadge>
                     </Box>
                   </Tooltip>
@@ -181,7 +210,11 @@ function Appbar() {
                   <Button variant="outlined" onClick={_gotoSignIn}>
                     Sign In
                   </Button>
-                  <Button variant="contained" onClick={_gotoSignUp} sx={{ color: "white" }}>
+                  <Button
+                    variant="contained"
+                    onClick={_gotoSignUp}
+                    sx={{ color: "white" }}
+                  >
                     Sign Up
                   </Button>
                 </Box>

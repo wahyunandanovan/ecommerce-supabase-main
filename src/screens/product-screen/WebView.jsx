@@ -13,7 +13,7 @@ export default function WebView() {
 
   return (
     <Box display="flex" gap={3}>
-      <Box width="500px">
+      <Box width="500px" pt={3}>
         <Typography variant="h3" mb={2}>
           Filter Product
         </Typography>
@@ -22,7 +22,10 @@ export default function WebView() {
             <Typography fontWeight="600">Category</Typography>
             {items?.map((item, idx) => {
               return (
-                <Box key={idx} style={{ alignItems: "center", display: "flex" }}>
+                <Box
+                  key={idx}
+                  style={{ alignItems: "center", display: "flex" }}
+                >
                   <Checkbox />
                   <Typography>{item.name}</Typography>
                 </Box>
@@ -33,7 +36,10 @@ export default function WebView() {
             <Typography fontWeight="600">Rating</Typography>
             {ratings?.map((item, idx) => {
               return (
-                <Box key={idx} style={{ alignItems: "center", display: "flex" }}>
+                <Box
+                  key={idx}
+                  style={{ alignItems: "center", display: "flex" }}
+                >
                   <Checkbox />
                   <Rating readOnly value={item} />
                 </Box>
