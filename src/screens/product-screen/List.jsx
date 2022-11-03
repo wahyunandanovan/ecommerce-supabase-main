@@ -2,9 +2,8 @@ import React from "react";
 //contex
 import { UserContext } from "../../core/userContext";
 //@MUI
-import { Box, Grid, Link, Rating, Stack, Typography } from "@mui/material";
+import { Box, Grid, Rating, Stack, Typography } from "@mui/material";
 //component
-import SectionContainer from "../../layouts/containers/SectionContainer";
 import Loading from "../../components/Loading";
 import FadeInBox from "../../components/FadeInBox";
 //utility
@@ -13,13 +12,13 @@ import useFetch from "../../hooks/useFetch";
 import usePost from "../../hooks/usePost";
 import useUpdate from "../../hooks/useUpdate";
 
-export default function RelatedProduct() {
+function List() {
   //get from api
-  const { items: product } = useFetch({
+  const { items: product, isLoading } = useFetch({
     module: "products",
   });
 
-  const relateProduct = product?.slice(0, 4);
+  const relateProduct = product;
 
   //state for selected card
   const [selectedCard, setSelectedCard] = React.useState(null);
@@ -85,12 +84,12 @@ export default function RelatedProduct() {
   };
 
   return (
-    <SectionContainer title="RELATED PRODUCT" pt={3} sx={{ mb: 8 }} mt={{ xs: 2, sm: 8 }}>
+    <Box pt={{ xs: 0, sm: 3 }} sx={{ mb: 8 }}>
       <Stack direction="row" spacing={{ xs: 3, sm: 5, md: 7 }} justifyContent="center"></Stack>
-      <Box mt={{ xs: 1, sm: 3, md: 4 }}>
+      <Box>
         <Grid container spacing={{ xs: 2, md: 3 }}>
           {relateProduct?.map((item, index) => (
-            <Grid item xs={6} sm={4} md={3} key={index}>
+            <Grid item xs={6} sm={4} md={4} key={index}>
               <Box
                 onMouseEnter={() => _onHover(item)}
                 onMouseLeave={() => setSelectedCard(null)}
@@ -136,6 +135,8 @@ export default function RelatedProduct() {
         </Grid>
       </Box>
       <Loading visible={mutation.isLoading || update.isLoading} />
-    </SectionContainer>
+    </Box>
   );
 }
+
+export default React.memo(List);

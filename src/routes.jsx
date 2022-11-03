@@ -10,6 +10,7 @@ import AuthLayout from "./layouts/auth";
 import Payment from "./pages/Payment";
 import Order from "./pages/Order";
 import Contact from "./pages/Contact";
+import Product from "./pages/Product";
 
 export default function Router() {
   return useRoutes([
@@ -39,6 +40,7 @@ export default function Router() {
         { path: "payment", element: <Payment /> },
         { path: "order", element: <Order /> },
         { path: "contact", element: <Contact /> },
+        { path: "product", element: <Product /> },
       ],
     },
     {
