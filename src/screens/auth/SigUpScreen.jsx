@@ -8,16 +8,16 @@ import TextError from "../../components/TextError";
 import GoogleButton from "../../components/GoogleButton";
 import Loading from "../../components/Loading";
 //hooks and utility
+import usePost from "../../hooks/usePost";
 import { palette } from "../../utils/palette";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
-import { useMutation } from "@tanstack/react-query";
 import supabase from "../../core/supabase";
 import { signUpSchema } from "../../utils/validation";
 
 export default function SignUpScreen() {
   const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -25,24 +25,25 @@ export default function SignUpScreen() {
   const _toSignIn = () => navigate("/auth/signin");
 
   //on submit
-  const mutation = useMutation(
-    ({ email, password }) => {
-      return supabase.auth.signUp({ email, password });
-    },
-    {
-      onSuccess: async (res) => {
-        console.log(res);
-        if (res.error) {
-          setOpen(true);
-        } else {
-          navigate("/");
-        }
-      },
-    }
-  );
+  const postUser = usePost({ module: "users" });
 
-  const onSubmit = (values) => {
-    mutation.mutate(values);
+  const onSubmit = async (values) => {
+    setLoading(true);
+    const { data, error } = await supabase.auth.signUp({ email: values.email, password: values.password });
+    console.log("pppppppppppp", data);
+    if (error !== null) {
+      console.log(error);
+      setLoading(false);
+    } else {
+      const userData = data?.user;
+      await postUser.mutate({
+        id: userData.id,
+        name: values.name,
+        email: values.email,
+      });
+      setLoading(false);
+      navigate("/");
+    }
   };
 
   return (
@@ -52,7 +53,7 @@ export default function SignUpScreen() {
       </Typography>
       <Box mb={3} />
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ name: "", email: "", password: "" }}
         validateOnChange={true}
         validateOnBlur={true}
         validationSchema={signUpSchema}
@@ -61,6 +62,16 @@ export default function SignUpScreen() {
         {({ handleSubmit, handleChange, getFieldProps, errors, touched }) => (
           <>
             <BasicInput
+              title="Name"
+              size="standart"
+              placeholder="Enter Your Name"
+              onChange={handleChange("name")}
+              type="name"
+              {...getFieldProps("name")}
+            />
+            {errors.name && touched.name ? <TextError>{errors.name}</TextError> : null}
+            <Box mb={3} />
+            <BasicInput
               title="Email"
               size="standart"
               placeholder="Enter Your Email"
@@ -68,9 +79,7 @@ export default function SignUpScreen() {
               type="email"
               {...getFieldProps("email")}
             />
-            {errors.email && touched.email ? (
-              <TextError>{errors.email}</TextError>
-            ) : null}
+            {errors.email && touched.email ? <TextError>{errors.email}</TextError> : null}
             <Box mb={3} />
             <InputPassword
               onChange={handleChange("password")}
@@ -78,17 +87,10 @@ export default function SignUpScreen() {
               placeholder="Enter Your Password"
               {...getFieldProps("password")}
             />
-            {errors.password && touched.password ? (
-              <TextError>{errors.password}</TextError>
-            ) : null}
+            {errors.password && touched.password ? <TextError>{errors.password}</TextError> : null}
 
             <Box mt={4} mb={2}>
-              <Button
-                onClick={handleSubmit}
-                title="Sign Up"
-                size="large"
-                fullWidth
-              />
+              <Button onClick={handleSubmit} title="Sign Up" size="large" fullWidth />
             </Box>
           </>
         )}
@@ -110,13 +112,7 @@ export default function SignUpScreen() {
           }}
         />
       </Box>
-      <Typography
-        to="/auth/signup"
-        fontSize={12}
-        color={palette.grey}
-        my={3}
-        textAlign="end"
-      >
+      <Typography to="/auth/signup" fontSize={12} color={palette.grey} my={3} textAlign="end">
         Have an account ?{" "}
         <Link
           onClick={_toSignIn}
@@ -131,7 +127,7 @@ export default function SignUpScreen() {
         </Link>
       </Typography>
       <GoogleButton title="Sign up with Google" />
-      <Loading visible={mutation.isLoading} />
+      <Loading visible={loading | postUser.isLoading} />
       <Snackbar
         open={open}
         autoHideDuration={5000}

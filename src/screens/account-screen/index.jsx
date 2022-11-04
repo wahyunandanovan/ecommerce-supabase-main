@@ -28,24 +28,6 @@ export default function AccountScreen() {
   //ON UPDATE
   const _onSubmit = async (value) => {
     const generateKey = new Date().getTime();
-    console.log(images[0]);
-    const { data, error: kkk } = await supabase.storage
-      .from("avatar")
-      .upload("public/avatar1.png", images[0].file);
-    console.log(kkk);
-    // const { error } = await supabase.auth.updateUser({
-    //   email: value?.email,
-    //   data: {
-    //     name: value?.name,
-    //     phone: value?.phone,
-    //     address: value?.address,
-    //   },
-    // });
-    // if (error != null) {
-    //   console.log(error);
-    // } else if (error === null) {
-    //   window.location.reload();
-    // }
   };
 
   return (
@@ -62,26 +44,13 @@ export default function AccountScreen() {
           >
             Cancel
           </MuiButton>
-          <Button
-            onClick={_onUpdate}
-            title="Update Account"
-            disabled={isUpdate}
-          />
+          <Button onClick={_onUpdate} title="Update Account" disabled={isUpdate} />
         </Box>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <Box width="100%" display="grid" justifyContent="center">
-              <ImageUploading
-                value={images}
-                onChange={onChange}
-                dataURLKey="data_url"
-              >
-                {({
-                  imageList,
-                  onImageUpload,
-                  onImageUpdate,
-                  onImageRemove,
-                }) => (
+              <ImageUploading value={images} onChange={onChange} dataURLKey="data_url">
+                {({ imageList, onImageUpload, onImageUpdate, onImageRemove }) => (
                   <>
                     <Avatar
                       alt="avatar"
