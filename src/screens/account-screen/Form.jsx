@@ -4,8 +4,6 @@ import React from "react";
 import Button from "../../components/Button";
 import BasicInput from "../../components/input/BasicInput";
 import TextError from "../../components/TextError";
-import InputPassword from "../../components/input/InputPassword";
-import { updateAccountSchema } from "../../utils/validation";
 
 export default function Form({ onSubmit, initialValues, disabled }) {
   return (

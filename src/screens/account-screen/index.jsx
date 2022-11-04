@@ -3,31 +3,71 @@ import React from "react";
 import { Avatar, Grid, Box, Button as MuiButton } from "@mui/material";
 import Button from "../../components/Button";
 import Form from "./Form";
+import Loading from "../../components/Loading";
 import ImageUploading from "react-images-uploading";
 //UTILITY
-import { UserContext } from "../../core/userContext";
 import ScreenContainer from "../../layouts/containers/ScreenContainer";
+import { useLocation, useParams } from "react-router-dom";
+import useUpdate from "../../hooks/useUpdate";
+import getImageUrl from "../../hooks/getImageUrl";
 import supabase from "../../core/supabase";
 
 export default function AccountScreen() {
   const [isUpdate, setIsUpdate] = React.useState(false);
-  const { user, setUser } = React.useContext(UserContext);
-  const metaData = user?.user_metadata;
 
   const _onUpdate = () => setIsUpdate(true);
   const _onCancel = () => setIsUpdate(false);
 
+  //GET USER
+  const route = useLocation();
+  const user = route?.state;
+
   //UPLOAD IMAGE
   const [images, setImages] = React.useState([]);
-
   const onChange = (imageList, addUpdateIndex) => {
-    // data for submit
     setImages(imageList);
   };
 
   //ON UPDATE
+  const userId = localStorage.getItem("sb-user-id");
+  const update = useUpdate({ module: "users", key: "id", value: userId });
+
   const _onSubmit = async (value) => {
     const generateKey = new Date().getTime();
+    const imageName = `profile/${generateKey}`;
+    if (user[0].avatar === null) {
+      const { data, error } = await supabase.storage
+        .from("avatar")
+        .upload(imageName, images[0]?.file, {
+          cacheControl: "3600",
+          upsert: false,
+        })
+        .then(update.mutate({ ...value, avatar: imageName }));
+    } else {
+      const { data, error } = await supabase.storage
+        .from("avatar")
+        .update(user[0]?.avatar, images[0]?.file, {
+          cacheControl: "3600",
+          upsert: false,
+        })
+        .then(update.mutate({ ...value, avatar: imageName }));
+    }
+  };
+
+  const getAvatar = () => {
+    if (images.length === 0) {
+      if (user[0]?.avatar) {
+        return getImageUrl("avatar", user[0]?.avatar);
+      } else {
+        if (user[0]?.gender === "male") {
+          return "illustrations/male.webp";
+        } else {
+          return "illustrations/female.jpg";
+        }
+      }
+    } else {
+      return images[0]?.data_url;
+    }
   };
 
   return (
@@ -44,17 +84,25 @@ export default function AccountScreen() {
           >
             Cancel
           </MuiButton>
-          <Button onClick={_onUpdate} title="Update Account" disabled={isUpdate} />
+          <Button
+            onClick={_onUpdate}
+            title="Update Account"
+            disabled={isUpdate}
+          />
         </Box>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <Box width="100%" display="grid" justifyContent="center">
-              <ImageUploading value={images} onChange={onChange} dataURLKey="data_url">
-                {({ imageList, onImageUpload, onImageUpdate, onImageRemove }) => (
+              <ImageUploading
+                value={images}
+                onChange={onChange}
+                dataURLKey="data_url"
+              >
+                {({ onImageUpload, onImageRemove }) => (
                   <>
                     <Avatar
                       alt="avatar"
-                      src={images[0]?.data_url}
+                      src={getAvatar()}
                       sx={{
                         width: { xs: 200, sm: 300 },
                         height: { xs: 200, sm: 300 },
@@ -92,10 +140,10 @@ export default function AccountScreen() {
               onSubmit={_onSubmit}
               disabled={!isUpdate}
               initialValues={{
-                name: metaData?.name,
-                email: user?.email,
-                phone: metaData?.phone,
-                address: metaData?.address,
+                name: user[0]?.name,
+                email: user[0]?.email,
+                phone: user[0]?.phone,
+                address: user[0]?.address,
               }}
             />
           </Grid>

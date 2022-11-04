@@ -53,10 +53,9 @@ function Appbar() {
   //context cart
   const { cartItems, setCartItems } = React.useContext(UserContext);
   const { orderItems, setOrderItems } = React.useContext(UserContext);
-  const user = localStorage.getItem("sb-user-id");
+  const userId = localStorage.getItem("sb-user-id");
 
   //get data from api
-  const userId = localStorage.getItem("sb-user-id");
   const { items, isFetching } = useFetchBy({
     module: "cart",
     filter: "user_id",
@@ -69,6 +68,12 @@ function Appbar() {
     params: userId,
   });
 
+  const { items: user } = useFetchBy({
+    module: "users",
+    filter: "id",
+    params: userId,
+  });
+
   React.useEffect(() => {
     setCartItems(items);
     setOrderItems(orderApi);
@@ -76,13 +81,14 @@ function Appbar() {
 
   //go to cart
   const navigate = useNavigate();
-  const _gotoCart = () => (user ? navigate("/cart") : navigate("/auth/signin"));
+  const _gotoCart = () =>
+    userId ? navigate("/cart") : navigate("/auth/signin");
   const _gotoAccount = () =>
-    user ? navigate("/account") : navigate("/auth/signin");
+    userId ? navigate("/account", { state: user }) : navigate("/auth/signin");
   const _gotoSignIn = () => navigate("/auth/signin");
   const _gotoSignUp = () => navigate("/auth/signup");
   const _gotoOrder = () => {
-    if (user) {
+    if (userId) {
       navigate("/order");
       setOrderItems(orderApi);
     } else {
@@ -127,7 +133,7 @@ function Appbar() {
     >
       <Box display="flex" justifyContent="space-between" className="opop">
         <Grid container direction="row" alignItems="center" spacing={1.5}>
-          <Grid item xs={8} sm={8} md={8}>
+          <Grid item xs={7} sm={7} md={7}>
             <Box>
               <TextField
                 variant="outlined"
@@ -159,7 +165,7 @@ function Appbar() {
               />
             </Box>
           </Grid>
-          <Grid item xs={4} sm={4} md={4}>
+          <Grid item xs={5} sm={5} md={5}>
             <Stack
               direction="row"
               spacing={{ xs: 2, sm: 6 }}
@@ -201,7 +207,7 @@ function Appbar() {
                 );
               })}
 
-              {Boolean(user) ? null : (
+              {Boolean(userId) ? null : (
                 <Box
                   display={{ xs: "none", sm: "none", md: "flex" }}
                   gap={1}
