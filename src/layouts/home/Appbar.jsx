@@ -68,12 +68,6 @@ function Appbar() {
     params: userId,
   });
 
-  const { items: user } = useFetchBy({
-    module: "users",
-    filter: "id",
-    params: userId,
-  });
-
   React.useEffect(() => {
     setCartItems(items);
     setOrderItems(orderApi);
@@ -84,7 +78,7 @@ function Appbar() {
   const _gotoCart = () =>
     userId ? navigate("/cart") : navigate("/auth/signin");
   const _gotoAccount = () =>
-    userId ? navigate("/account", { state: user }) : navigate("/auth/signin");
+    userId ? navigate("/account") : navigate("/auth/signin");
   const _gotoSignIn = () => navigate("/auth/signin");
   const _gotoSignUp = () => navigate("/auth/signup");
   const _gotoOrder = () => {

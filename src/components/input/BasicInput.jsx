@@ -15,6 +15,7 @@ export default function BasicInput({
   size,
   helperText,
   placeholder,
+  defaultValue,
   titleIcon,
   ...props
 }) {
@@ -35,6 +36,7 @@ export default function BasicInput({
         onChange={onChange}
         error={error}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         size={size || "small"}
         InputLabelProps={{ style: { fontSize: 12 } }}
         {...props}

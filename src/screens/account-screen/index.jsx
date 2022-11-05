@@ -7,20 +7,17 @@ import Loading from "../../components/Loading";
 import ImageUploading from "react-images-uploading";
 //UTILITY
 import ScreenContainer from "../../layouts/containers/ScreenContainer";
-import { useLocation, useParams } from "react-router-dom";
 import useUpdate from "../../hooks/useUpdate";
 import getImageUrl from "../../hooks/getImageUrl";
 import supabase from "../../core/supabase";
+import useFetchBy from "../../hooks/useFetchBy";
 
 export default function AccountScreen() {
   const [isUpdate, setIsUpdate] = React.useState(false);
+  const [user, setUser] = React.useState(null);
 
   const _onUpdate = () => setIsUpdate(true);
   const _onCancel = () => setIsUpdate(false);
-
-  //GET USER
-  const route = useLocation();
-  const user = route?.state;
 
   //UPLOAD IMAGE
   const [images, setImages] = React.useState([]);
@@ -32,10 +29,22 @@ export default function AccountScreen() {
   const userId = localStorage.getItem("sb-user-id");
   const update = useUpdate({ module: "users", key: "id", value: userId });
 
+  const { items } = useFetchBy({
+    module: "users",
+    filter: "id",
+    params: userId,
+  });
+
+  React.useEffect(() => {
+    items?.map((val) => {
+      return setUser(val);
+    });
+  }, [items]);
+
   const _onSubmit = async (value) => {
     const generateKey = new Date().getTime();
     const imageName = `profile/${generateKey}`;
-    if (user[0].avatar === null) {
+    if (user?.avatar === null) {
       const { data, error } = await supabase.storage
         .from("avatar")
         .upload(imageName, images[0]?.file, {
@@ -46,24 +55,20 @@ export default function AccountScreen() {
     } else {
       const { data, error } = await supabase.storage
         .from("avatar")
-        .update(user[0]?.avatar, images[0]?.file, {
+        .update("profile/1667615986769", images[0]?.file, {
           cacheControl: "3600",
           upsert: false,
         })
-        .then(update.mutate({ ...value, avatar: imageName }));
+        .then(update.mutate(value));
     }
   };
 
   const getAvatar = () => {
     if (images.length === 0) {
-      if (user[0]?.avatar) {
-        return getImageUrl("avatar", user[0]?.avatar);
+      if (user?.avatar) {
+        return getImageUrl("avatar", user?.avatar);
       } else {
-        if (user[0]?.gender === "male") {
-          return "illustrations/male.webp";
-        } else {
-          return "illustrations/female.jpg";
-        }
+        return null;
       }
     } else {
       return images[0]?.data_url;
@@ -74,21 +79,20 @@ export default function AccountScreen() {
     <ScreenContainer title="Home/Account">
       <Box maxWidth="xl" margin="auto" mb={4} px={{ xs: 3, sm: 14 }}>
         <Box display="flex" justifyContent="end" mb={2} gap={2}>
-          <MuiButton
-            disabled={!isUpdate}
-            onClick={_onCancel}
-            variant="outlined"
-            color="info"
-            size="medium"
-            sx={{ borderRadius: "5px" }}
-          >
-            Cancel
-          </MuiButton>
-          <Button
-            onClick={_onUpdate}
-            title="Update Account"
-            disabled={isUpdate}
-          />
+          {!isUpdate ? (
+            <Button onClick={_onUpdate} title="Update" disabled={isUpdate} />
+          ) : (
+            <MuiButton
+              disabled={!isUpdate}
+              onClick={_onCancel}
+              variant="outlined"
+              color="info"
+              size="medium"
+              sx={{ borderRadius: "5px" }}
+            >
+              Cancel
+            </MuiButton>
+          )}
         </Box>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
@@ -110,26 +114,33 @@ export default function AccountScreen() {
                       }}
                     />
 
-                    <Box mt={2} display="flex" justifyContent="center" gap={2}>
-                      <MuiButton
-                        disabled={!isUpdate}
-                        onClick={() => onImageRemove(0)}
-                        variant="contained"
-                        color="error"
-                        size="medium"
-                        sx={{ borderRadius: "5px", color: "white" }}
+                    {isUpdate && (
+                      <Box
+                        mt={2}
+                        display="flex"
+                        justifyContent="center"
+                        gap={2}
                       >
-                        Remove Image
-                      </MuiButton>
-                      <Button
-                        title="Change Photo"
-                        onClick={onImageUpload}
-                        disabled={!isUpdate}
-                        variant="contained"
-                        size="small"
-                        sx={{ color: "white" }}
-                      />
-                    </Box>
+                        <MuiButton
+                          disabled={!isUpdate}
+                          onClick={() => onImageRemove(0)}
+                          variant="contained"
+                          color="error"
+                          size="medium"
+                          sx={{ borderRadius: "5px", color: "white" }}
+                        >
+                          Remove Image
+                        </MuiButton>
+                        <Button
+                          title="Change Photo"
+                          onClick={onImageUpload}
+                          disabled={!isUpdate}
+                          variant="contained"
+                          size="small"
+                          sx={{ color: "white" }}
+                        />
+                      </Box>
+                    )}
                   </>
                 )}
               </ImageUploading>
@@ -140,15 +151,16 @@ export default function AccountScreen() {
               onSubmit={_onSubmit}
               disabled={!isUpdate}
               initialValues={{
-                name: user[0]?.name,
-                email: user[0]?.email,
-                phone: user[0]?.phone,
-                address: user[0]?.address,
+                name: user?.name,
+                email: user?.email,
+                phone: user?.phone,
+                address: user?.address,
               }}
             />
           </Grid>
         </Grid>
       </Box>
+      <Loading visible={update.isLoading} />
     </ScreenContainer>
   );
 }

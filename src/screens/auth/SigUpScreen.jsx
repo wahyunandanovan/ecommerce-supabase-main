@@ -29,8 +29,10 @@ export default function SignUpScreen() {
 
   const onSubmit = async (values) => {
     setLoading(true);
-    const { data, error } = await supabase.auth.signUp({ email: values.email, password: values.password });
-    console.log("pppppppppppp", data);
+    const { data, error } = await supabase.auth.signUp({
+      email: values.email,
+      password: values.password,
+    });
     if (error !== null) {
       console.log(error);
       setLoading(false);
@@ -42,7 +44,7 @@ export default function SignUpScreen() {
         email: values.email,
       });
       setLoading(false);
-      navigate("/");
+      navigate("/email-verifycation");
     }
   };
 
@@ -69,7 +71,9 @@ export default function SignUpScreen() {
               type="name"
               {...getFieldProps("name")}
             />
-            {errors.name && touched.name ? <TextError>{errors.name}</TextError> : null}
+            {errors.name && touched.name ? (
+              <TextError>{errors.name}</TextError>
+            ) : null}
             <Box mb={3} />
             <BasicInput
               title="Email"
@@ -79,7 +83,9 @@ export default function SignUpScreen() {
               type="email"
               {...getFieldProps("email")}
             />
-            {errors.email && touched.email ? <TextError>{errors.email}</TextError> : null}
+            {errors.email && touched.email ? (
+              <TextError>{errors.email}</TextError>
+            ) : null}
             <Box mb={3} />
             <InputPassword
               onChange={handleChange("password")}
@@ -87,10 +93,17 @@ export default function SignUpScreen() {
               placeholder="Enter Your Password"
               {...getFieldProps("password")}
             />
-            {errors.password && touched.password ? <TextError>{errors.password}</TextError> : null}
+            {errors.password && touched.password ? (
+              <TextError>{errors.password}</TextError>
+            ) : null}
 
             <Box mt={4} mb={2}>
-              <Button onClick={handleSubmit} title="Sign Up" size="large" fullWidth />
+              <Button
+                onClick={handleSubmit}
+                title="Sign Up"
+                size="large"
+                fullWidth
+              />
             </Box>
           </>
         )}
@@ -112,7 +125,13 @@ export default function SignUpScreen() {
           }}
         />
       </Box>
-      <Typography to="/auth/signup" fontSize={12} color={palette.grey} my={3} textAlign="end">
+      <Typography
+        to="/auth/signup"
+        fontSize={12}
+        color={palette.grey}
+        my={3}
+        textAlign="end"
+      >
         Have an account ?{" "}
         <Link
           onClick={_toSignIn}

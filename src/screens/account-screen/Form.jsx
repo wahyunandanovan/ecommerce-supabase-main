@@ -4,15 +4,17 @@ import React from "react";
 import Button from "../../components/Button";
 import BasicInput from "../../components/input/BasicInput";
 import TextError from "../../components/TextError";
+import { updateAccountSchema } from "../../utils/validation";
 
 export default function Form({ onSubmit, initialValues, disabled }) {
   return (
     <Box minWidth={{ xs: 200, sm: 320, md: 340 }}>
       <Formik
         initialValues={initialValues}
+        enableReinitialize
         validateOnChange={true}
         validateOnBlur={true}
-        // validationSchema={updateAccountSchema}
+        validationSchema={updateAccountSchema}
         onSubmit={onSubmit}
       >
         {({ handleSubmit, handleChange, getFieldProps, errors, touched }) => (

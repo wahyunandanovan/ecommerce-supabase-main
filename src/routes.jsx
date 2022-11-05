@@ -12,6 +12,7 @@ import Order from "./pages/Order";
 import Contact from "./pages/Contact";
 import Product from "./pages/Product";
 import Account from "./pages/account";
+import VerifyEmail from "./pages/VerifyEmail";
 
 export default function Router() {
   return useRoutes([
@@ -44,6 +45,10 @@ export default function Router() {
         { path: "product", element: <Product /> },
         { path: "account", element: <Account /> },
       ],
+    },
+    {
+      path: "/email-verifycation",
+      element: <VerifyEmail />,
     },
     {
       path: "/404",
