@@ -1,7 +1,6 @@
 import { Box, Stack, useMediaQuery } from "@mui/material";
 import React from "react";
 import ScreenContainer from "../../layouts/containers/ScreenContainer";
-import WebView from "./WebView";
 import List from "./List";
 
 export default function ProductScreen() {
@@ -10,7 +9,7 @@ export default function ProductScreen() {
   return (
     <ScreenContainer title="Home/Product">
       <Box maxWidth="xl" margin="auto" px={{ xs: 3, sm: 14 }}>
-        {matches ? <List /> : <WebView />}
+        <List />
       </Box>
     </ScreenContainer>
   );

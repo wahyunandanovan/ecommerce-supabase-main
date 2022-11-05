@@ -103,7 +103,7 @@ export default function AccountScreen() {
                 dataURLKey="data_url"
               >
                 {({ onImageUpload, onImageRemove }) => (
-                  <>
+                  <Box display="flex" gap={4} alignItems="start">
                     <Avatar
                       alt="avatar"
                       src={getAvatar()}
@@ -115,33 +115,31 @@ export default function AccountScreen() {
                     />
 
                     {isUpdate && (
-                      <Box
-                        mt={2}
-                        display="flex"
-                        justifyContent="center"
-                        gap={2}
-                      >
-                        <MuiButton
-                          disabled={!isUpdate}
-                          onClick={() => onImageRemove(0)}
-                          variant="contained"
-                          color="error"
-                          size="medium"
-                          sx={{ borderRadius: "5px", color: "white" }}
-                        >
-                          Remove Image
-                        </MuiButton>
+                      <Box mt={2} display="grid" gap={2}>
                         <Button
                           title="Change Photo"
                           onClick={onImageUpload}
                           disabled={!isUpdate}
                           variant="contained"
                           size="small"
-                          sx={{ color: "white" }}
+                          sx={{ color: "white", maxHeight: 40 }}
                         />
+                        <MuiButton
+                          onClick={() => onImageRemove(0)}
+                          disabled={Boolean(images.length === 0)}
+                          variant="outlined"
+                          color="error"
+                          size="medium"
+                          sx={{
+                            borderRadius: "5px",
+                            maxHeight: 40,
+                          }}
+                        >
+                          Remove Image
+                        </MuiButton>
                       </Box>
                     )}
-                  </>
+                  </Box>
                 )}
               </ImageUploading>
             </Box>
