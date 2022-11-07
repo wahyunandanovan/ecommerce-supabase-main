@@ -26,13 +26,15 @@ function AdminDashboard(props) {
 
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar sx={{ p: 4, display: "flex", justifyContent: "center" }}>
+        <img src="logo.png" />
+      </Toolbar>
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon></ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text} sx={{ fontFamily: "sans-serif" }} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -85,6 +87,8 @@ function AdminDashboard(props) {
               boxSizing: "border-box",
               width: drawerWidth,
               borderRadius: "0px 46px 0px 0px !important",
+              boxShadow: "box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.75)",
+              border: "none",
             },
           }}
         >
@@ -97,7 +101,9 @@ function AdminDashboard(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              boxShadow: "3px 1px 4px 0px rgba(239,239,239,0.48)",
               borderRadius: "0px 46px 0px 0px !important",
+              border: "none",
             },
           }}
           open
