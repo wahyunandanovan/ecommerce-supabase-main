@@ -2,21 +2,14 @@ import React from "react";
 //contex
 import { UserContext } from "../../core/userContext";
 //@MUI
-import {
-  Box,
-  Checkbox,
-  Grid,
-  Rating,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Checkbox, Grid, Rating, Stack, Typography, useMediaQuery } from "@mui/material";
 //component
 import Loading from "../../components/Loading";
 import FadeInBox from "../../components/FadeInBox";
 import Promotions from "./Promotions";
 import BestSellerSkeleton from "../../components/skeleton/BestSellerSkeleton";
 //utility
+import { formatDollar } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import usePost from "../../hooks/usePost";
@@ -99,10 +92,7 @@ function List() {
                 <Typography fontWeight="600">Category</Typography>
                 {category?.map((item, idx) => {
                   return (
-                    <Box
-                      key={idx}
-                      style={{ alignItems: "center", display: "flex" }}
-                    >
+                    <Box key={idx} style={{ alignItems: "center", display: "flex" }}>
                       <Checkbox />
                       <Typography>{item.name}</Typography>
                     </Box>
@@ -113,10 +103,7 @@ function List() {
                 <Typography fontWeight="600">Rating</Typography>
                 {ratings?.map((item, idx) => {
                   return (
-                    <Box
-                      key={idx}
-                      style={{ alignItems: "center", display: "flex" }}
-                    >
+                    <Box key={idx} style={{ alignItems: "center", display: "flex" }}>
                       <Checkbox />
                       <Rating readOnly value={item} />
                     </Box>
@@ -129,7 +116,7 @@ function List() {
 
         <Box pt={{ xs: 0, sm: 3 }} sx={{ mb: 8 }}>
           <Promotions />
-          <Box mt={2}>
+          <Box mt={2} textAlign="-webkit-center">
             {isLoading && matches && <BestSellerSkeleton />}
             <Grid container spacing={{ xs: 2, md: 3 }}>
               {product?.map((item, index) => (
@@ -164,20 +151,13 @@ function List() {
                     <Box py={1}>
                       <Typography variant="h5">{item.name}</Typography>
                       <Rating value={item.rating} sx={{ my: 1 }} />
-                      <Stack
-                        direction="row"
-                        spacing={1}
-                        sx={{ justifyContent: "center", alignItems: "center" }}
-                      >
+                      <Stack direction="row" spacing={1} sx={{ justifyContent: "center", alignItems: "center" }}>
                         <Typography variant="h5" color="primary">
-                          {item.price}
+                          {formatDollar(item.price)}
                         </Typography>
-                        <Typography
-                          color="#9098B1"
-                          fontSize={{ xs: "12px", sm: "16px" }}
-                        >
-                          <s> $534,33</s>{" "}
-                          <span style={{ color: "#FB7181" }}>24% Off</span>
+                        <Typography color="#9098B1" fontSize={{ xs: "12px", sm: "16px" }}>
+                          <s>{formatDollar(item.starting_price)}</s>{" "}
+                          <span style={{ color: "#FB7181" }}> {item.discount}% Off</span>
                         </Typography>
                       </Stack>
                     </Box>

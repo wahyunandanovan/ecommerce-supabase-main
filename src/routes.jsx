@@ -13,6 +13,7 @@ import Contact from "./pages/Contact";
 import Product from "./pages/Product";
 import Account from "./pages/account";
 import VerifyEmail from "./pages/VerifyEmail";
+import AdminDashboard from "./layouts/admin";
 
 export default function Router() {
   return useRoutes([
@@ -45,6 +46,11 @@ export default function Router() {
         { path: "product", element: <Product /> },
         { path: "account", element: <Account /> },
       ],
+    },
+    {
+      path: "/admin",
+      element: <AdminDashboard />,
+      children: [{ path: "home", element: <Home /> }],
     },
     {
       path: "/email-verifycation",

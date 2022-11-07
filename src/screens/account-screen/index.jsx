@@ -48,19 +48,20 @@ export default function AccountScreen() {
       const { data, error } = await supabase.storage
         .from("avatar")
         .upload(imageName, images[0]?.file, {
-          cacheControl: "3600",
+          cacheControl: "0",
           upsert: false,
         })
         .then(update.mutate({ ...value, avatar: imageName }));
     } else {
       const { data, error } = await supabase.storage
         .from("avatar")
-        .update("profile/1667615986769", images[0]?.file, {
-          cacheControl: "3600",
+        .update(user?.avatar, images[0]?.file, {
+          cacheControl: "0",
           upsert: false,
         })
         .then(update.mutate(value));
     }
+    setIsUpdate(false);
   };
 
   const getAvatar = () => {
@@ -97,11 +98,7 @@ export default function AccountScreen() {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <Box width="100%" display="grid" justifyContent="center">
-              <ImageUploading
-                value={images}
-                onChange={onChange}
-                dataURLKey="data_url"
-              >
+              <ImageUploading value={images} onChange={onChange} dataURLKey="data_url">
                 {({ onImageUpload, onImageRemove }) => (
                   <Box display="flex" gap={4} alignItems="start">
                     <Avatar

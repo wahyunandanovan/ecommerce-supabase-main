@@ -8,7 +8,7 @@ export default function ProductScreen() {
 
   return (
     <ScreenContainer title="Home/Product">
-      <Box maxWidth="xl" margin="auto" px={{ xs: 3, sm: 14 }}>
+      <Box maxWidth="xl" margin="auto" px={{ xs: 1.5, sm: 14 }}>
         <List />
       </Box>
     </ScreenContainer>
