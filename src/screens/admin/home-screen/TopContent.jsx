@@ -26,7 +26,13 @@ export default function TopContent() {
   ];
   return (
     <Card>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         {menus.map((item, idx) => {
           return (
             <Box
@@ -34,6 +40,7 @@ export default function TopContent() {
               sx={{
                 display: { xs: "grid", sm: "flex" },
                 alignItems: "center",
+                gap: { xs: 1, sm: 2 },
               }}
             >
               <Box
@@ -48,10 +55,18 @@ export default function TopContent() {
                   margin: "auto",
                 }}
               >
-                <Iconify icon={item.icon} sx={{ color: "#fff", height: 26, width: 26 }} />
+                <Iconify
+                  icon={item.icon}
+                  sx={{ color: "#fff", height: 26, width: 26 }}
+                />
               </Box>
-              <Box ml={2} sx={{ display: "grid" }}>
-                <Typography fontWeight="700" color="#292968">
+              <Box
+                sx={{
+                  display: "grid",
+                  textAlign: { xs: "center", sm: "start" },
+                }}
+              >
+                <Typography fontWeight="700" color="#292968" fontSize={14}>
                   {item.title}
                 </Typography>
                 <Typography fontWeight="900" color={item.code}>

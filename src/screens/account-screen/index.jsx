@@ -98,7 +98,11 @@ export default function AccountScreen() {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <Box width="100%" display="grid" justifyContent="center">
-              <ImageUploading value={images} onChange={onChange} dataURLKey="data_url">
+              <ImageUploading
+                value={images}
+                onChange={onChange}
+                dataURLKey="data_url"
+              >
                 {({ onImageUpload, onImageRemove }) => (
                   <Box display="flex" gap={4} alignItems="start">
                     <Avatar
@@ -146,10 +150,10 @@ export default function AccountScreen() {
               onSubmit={_onSubmit}
               disabled={!isUpdate}
               initialValues={{
-                name: user?.name,
-                email: user?.email,
-                phone: user?.phone,
-                address: user?.address,
+                name: user?.name || "",
+                email: user?.email || "",
+                phone: user?.phone || "",
+                address: user?.address || "",
               }}
             />
           </Grid>
