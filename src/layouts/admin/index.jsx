@@ -12,7 +12,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { ListItemIcon } from "@mui/material";
+import { Avatar, ListItemIcon } from "@mui/material";
 import Iconify from "../../components/Iconify";
 import { Outlet } from "react-router-dom";
 
@@ -52,11 +52,11 @@ function AdminDashboard(props) {
   const drawer = (
     <div>
       <Toolbar sx={{ display: "flex", justifyContent: "center", p: 3 }}>
-        <img src="logo.png" />
+        <img src="/logo.png" />
       </Toolbar>
       <List>
         {dashboardMenus.map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem key={index} disablePadding>
             <ListItemButton
               sx={{
                 "&:hover": {
@@ -68,15 +68,9 @@ function AdminDashboard(props) {
               }}
             >
               <ListItemIcon sx={{ minWidth: 32, marginLeft: "24px" }}>
-                <Iconify
-                  icon={text.icon}
-                  sx={{ width: 16, color: "#70708C" }}
-                />
+                <Iconify icon={text.icon} sx={{ width: 16, color: "#70708C" }} />
               </ListItemIcon>
-              <ListItemText
-                primary={text.title}
-                sx={{ color: "#70708C", fontWeight: "900" }}
-              />
+              <ListItemText primary={text.title} sx={{ color: "#70708C", fontWeight: "900" }} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -84,8 +78,7 @@ function AdminDashboard(props) {
     </div>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex", backgroundColor: "#F4F4FA" }}>
@@ -99,7 +92,7 @@ function AdminDashboard(props) {
           backgroundColor: "transparent",
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -107,18 +100,29 @@ function AdminDashboard(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <p>menu</p>
+            <Iconify icon="heroicons-solid:menu-alt-2" sx={{ width: 22, color: "#70708C" }} />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+          <Typography variant="h4" color="#292968" fontWeight="600" fontFamily="SFProText">
+            Dashboard
           </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "#fff",
+              px: { xs: 0.8, sm: 2 },
+              py: 0.8,
+              borderRadius: 2,
+            }}
+          >
+            <Avatar />
+            <Typography sx={{ color: "#292968", fontWeight: "700", ml: 1.5, display: { xs: "none", sm: "block" } }}>
+              Mark
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
@@ -162,12 +166,14 @@ function AdminDashboard(props) {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+          // p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
-        <Outlet />
+        <Box p={{ xs: 2, sm: 3 }}>
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   );

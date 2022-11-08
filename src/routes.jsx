@@ -14,6 +14,7 @@ import Product from "./pages/Product";
 import Account from "./pages/account";
 import VerifyEmail from "./pages/VerifyEmail";
 import AdminDashboard from "./layouts/admin";
+import Admin from "./pages/admin";
 
 export default function Router() {
   return useRoutes([
@@ -49,8 +50,12 @@ export default function Router() {
     },
     {
       path: "/admin",
+      element: <Navigate to="/admin/home" replace />,
+    },
+    {
+      path: "/admin",
       element: <AdminDashboard />,
-      children: [{ path: "home", element: <Home /> }],
+      children: [{ path: "home", element: <Admin /> }],
     },
     {
       path: "/email-verifycation",
