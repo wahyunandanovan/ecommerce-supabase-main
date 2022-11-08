@@ -13,8 +13,33 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { ListItemIcon } from "@mui/material";
+import Iconify from "../../components/Iconify";
+import { Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
+
+const dashboardMenus = [
+  {
+    title: "Dashboard",
+    pathName: "/home",
+    icon: "ic:round-dashboard",
+  },
+  {
+    title: "Order",
+    pathName: "/order",
+    icon: "ic:baseline-shopping-cart",
+  },
+  {
+    title: "Product",
+    pathName: "/product",
+    icon: "ic:baseline-featured-play-list",
+  },
+  {
+    title: "User",
+    pathName: "/user",
+    icon: "ic:baseline-account-box",
+  },
+];
 
 function AdminDashboard(props) {
   const { window } = props;
@@ -26,15 +51,32 @@ function AdminDashboard(props) {
 
   const drawer = (
     <div>
-      <Toolbar sx={{ p: 4, display: "flex", justifyContent: "center" }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "center", p: 3 }}>
         <img src="logo.png" />
       </Toolbar>
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {dashboardMenus.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon></ListItemIcon>
-              <ListItemText primary={text} sx={{ fontFamily: "sans-serif" }} />
+            <ListItemButton
+              sx={{
+                "&:hover": {
+                  backgroundColor: "#F4F4FA",
+                },
+                borderRadius: "22px 0px 0px 22px",
+                marginLeft: 2,
+                marginBottom: 1,
+              }}
+            >
+              <ListItemIcon sx={{ minWidth: 32, marginLeft: "24px" }}>
+                <Iconify
+                  icon={text.icon}
+                  sx={{ width: 16, color: "#70708C" }}
+                />
+              </ListItemIcon>
+              <ListItemText
+                primary={text.title}
+                sx={{ color: "#70708C", fontWeight: "900" }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -42,7 +84,8 @@ function AdminDashboard(props) {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex", backgroundColor: "#F4F4FA" }}>
@@ -71,7 +114,11 @@ function AdminDashboard(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
@@ -87,7 +134,7 @@ function AdminDashboard(props) {
               boxSizing: "border-box",
               width: drawerWidth,
               borderRadius: "0px 46px 0px 0px !important",
-              boxShadow: "box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.75)",
+              // boxShadow: "box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.75)",
               border: "none",
             },
           }}
@@ -101,7 +148,7 @@ function AdminDashboard(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              boxShadow: "3px 1px 4px 0px rgba(239,239,239,0.48)",
+              // boxShadow: "3px 1px 4px 0px rgba(239,239,239,0.48)",
               borderRadius: "0px 46px 0px 0px !important",
               border: "none",
             },
@@ -111,28 +158,16 @@ function AdminDashboard(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Rhoncus dolor purus non enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-          velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate eu
-          scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt
-          lobortis feugiat vivamus at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-          ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla facilisi etiam
-          dignissim diam. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus
-          sed viverra tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis sed odio morbi. Euismod
-          lacinia at quis risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in.
-          In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean euismod
-          elementum nisi quis eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla posuere
-          sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Outlet />
       </Box>
     </Box>
   );
