@@ -23,6 +23,7 @@ export default function HomeScreen() {
           <TodayOrder />
         </Grid>
       </Grid>
+      <Box mb={3} />
     </Box>
   );
 }

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
@@ -35,7 +34,7 @@ const dashboardMenus = [
     icon: "ic:baseline-featured-play-list",
   },
   {
-    title: "User",
+    title: "Customers",
     pathName: "/user",
     icon: "ic:baseline-account-box",
   },
@@ -88,7 +87,7 @@ function AdminDashboard(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", backgroundColor: "#F4F4FA" }}>
+    <Box component="div" sx={{ display: "flex", backgroundColor: "#F4F4FA" }}>
       <CssBaseline />
       <AppBar
         position="fixed"

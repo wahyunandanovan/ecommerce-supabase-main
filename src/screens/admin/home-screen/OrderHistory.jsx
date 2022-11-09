@@ -29,7 +29,6 @@ function OrderHistory() {
     <TableContainer
       component={Paper}
       style={{
-        overflowX: "auto",
         borderRadius: 8,
         boxShadow: "none",
         border: "2px solid #fff",

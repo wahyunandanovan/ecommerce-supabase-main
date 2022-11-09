@@ -39,10 +39,10 @@ function TodayOrder() {
       },
       responsive: [
         {
-          breakpoint: 300,
+          breakpoint: 600,
           options: {
             chart: {
-              width: 100,
+              width: 300,
             },
             legend: {
               position: "bottom",
