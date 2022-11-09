@@ -18,6 +18,12 @@ function Statistic() {
       title: {
         text: "Sales",
         align: "left",
+        style: {
+          fontSize: "16px",
+          fontWeight: "bold",
+          fontFamily: "SFProText",
+          color: "#263238",
+        },
       },
       chart: {
         height: 350,

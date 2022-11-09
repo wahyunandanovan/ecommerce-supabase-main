@@ -136,7 +136,7 @@ function DrawerAppBar(props) {
           }}
         >
           <Link onClick={_gotoHome} sx={{ cursor: "pointer" }}>
-            <img width={165} src="./petani-code.svg" />
+            <img width={165} src="/petani-code.svg" />
           </Link>
         </Box>
         <Box sx={{ display: { xs: "none", sm: "none", md: "flex", gap: 60 } }}>

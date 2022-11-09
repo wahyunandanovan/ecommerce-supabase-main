@@ -1,7 +1,9 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
 import OrderHistory from "./OrderHistory";
+import RecentTransaction from "./RecentTransaction";
 import Statistic from "./Statistic";
+import TodayOrder from "./TodayOrder";
 import TopContent from "./TopContent";
 
 export default function HomeScreen() {
@@ -16,9 +18,9 @@ export default function HomeScreen() {
           <OrderHistory />
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
-          <TopContent />
+          <RecentTransaction />
           <Box mb={{ xs: 2, sm: 4 }} />
-          <TopContent />
+          <TodayOrder />
         </Grid>
       </Grid>
     </Box>

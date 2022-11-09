@@ -18,7 +18,7 @@ export default function TopContent() {
       value: 5000,
     },
     {
-      title: "Our Client",
+      title: "Our Customers",
       icon: "ic:round-supervisor-account",
       code: "#5BD46F",
       value: 5000,
