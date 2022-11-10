@@ -16,6 +16,8 @@ import VerifyEmail from "./pages/VerifyEmail";
 import AdminDashboard from "./layouts/admin";
 import Admin from "./pages/admin";
 import AdminOrder from "./pages/admin/Order";
+import AdminCustomers from "./pages/admin/Customers";
+import AdminProducts from "./pages/admin/Products";
 
 export default function Router() {
   return useRoutes([
@@ -59,6 +61,8 @@ export default function Router() {
       children: [
         { path: "home", element: <Admin /> },
         { path: "order", element: <AdminOrder /> },
+        { path: "products", element: <AdminProducts /> },
+        { path: "customers", element: <AdminCustomers /> },
       ],
     },
     {

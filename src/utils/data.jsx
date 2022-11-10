@@ -122,9 +122,27 @@ export const bottomList = [
   },
 ];
 
-export const card = [
-  "/logos/visa.svg",
-  "/logos/paypal.svg",
-  "/logos/master-card.svg",
-  "/logos/western-union.svg",
+export const card = ["/logos/visa.svg", "/logos/paypal.svg", "/logos/master-card.svg", "/logos/western-union.svg"];
+
+export const dashboardMenus = [
+  {
+    title: "Dashboard",
+    pathName: "/admin/home",
+    icon: "ic:round-dashboard",
+  },
+  {
+    title: "Order",
+    pathName: "/admin/order",
+    icon: "ic:baseline-shopping-cart",
+  },
+  {
+    title: "Product",
+    pathName: "/admin/products",
+    icon: "ic:baseline-featured-play-list",
+  },
+  {
+    title: "Customers",
+    pathName: "/admin/customers",
+    icon: "ic:baseline-account-box",
+  },
 ];

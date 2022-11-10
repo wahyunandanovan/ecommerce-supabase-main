@@ -1,5 +1,5 @@
 import * as React from "react";
-import PropTypes from "prop-types";
+//components
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,32 +13,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Avatar, ListItemIcon } from "@mui/material";
 import Iconify from "../../components/Iconify";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+//utility
+import { Outlet, useNavigate } from "react-router-dom";
+import { dashboardMenus } from "../../utils/data";
 
 const drawerWidth = 240;
-
-const dashboardMenus = [
-  {
-    title: "Dashboard",
-    pathName: "/admin/home",
-    icon: "ic:round-dashboard",
-  },
-  {
-    title: "Order",
-    pathName: "/admin/order",
-    icon: "ic:baseline-shopping-cart",
-  },
-  {
-    title: "Product",
-    pathName: "/admin/product",
-    icon: "ic:baseline-featured-play-list",
-  },
-  {
-    title: "Customers",
-    pathName: "/admin/user",
-    icon: "ic:baseline-account-box",
-  },
-];
 
 function AdminDashboard(props) {
   const { window } = props;
@@ -50,7 +29,6 @@ function AdminDashboard(props) {
   };
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const drawer = (
     <div>
@@ -62,6 +40,7 @@ function AdminDashboard(props) {
           <ListItem key={index} disablePadding>
             <ListItemButton
               onClick={() => {
+                setMobileOpen(!mobileOpen);
                 setPath(text.pathName);
                 navigate(text.pathName);
               }}
@@ -69,23 +48,16 @@ function AdminDashboard(props) {
                 "&:hover": {
                   backgroundColor: "#F4F4FA",
                 },
-                // backgroundColor:
-                //   path === location.pathname ? "#F4F4FA" : "#fff",
+                backgroundColor: path === text.pathName ? "#F4F4FA" : "#fff",
                 borderRadius: "22px 0px 0px 22px",
                 marginLeft: 2,
                 marginBottom: 1,
               }}
             >
               <ListItemIcon sx={{ minWidth: 32, marginLeft: "24px" }}>
-                <Iconify
-                  icon={text.icon}
-                  sx={{ width: 16, color: "#70708C" }}
-                />
+                <Iconify icon={text.icon} sx={{ width: 16, color: "#70708C" }} />
               </ListItemIcon>
-              <ListItemText
-                primary={text.title}
-                sx={{ color: "#70708C", fontWeight: "900" }}
-              />
+              <ListItemText primary={text.title} sx={{ color: "#70708C", fontWeight: "900" }} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -93,8 +65,7 @@ function AdminDashboard(props) {
     </div>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box component="div" sx={{ display: "flex", backgroundColor: "#F4F4FA" }}>
@@ -122,17 +93,9 @@ function AdminDashboard(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <Iconify
-              icon="heroicons-solid:menu-alt-2"
-              sx={{ width: 22, color: "#70708C" }}
-            />
+            <Iconify icon="heroicons-solid:menu-alt-2" sx={{ width: 22, color: "#70708C" }} />
           </IconButton>
-          <Typography
-            variant="h4"
-            color="#292968"
-            fontWeight="600"
-            fontFamily="SFProText"
-          >
+          <Typography variant="h4" color="#292968" fontWeight="600" fontFamily="SFProText">
             Dashboard
           </Typography>
           <Box
@@ -159,11 +122,7 @@ function AdminDashboard(props) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}

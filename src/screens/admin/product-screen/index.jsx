@@ -47,7 +47,7 @@ const rows = [
   { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
 ];
 
-export default function AdminOrderScreen() {
+export default function AdminProductScreen() {
   const height = window.innerHeight;
   const matches = useMediaQuery("(max-width:600px)");
 
