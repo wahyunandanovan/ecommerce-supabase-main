@@ -3,7 +3,7 @@ import React from "react";
 import OrderHistory from "./OrderHistory";
 import RecentTransaction from "./RecentTransaction";
 import Statistic from "./Statistic";
-import TodayOrder from "./TodayOrder";
+import NewCustomer from "./NewCustomer";
 import TopContent from "./TopContent";
 
 export default function HomeScreen() {
@@ -20,7 +20,7 @@ export default function HomeScreen() {
         <Grid item xs={12} sm={12} md={5}>
           <RecentTransaction />
           <Box mb={{ xs: 2, sm: 4 }} />
-          <TodayOrder />
+          <NewCustomer />
         </Grid>
       </Grid>
       <Box mb={3} />

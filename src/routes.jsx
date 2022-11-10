@@ -15,6 +15,7 @@ import Account from "./pages/account";
 import VerifyEmail from "./pages/VerifyEmail";
 import AdminDashboard from "./layouts/admin";
 import Admin from "./pages/admin";
+import AdminOrder from "./pages/admin/Order";
 
 export default function Router() {
   return useRoutes([
@@ -55,7 +56,10 @@ export default function Router() {
     {
       path: "/admin",
       element: <AdminDashboard />,
-      children: [{ path: "home", element: <Admin /> }],
+      children: [
+        { path: "home", element: <Admin /> },
+        { path: "order", element: <AdminOrder /> },
+      ],
     },
     {
       path: "/email-verifycation",

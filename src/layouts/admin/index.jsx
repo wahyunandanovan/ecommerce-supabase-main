@@ -13,29 +13,29 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Avatar, ListItemIcon } from "@mui/material";
 import Iconify from "../../components/Iconify";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
 const dashboardMenus = [
   {
     title: "Dashboard",
-    pathName: "/home",
+    pathName: "/admin/home",
     icon: "ic:round-dashboard",
   },
   {
     title: "Order",
-    pathName: "/order",
+    pathName: "/admin/order",
     icon: "ic:baseline-shopping-cart",
   },
   {
     title: "Product",
-    pathName: "/product",
+    pathName: "/admin/product",
     icon: "ic:baseline-featured-play-list",
   },
   {
     title: "Customers",
-    pathName: "/user",
+    pathName: "/admin/user",
     icon: "ic:baseline-account-box",
   },
 ];
@@ -43,10 +43,14 @@ const dashboardMenus = [
 function AdminDashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [path, setPath] = React.useState(dashboardMenus[0]?.pathName);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const drawer = (
     <div>
@@ -57,10 +61,16 @@ function AdminDashboard(props) {
         {dashboardMenus.map((text, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
+              onClick={() => {
+                setPath(text.pathName);
+                navigate(text.pathName);
+              }}
               sx={{
                 "&:hover": {
                   backgroundColor: "#F4F4FA",
                 },
+                // backgroundColor:
+                //   path === location.pathname ? "#F4F4FA" : "#fff",
                 borderRadius: "22px 0px 0px 22px",
                 marginLeft: 2,
                 marginBottom: 1,
@@ -209,13 +219,5 @@ function AdminDashboard(props) {
     </Box>
   );
 }
-
-AdminDashboard.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default AdminDashboard;
