@@ -1,7 +1,14 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, TextField, Stack, InputAdornment, useMediaQuery, IconButton } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Stack,
+  InputAdornment,
+  useMediaQuery,
+  IconButton,
+} from "@mui/material";
 import Iconify from "../../../components/Iconify";
 
 const columns = [
@@ -31,7 +38,8 @@ const columns = [
     description: "This column has a value getter and is not sortable.",
     sortable: false,
     width: 160,
-    valueGetter: (params) => `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    valueGetter: (params) =>
+      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
   },
 ];
 
@@ -51,10 +59,14 @@ export default function AdminProductScreen() {
   const height = window.innerHeight;
   const matches = useMediaQuery("(max-width:600px)");
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Box minHeight={height}>
       <Box
-        p={1}
+        p={2}
         display="flex"
         alignItems="center"
         justifyContent="space-between"
@@ -62,7 +74,7 @@ export default function AdminProductScreen() {
           backgroundColor: "#fff",
           border: "1px solid #e0e0e0",
           borderBottomWidth: 0,
-          borderRadius: "4px 4px 0px 0px",
+          borderRadius: "8px 8px 0px 0px",
         }}
       >
         <TextField
@@ -76,14 +88,20 @@ export default function AdminProductScreen() {
             ),
           }}
         />
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={{ xs: 0, sm: 1 }}>
           {matches ? (
             <>
               <IconButton>
-                <Iconify icon="ant-design:filter-outlined" sx={{ color: "#605bff" }} />
+                <Iconify
+                  icon="ant-design:filter-outlined"
+                  sx={{ color: "#40bfff" }}
+                />
               </IconButton>
               <IconButton>
-                <Iconify icon="ant-design:export-outlined" sx={{ color: "#5bd46f" }} />
+                <Iconify
+                  icon="ant-design:export-outlined"
+                  sx={{ color: "#5bd46f" }}
+                />
               </IconButton>
             </>
           ) : (
@@ -92,7 +110,7 @@ export default function AdminProductScreen() {
                 variant="contained"
                 disableElevation
                 startIcon={<Iconify icon="ant-design:filter-outlined" />}
-                sx={{ backgroundColor: "#605bff", color: "#fff" }}
+                sx={{ backgroundColor: "#40bfff", color: "#fff" }}
               >
                 Filter
               </Button>
@@ -108,17 +126,19 @@ export default function AdminProductScreen() {
           )}
         </Stack>
       </Box>
-      <Box sx={{ height: 400, width: "100%", backgroundColor: "#fff" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-          disableSelectionOnClick
-          experimentalFeatures={{ newEditingApi: true }}
-          sx={{ borderRadius: "0px 0px 4px 4px" }}
-        />
+      <Box sx={{ borderRadius: "8px", overflow: "hidden" }}>
+        <Box sx={{ height: 400, width: "100%", backgroundColor: "#fff" }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+            sx={{ borderRadius: "0px 0px 8px 8px" }}
+          />
+        </Box>
       </Box>
     </Box>
   );

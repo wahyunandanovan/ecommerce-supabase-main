@@ -7,6 +7,10 @@ import NewCustomer from "./NewCustomer";
 import TopContent from "./TopContent";
 
 export default function HomeScreen() {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Box>
       <Grid container spacing={{ xs: 2, sm: 4 }}>
