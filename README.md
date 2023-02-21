@@ -40,10 +40,13 @@ To run this project, you will need to add the following environment variables to
 `VITE_SUPABASE_KEY : exampleabcdefghijklmnopqrtydsgkcyudkgcdskuvcydsvusdvyudvhjduyvciudyaisyvd`
 
 
-##Example scheme
+## Example schema
+
 
 ```bash
 #product
+
+
 const product = [
   {
     created_at: "2022-10-17T22:42:25+00:00",
