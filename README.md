@@ -13,6 +13,10 @@ email : wahyunandanovan@gmail.com
 
 password : 12345678
 
+
+## Design inspiration
+https://www.figma.com/file/aVPzCOkvm4JIOWAgCvQEtr/E-comm-App-Kit-(Community)?t=BPSVtaIXvZ6xJHCK-0
+
 ## Installation
 
 Install my-project with npm
