@@ -14,6 +14,13 @@ email : wahyunandanovan@gmail.com
 password : 12345678
 
 
+## Tech Stack
+
+**Client:** Vite, React, Material UI
+
+**Server:** Supabase
+
+
 ## Design inspiration
 https://www.figma.com/file/aVPzCOkvm4JIOWAgCvQEtr/E-comm-App-Kit-(Community)?t=BPSVtaIXvZ6xJHCK-0
 
@@ -27,12 +34,6 @@ Install my-project with npm
   npm Install
   npm run dev
 ```
-    
-## Tech Stack
-
-**Client:** React, Material UI
-
-**Server:** Supabase
 
 
 ## Environment Variables
