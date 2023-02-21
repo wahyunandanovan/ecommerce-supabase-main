@@ -8,6 +8,10 @@
 
 https://wahyunandanovan-ecommerce.vercel.app
 
+## Demo Account
+email : wahyunandanovan@gmail.com
+password : 12345678
+
 ## Installation
 
 Install my-project with npm
