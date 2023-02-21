@@ -15,7 +15,7 @@ export default function AuthLayout() {
         <>
           <Box
             component="img"
-            src="/petani-code.svg"
+            src="/logo.png"
             sx={{ width: { xs: 100, sm: 160 } }}
             alt="logo"
           />

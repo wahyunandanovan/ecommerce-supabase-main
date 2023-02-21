@@ -67,7 +67,7 @@ function DrawerAppBar(props) {
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Box mt={2} mb={1}>
         <Link onClick={_gotoHome} sx={{ cursor: "pointer" }}>
-          <img width={165} src="./petani-code.svg" />
+          <img width={165} src="./logo.png" />
         </Link>
       </Box>
       <Divider />
@@ -136,7 +136,7 @@ function DrawerAppBar(props) {
           }}
         >
           <Link onClick={_gotoHome} sx={{ cursor: "pointer" }}>
-            <img width={165} src="/petani-code.svg" />
+            <img width={165} src="/logo.png" />
           </Link>
         </Box>
         <Box sx={{ display: { xs: "none", sm: "none", md: "flex", gap: 60 } }}>

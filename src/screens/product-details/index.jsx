@@ -35,7 +35,7 @@ function ProductDetailsScreens() {
 
   //push cart
   const user = localStorage.getItem("sb-user-id");
-
+  console.log("====", items);
   const { cartItems, setCartItems } = React.useContext(UserContext);
 
   const [productName, setProductName] = React.useState(null);

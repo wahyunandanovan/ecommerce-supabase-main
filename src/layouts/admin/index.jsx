@@ -37,7 +37,7 @@ function AdminDashboard(props) {
   const drawer = (
     <div>
       <Toolbar sx={{ display: "flex", justifyContent: "center", p: 3 }}>
-        <img width={165} src="/petani-code.svg" />
+        <img width={165} src="/logo.png" />
       </Toolbar>
       <List>
         {dashboardMenus.map((text, index) => (
